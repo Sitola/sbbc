@@ -1,0 +1,25 @@
+//
+   Created by wermington on 6/5/16.
+
+extends layout
+
+block content
+
+    #main_cont
+        table
+            tr
+                td
+                    label Action name:
+                td
+                    input#actionName(type="text", name="actionName")
+            tr
+                td
+                    label Action command:
+                td
+                    pre#textCommand.text_big
+
+            tr
+                td(colspan=2)
+                    input#saveButton(type="button", value="Create command")
+
+    script(src="/js/command.js", type="text/javascript")

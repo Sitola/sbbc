@@ -1,0 +1,36 @@
+//
+   Created by wermington on 6/5/16.
+
+extends layout
+
+block content
+
+    #main_cont
+        table
+            tr
+                td
+                    label Button name:
+                td
+                    input#buttonName(type="text", name="buttonName")
+            tr
+                td
+                    label Button text:
+                td
+                    input#buttonText(type="text", name="buttonText")
+
+            tr
+                td
+                    label Button style:
+                td
+                    select(name="selectButtonStyle", id="selectButtonStyle")
+            tr
+                td
+                    label Button command:
+                td
+                    select(name="selectButtonCommand", id="selectButtonCommand")
+
+            tr
+                td(colspan=2)
+                    input#saveButton(type="button", value="Create button")
+
+    script(src="js/button.js", type="text/javascript")

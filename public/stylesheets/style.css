@@ -6,3 +6,38 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+ul.inline > li{
+    list-style: none;
+    display: inline-block;
+}
+
+ul.no_list > li{
+    list-style: none;
+}
+
+#main_cont
+{
+  border: 3px solid blue;
+  border-radius: 2px;
+  padding: 10px;
+}
+
+label{
+    width: 200px;
+}
+
+.text_big{
+        height: 200px;
+        width: 600px;
+}
+
+#buttonPreview{
+    border: 3px solid #777;
+    padding: 30px;
+    margin: auto;
+    width: 60%;
+    text-align: center;
+    margin-bottom: 20px;
+}
