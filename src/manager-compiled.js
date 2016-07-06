@@ -171,13 +171,13 @@ var manager = function () {
     this.deleteCss = function (req) {};
 
     this.creators = {
-        style: this.getStyle,
+        style: this.getObject,
         command: this.createCommand,
         button: this.createButton
     };
 
     this.getters = {
-        style: this.getStyle,
+        style: this.getObject,
         command: this.getCommand,
         button: this.getButton,
         layout: this.getLayout

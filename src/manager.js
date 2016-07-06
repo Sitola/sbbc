@@ -146,7 +146,7 @@ export class Manager {
     {
         this.collections = {
             styles: Loader.loadList(Types.STYLES),
-            commands: Loader.loadList(Types.ACTIONS),
+            actions: Loader.loadList(Types.ACTIONS),
             buttons: Loader.loadList(Types.BUTTONS),
             layouts: Loader.loadList(Types.LAYOUTS)
         };

@@ -1,35 +1,33 @@
-function getObject(name, css)
+function getObject(name, action)
 {
     const obj = {
         id: name,
         name: name,
         description: name,
-        css: css,
-        className: name
+        action: action
     };
 
     return obj;
 }
 
-const CONST_TYPE = "styles";
+const CONST_TYPE = "actions";
 
-function styleClean(obj)
+function actionsClean(obj)
 {
     "use strict";
     restClient.deleteObject(CONST_TYPE , obj);
 }
 
-QUnit.module(" Styles ");
+QUnit.module(CONST_TYPE);
 
-
-QUnit.test("test Style add", function (assert)
+QUnit.test("test actions add", function (assert)
 {
     console.log("Executing test ADD");
-    const style = getObject("test_objAdd", "bah");
+    const action = getObject("test_objAdd", "echo");
     var done = assert.async();
 
 
-    var response = restClient.createObject(CONST_TYPE,style);
+    var response = restClient.createObject(CONST_TYPE,action);
     ajaxSender.handleResponse(response, function (msg)
     {
         var obj = msg;
@@ -40,52 +38,50 @@ QUnit.test("test Style add", function (assert)
         {
             console.info("Response from server after get: ", data);
 
-            var styleObject = data[style.id];
-            assert.ok(styleObject);
-            assert.equal(styleObject.id, style.id);
-            assert.equal(styleObject.name, style.name);
-            assert.equal(styleObject.css, style.css);
-            assert.equal(styleObject.className, style.className);
-            styleClean(style);
+            var actionObject = data[action.id];
+            assert.ok(actionObject);
+            assert.equal(actionObject.id, action.id);
+            assert.equal(actionObject.name, action.name);
+            assert.equal(actionObject.action, action.action);
+            actionsClean(action);
             done();
         });
     });
 });
 
-QUnit.test("test Style get", function (assert)
+QUnit.test("test actions get", function (assert)
 {
     console.log("Executing test get");
-    const style = getObject("test_ObjGet", "bah");
+    const action = getObject("test_ObjGet", "echo");
     var done = assert.async();
 
-    var response = restClient.createObject(CONST_TYPE,style);
+    var response = restClient.createObject(CONST_TYPE,action);
     ajaxSender.handleResponse(response, function (msg)
     {
         var obj = msg;
         console.info("Response from server after create: ", obj);
 
-        var getResp = restClient.getObject("style", style.id);
+        var getResp = restClient.getObject("action", action.id);
         ajaxSender.handleResponse(getResp, function (data)
         {
             console.info("Response from server after get: ", data);
 
-            var styleObject = data;
-            assert.ok(styleObject);
-            assert.equal(styleObject.id, style.id);
-            assert.equal(styleObject.name, style.name);
-            assert.equal(styleObject.css, style.css);
-            assert.equal(styleObject.className, style.className);
-            styleClean(style);
+            var actionObject = data;
+            assert.ok(actionObject);
+            assert.equal(actionObject.id, action.id);
+            assert.equal(actionObject.name, action.name);
+            assert.equal(actionObject.action, action.action);
+            actionsClean(action);
             done();
         });
     });
 });
 
 
-QUnit.test("test Style delete", function (assert)
+QUnit.test("test actions delete", function (assert)
 {
     console.log("Executing test get");
-    const style = getObject("test_objDelete", "bah");
+    const style = getObject("test_objDelete", "echo");
     var done = assert.async();
 
     var response = restClient.deleteObject(CONST_TYPE, style);
@@ -94,12 +90,10 @@ QUnit.test("test Style delete", function (assert)
         var obj = msg;
         console.info("Response from server after delete: ", obj);
 
-        var getResp = restClient.getObject("style", style.id);
+        var getResp = restClient.getObject("action", style.id);
         ajaxSender.handleResponse(getResp, function (data)
         {
             console.info("Response from server after get: ", data);
-
-            var styleObject = data;
             assert.notOk(data);
             done();
         });
@@ -108,19 +102,19 @@ QUnit.test("test Style delete", function (assert)
 
 
 
-QUnit.test("test Style update", function (assert)
+QUnit.test("test actions update", function (assert)
 {
     console.log("Executing test UPDATE");
-    const style = getObject("test_objUpdate", "bah");
+    const style = getObject("test_objUpdate", "echo");
     var done = assert.async();
 
-    var newStyle = getObject("test_objUpdate", "newCss");
+    var newAction = getObject("test_objUpdate", "newAction");
 
     var resOld = restClient.createObject(CONST_TYPE,style);
 
     ajaxSender.handleResponse(resOld, function (msg)
     {
-        var resNew = restClient.updateObject(CONST_TYPE, newStyle);
+        var resNew = restClient.updateObject(CONST_TYPE, newAction);
 
         ajaxSender.handleResponse(resNew, function (msg)
         {
@@ -132,13 +126,12 @@ QUnit.test("test Style update", function (assert)
             {
                 console.info("Response from server after get: ", data);
 
-                var styleObject = data[style.id];
-                assert.ok(styleObject);
-                assert.equal(styleObject.id, newStyle.id);
-                assert.equal(styleObject.name, newStyle.name);
-                assert.equal(styleObject.css, newStyle.css);
-                assert.equal(styleObject.className, newStyle.className);
-                styleClean(newStyle);
+                var actionObject = data[style.id];
+                assert.ok(actionObject);
+                assert.equal(actionObject.id, newAction.id);
+                assert.equal(actionObject.name, newAction.name);
+                assert.equal(actionObject.action, newAction.action);
+                actionsClean(newAction);
                 done();
             });
         });

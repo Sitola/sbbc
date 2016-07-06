@@ -148,7 +148,7 @@ router.put('/update', function (req, res, next)
     try {
         const data = req.body.data;
         manager.updateObject(method, data);
-        res.send(new ManagerResponse("Object [" +id + "] @ \" " + method + " \" succesfully updated!"));
+        res.send(new ManagerResponse("Object [" + data.id + "] @ \" " + method + " \" succesfully updated!"));
 
     } catch (e) {
         handleException(e, res);

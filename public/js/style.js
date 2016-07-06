@@ -55,12 +55,10 @@ $(function ()
               };
 
               var resp = restClient.createObject("style", request);
-
-              if(resp)
+              ajaxSender.handleResponse(resp, function (res)
               {
-                    console.log(resp);
-              }
-
+                    console.info(res);
+              });
           });
 
   });
