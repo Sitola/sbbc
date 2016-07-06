@@ -1,4 +1,4 @@
-/**
+admin/style/**
  * Created by wermington on 6/5/16.
  */
 
@@ -13,20 +13,20 @@ $(function () {
 
 
     saveButton.click(function (e) {
-        var aName = actionName.val().replace(/ /g,"_");
+        var aName = actionName.val();
         var command = actionCommand.val();
 
-        var result  = {
-            method : "command",
-            name : aName,
-            command: command
+        const request = {
+            id: removeSpaces(aName),
+            name: aName,
+            commandText: command
         };
 
-        function callback(res) {
-            
+        var resp = restClient.createObject("action",request);
+        if(resp != null)
+        {
+            console.log(resp);
         }
-
-        ajaxSender.sendPut(result, callback);
-    })
+    });
 
 });

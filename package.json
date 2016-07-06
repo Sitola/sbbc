@@ -4,15 +4,23 @@
   "author": "Peter Stanko (wermington@gmail.com)",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "babel-node ./bin/www",
+    "debug": "babel-node debug ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "express": "~4.13.1",
+    "express-ws": "^2.0.0-rc.1",
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "sys": "latest",
+    "ws": "^1.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0"
   }
 }

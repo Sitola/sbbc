@@ -9,7 +9,6 @@ $(function () {
     document.getElementById('text_css_style').style.fontSize='15px';
 
 
-
     var editor_command = ace.edit("text_command");
     editor_command.setTheme("ace/theme/twilight");
     editor_command.session.setMode("ace/mode/sh");
@@ -24,6 +23,7 @@ $(function () {
         var url = "/api/command/add";
 
         var data = {
+            id: removeSpaces(name),
             name: name,
             css : css_text,
             cmd : cmd_text

@@ -18,21 +18,22 @@ $(function () {
 
 
     saveButton.click(function (e) {
-        var bName = buttonName.val().replace(/ /g,"_");
-        var text = buttonText.val();
-        var style = selectButtonStyle.val();
-        var command = selectButtonCommand.val();
+        const bName = removeSpaces(buttonName.val());
+        const text = buttonText.val();
+        const style = selectButtonStyle.val();
+        const command = selectButtonCommand.val();
 
-
-        var result  = {
-            method : "button",
-            name : bName,
-            style: style,
-            command: command,
-            text: text
+        const request = {
+                name: bName,
+                style: style,
+                command: command,
+                text: text
         };
 
-        ajaxSender.sendPut(result);
-    })
+        var resp = restClient.createObject("button", request);
+        resp.done(function (res) {
+            console.log(res);
+        });
+    });
 
 });

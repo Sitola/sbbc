@@ -2,41 +2,143 @@
  * Created by wermington on 5/29/16.
  */
 
+window.ajaxSender = {
+
+    urlCreate: "/api/create/",
+    urlGet: "/api/get/",
+    urlPut: "/api/put/",
+    urlDelete: "/api/delete/",
 
 
-window.ajaxSender = function () {
-  
-    var url = "/api/create/";
+    handleResponse: function (resp, callback)
+    {
+        resp.done(function (res) {
+            console.log(res);
+            try {
 
-    this.send= function (method, data, callback) {
-        $.ajax({
-            type: method,
-            url: url,
-            contentType: "application/json",
-            data: JSON.stringify(data),
-            success: callback
+                switch(res.type)
+                {
+                    case "warning":
+                        console.warn(res.msg);
+                    case "response":
+                        return callback(res.msg, res.type);
+                        break;
+                    case "error":
+                        console.error(res.msg);
+                        return null;
+                        break;
+                    default:
+                        console.warn("Unknown type: %s", res.type);
+                        return callback(res.msg, res.type);
+                }
+            }catch(e)
+            {
+                console.warn(e);
+                return null;
+            }
         });
-    };
 
+        resp.fail(function (err) {
+            console.error(err);
+            return null;
+        });
 
-    this.sendPut = function (data, callback) {
-       this.send("PUT", data, callback);
-    };
+        return resp;
+    },
 
-    this.sendPost = function (data, callback) {
-        this.send("POST", data, callback);
+    send: function (method, url, data)
+    {
+        //var sdata = JSON.stringify(data);
+        var request = {
+            type: method,
+            url: url
+        };
+
+        if (data != null) {
+            console.debug('Sending data: ', data);
+            request.data = data;
+        }
+
+        const obj = $.ajax(request);
+        return obj;
+    },
+
+    sendPut: function (data, url)
+    {
+        url = url || ajaxSender.urlCreate;
+        return this.send("PUT", url, data);
+    },
+
+    sendPost: function (data, url)
+    {
+        url = url || ajaxSender.urlCreate;
+        return this.send("POST", url, data);
+    },
+
+    sendGet: function (data, url)
+    {
+        url = url || ajaxSender.urlGet;
+        return this.send("GET", url, data);
+    },
+    sendDelete: function (data, url)
+    {
+        url = url || ajaxSender.urlDelete;
+        return this.send("DELETE", url, data);
+
     }
-
-    this.sendGet = function (data, callback) {
-        this.send("GET", data, callback);
-    }
-    
 };
 
 
-$(function () {
+window.removeSpaces = function (string)
+{
+    return string.replace(/ /g, "_");
+};
 
-    
-  
-});
+window.restClient = {
+
+    getCollection: function (name)
+    {
+        var response = ajaxSender.sendGet(null, '/api/' + name + "/");
+        return response;
+    },
+
+    getObejct: function (type, id)
+    {
+        var obj = {
+            id: id
+        };
+        var response = ajaxSender.sendGet(obj, '/api/' + type + "/");
+        return response;
+    },
+
+    createObject: function (name, obj)
+    {
+        const request = {
+            method: name,
+            data: obj
+        };
+        var response = ajaxSender.sendPut(request);
+        return response;
+    },
+
+    deleteObject: function (name, id)
+    {
+        const request = {
+            type: name,
+            name: id
+        };
+        var reponse = ajaxSender.sendDelete(request);
+        return reponse;
+    },
+
+    updateObject: function (name, obj)
+    {
+        const request = {
+            method: name,
+            data: obj
+        };
+        var response = ajaxSender.sendPut(request);
+        return response;
+    }
+};
 
