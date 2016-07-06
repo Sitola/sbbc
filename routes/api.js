@@ -26,7 +26,7 @@ function initGetCollection(router, name)
 {
     function collectionsCallback(req, res, next)
     {
-        console.info("[GET] request for: " + name);
+        debug(" >>> [GET] request for: " + name);
 
         try {
             var result = manager.getCollection(name);
@@ -35,8 +35,9 @@ function initGetCollection(router, name)
             handleException(e, res);
         }
     }
-
-    router.get("/" + name, collectionsCallback);
+    var eName = "/" + name;
+    router.get(eName, collectionsCallback);
+    console.info("[GET] API endpoint \"/api%s\" ", eName);
     return router;
 }
 
@@ -57,7 +58,7 @@ function initGetObject(router, type)
 
     function objectCallback(req, res, next)
     {
-        console.info("[GET] request for: " + type);
+        debug(" >>> [GET] request for: " + type);
         debug("Request attrs: ", req.query);
         var id = req.query.id;
         try {
@@ -67,8 +68,9 @@ function initGetObject(router, type)
             handleException(e, res);
         }
     }
-
-    router.get("/" + type, objectCallback);
+    var eName = "/" + type;
+    router.get(eName, objectCallback);
+    console.info("[GET] API endpoint \"/api%s\" ", eName);
     return router;
 }
 
@@ -88,7 +90,7 @@ router = initGetObjects(router);
 
 router.post('/exec', function (req, res, next)
 {
-    console.log("Exec action received.");
+    debug("Exec action received.");
 
     const action = req.body.action;
     if (!action) {
@@ -126,12 +128,13 @@ router.post('/exec', function (req, res, next)
 
 router.put('/create', function (req, res, next)
 {
-    debug("Received PUT [create] request. ");
-    debug("Request: ", req.body);
-    const method = req.body.method;
+    debug("Received PUT [CREATE] request. ");
+    debug(" >>> [CREATE] Request: ", req.body);
+    const method = req.body.type;
     try {
-        var data = req.body.data;
+        const data = req.body.data;
         manager.createObject(method, data);
+        res.send(new ManagerResponse("Object [" + data.id + "] @ \" " + method + " \" succesfully created!"));
     } catch (e) {
         handleException(e, res);
     }
@@ -139,12 +142,14 @@ router.put('/create', function (req, res, next)
 
 router.put('/update', function (req, res, next)
 {
-    debug("Received PUT [update] request. ");
-    debug("Request: ", req.body);
-    const method = req.body.method;
+    debug("Received PUT [UPDATE] request. ");
+    debug(" >>> [UPDATE] Request: ", req.body);
+    const method = req.body.type;
     try {
-        var data = req.body.data;
-        manager.createObject(method, data);
+        const data = req.body.data;
+        manager.updateObject(method, data);
+        res.send(new ManagerResponse("Object [" +id + "] @ \" " + method + " \" succesfully updated!"));
+
     } catch (e) {
         handleException(e, res);
     }
@@ -155,11 +160,14 @@ router.put('/update', function (req, res, next)
 router.delete('/delete', function (req, res, next)
 {
     debug("Received DELETE request. ");
-    debug("Request: ", req.body);
-    const method = req.body.method;
+    debug(" >>> [DELETE] Request: ", req.body);
+    const method = req.body.type;
+
     try {
-        var data = req.body.data;
-        manager.deleteObject(method, data);
+        var id = req.body.data;
+        manager.deleteObject(method, id);
+        res.send(new ManagerResponse("Object [" +id + "] @ \" " + method + " \" succesfully deleted!"));
+
     } catch (e) {
         handleException(e, res);
     }

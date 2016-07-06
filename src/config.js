@@ -24,7 +24,7 @@ export function applyConfig(app) {
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, '..', 'public')));
 
-    console.info("Configuration was successfully applied!");
+    console.info("[CONFIG] Successfully applied!");
 
     return app;
 }

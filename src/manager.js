@@ -150,8 +150,6 @@ export class Manager {
             buttons: Loader.loadList(Types.BUTTONS),
             layouts: Loader.loadList(Types.LAYOUTS)
         };
-
-        debug("Collections: ", this.collections);
     }
 
     getObject(type, name)
@@ -177,7 +175,7 @@ export class Manager {
             throw new ManagerWarning(" Object \"" + id + "\" not exists in \"" + type + "\"");
         }
 
-        this.deleteCollection(type, obj);
+        this.deleteCollection(type, id);
     };
 
 
@@ -190,12 +188,12 @@ export class Manager {
         }
 
         this.addCollection(type, obj);
-    };
+    }
 
     updateObject(type, obj)
     {
         debug("Updating object \"%s\" in [%s]: ", obj.id, type, obj);
-        if (this.getObject(type, id) == null) {
+        if (this.getObject(type, obj.id) == null) {
             throw new ManagerWarning(" Object \"" + obj.id + "\" not exists in \"" + type + "\"");
         }
 
@@ -220,8 +218,7 @@ export class Manager {
     updateCollection(type, obj)
     {
         this.deleteCollection(type, obj.id);
-        this.updateCollection(type, obj);
-
+        this.addCollection(type, obj);
     };
 
     getCollection(name)

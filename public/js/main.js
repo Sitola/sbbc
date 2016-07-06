@@ -8,6 +8,7 @@ window.ajaxSender = {
     urlGet: "/api/get/",
     urlPut: "/api/put/",
     urlDelete: "/api/delete/",
+    urlUpdate: "/api/update/",
 
 
     handleResponse: function (resp, callback)
@@ -84,7 +85,11 @@ window.ajaxSender = {
     {
         url = url || ajaxSender.urlDelete;
         return this.send("DELETE", url, data);
-
+    },
+    sendUpdate: function (data, url)
+    {
+        url = url || ajaxSender.urlUpdate;
+        return this.send("PUT", url, data);
     }
 };
 
@@ -102,7 +107,7 @@ window.restClient = {
         return response;
     },
 
-    getObejct: function (type, id)
+    getObject: function (type, id)
     {
         var obj = {
             id: id
@@ -114,18 +119,18 @@ window.restClient = {
     createObject: function (name, obj)
     {
         const request = {
-            method: name,
+            type: name,
             data: obj
         };
         var response = ajaxSender.sendPut(request);
         return response;
     },
 
-    deleteObject: function (name, id)
+    deleteObject: function (name, obj)
     {
         const request = {
             type: name,
-            name: id
+            data: obj.id
         };
         var reponse = ajaxSender.sendDelete(request);
         return reponse;
@@ -134,10 +139,10 @@ window.restClient = {
     updateObject: function (name, obj)
     {
         const request = {
-            method: name,
+            type: name,
             data: obj
         };
-        var response = ajaxSender.sendPut(request);
+        var response = ajaxSender.sendUpdate(request);
         return response;
     }
 };

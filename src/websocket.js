@@ -6,9 +6,8 @@
 
 
 export function applyWebSocket(app) {
-    console.log('applying websocket!');
+    console.info('[WEBSOCKET] Listening on \"/ws\".');
     app.ws('/ws', function(ws, req) {
-
         ws.on('message', function(msg) {
             ws.send(msg);
             console.log('[WEBSOCKET] Message has been sent: ', msg);

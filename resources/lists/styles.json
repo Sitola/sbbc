@@ -2,7 +2,8 @@
   "random_Style": {
     "id": "random_Style",
     "name": "random_Style",
-    "css": "bah",
+    "description": "random_Style",
+    "css": "newCss",
     "className": "random_Style"
   }
 }
