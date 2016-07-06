@@ -105,12 +105,12 @@ QUnit.test("test actions delete", function (assert)
 QUnit.test("test actions update", function (assert)
 {
     console.log("Executing test UPDATE");
-    const style = getObject("test_objUpdate", "echo");
+    const action = getObject("test_objUpdate", "echo");
     var done = assert.async();
 
     var newAction = getObject("test_objUpdate", "newAction");
 
-    var resOld = restClient.createObject(CONST_TYPE,style);
+    var resOld = restClient.createObject(CONST_TYPE,action);
 
     ajaxSender.handleResponse(resOld, function (msg)
     {
@@ -126,7 +126,7 @@ QUnit.test("test actions update", function (assert)
             {
                 console.info("Response from server after get: ", data);
 
-                var actionObject = data[style.id];
+                var actionObject = data[action.id];
                 assert.ok(actionObject);
                 assert.equal(actionObject.id, newAction.id);
                 assert.equal(actionObject.name, newAction.name);

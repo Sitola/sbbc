@@ -90,39 +90,19 @@ router = initGetObjects(router);
 
 router.post('/exec', function (req, res, next)
 {
-    debug("Exec action received.");
+    debug("[EXEC] called.");
 
-    const action = req.body.action;
-    if (!action) {
-        res.send(new ManagerError("No action was send"));
-    }
-
-    const id = req.body.data.id;
-    const cmd = manager.getObject("actions", id);
-    if (!cmd) {
-        var err = new ManagerError("No command was found with name: " + id);
-        err.out();
-        req.send(err);
-        return;
-    }
-
-    var child = exec(cmd.command, function (error, stdout, stderr)
+    function callback(data)
     {
-        var commandRes = {
-            stdout: stdout,
-            stderr: stderr
-        };
+        res.send(data);
+    }
 
-        if (error) {
-            var err = new ManagerError("Error: " + error);
-            err.out();
-            req.send(err);
-        }
-
-        var managerInfo = new ManagerInfo(commandRes);
-        managerInfo.out();
-        res.send(managerInfo);
-    });
+    try {
+        const id = req.body.data.exec;
+        manager.execute(id, callback);
+    } catch (e) {
+        handleException(e, res);
+    }
 });
 
 

@@ -9,6 +9,7 @@ window.ajaxSender = {
     urlPut: "/api/put/",
     urlDelete: "/api/delete/",
     urlUpdate: "/api/update/",
+    urlExec: "/api/exec/",
 
 
     handleResponse: function (resp, callback)
@@ -90,6 +91,12 @@ window.ajaxSender = {
     {
         url = url || ajaxSender.urlUpdate;
         return this.send("PUT", url, data);
+    },
+
+    sendExec: function (data, url)
+    {
+        url = url || ajaxSender.urlExec;
+        return this.send("POST", url, data);
     }
 };
 
@@ -142,7 +149,19 @@ window.restClient = {
             type: name,
             data: obj
         };
+
         var response = ajaxSender.sendUpdate(request);
+        return response;
+    },
+
+    executeCommand: function (obj)
+    {
+        const request = {
+            type: "exec",
+            data: obj
+        };
+
+        var response = ajaxSender.sendExec(request);
         return response;
     }
 };

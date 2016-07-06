@@ -1,1 +1,8 @@
-{}
+{
+  "simpleEcho": {
+    "id": "simpleEcho",
+    "name": "simpleEcho",
+    "description": "simpleEcho",
+    "action": "echo \"Hello World\""
+  }
+}

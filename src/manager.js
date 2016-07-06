@@ -5,6 +5,8 @@
 import * as fs from "fs";
 import * as util from "util";
 import {debug} from "./global"
+const exec = require('child_process').exec;
+
 
 export class ManagerResponse
 {
@@ -150,6 +152,31 @@ export class Manager {
             buttons: Loader.loadList(Types.BUTTONS),
             layouts: Loader.loadList(Types.LAYOUTS)
         };
+    }
+
+
+    execute(id, callback)
+    {
+        const cmd = this.getObject("actions", id);
+
+        if (!cmd) {
+            throw new ManagerError("No command was found with id: " + id);
+        }
+
+        var child = exec(cmd.action, function (error, stdout, stderr)
+        {
+            var commandRes = {
+                stdout: stdout,
+                stderr: stderr
+            };
+
+            if (error) {
+                callback(ManagerError("Error: " + error));
+            }
+
+            var managerInfo = new ManagerResponse(commandRes);
+            callback(managerInfo);
+        });
     }
 
     getObject(type, name)
