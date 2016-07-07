@@ -31,8 +31,8 @@ function restCommand(assert, done)
     const cmdName = "simpleEcho";
     const cmd = createCommand(cmdName, simpleEchoText);
 
-    var response = restClient.createObject("actions",cmd);
-    ajaxSender.handleResponse(response, function (msg)
+    var response = Manager.createObject("actions", cmd);
+    response.handle(function ()
     {
         afterCreateCommand(cmd, helloWorld, assert, done);
     });
@@ -41,11 +41,11 @@ function restCommand(assert, done)
 function afterCreateCommand(cmd, text, assert, done)
 {
     var echoExec = createExec(cmd.id);
-    var response = restClient.executeCommand(echoExec);
-    ajaxSender.handleResponse(response, function (msg)
+    var response = Manager.executeCommand(echoExec);
+    response.handle(function (msg)
     {
-        const output = msg.stdout.replace(/(\r\n|\n|\r)/gm,"");
-        const err = msg.stderr.replace(/(\r\n|\n|\r)/gm,"");
+        const output = Tools.removeNewLine(msg.stdout);
+        const err = Tools.removeNewLine(msg.stderr);
 
         console.log("STDOUT: %s", output);
         if(err || err != "")

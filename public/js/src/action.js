@@ -1,9 +1,3 @@
-admin/style/**
- * Created by wermington on 6/5/16.
- */
-
-
-
 $(function () {
 
     const actionName = $("#actionName");
@@ -17,17 +11,16 @@ $(function () {
         const description = "";
 
         const request = {
-            id: removeSpaces(aName),
+            id: Tools.removeSpaces(aName),
             name: aName,
             description: description,
             action: command
         };
 
-        var resp = restClient.createObject("action",request);
-        ajaxSender.handleResponse(resp, function (res)
+        var resp = Manager.createObject("actions", request);
+        resp.handle( function (res)
         {
             console.info(res);
         });
     });
-
 });

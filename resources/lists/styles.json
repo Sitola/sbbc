@@ -1,9 +1,30 @@
 {
-  "random_Style": {
-    "id": "random_Style",
-    "name": "random_Style",
-    "description": "random_Style",
-    "css": "newCss",
-    "className": "random_Style"
+  "demo_Play": {
+    "id": "demo_Play",
+    "name": "Demo Play",
+    "description": "Start playing video",
+    "css": "color: blue; background-color:green;",
+    "className": "demo_Play"
+  },
+  "demo_Stop": {
+    "id": "demo_Stop",
+    "name": "Demo Stop",
+    "description": "Stop playing video",
+    "css": "color: green; background-color:black;",
+    "className": "demo_Stop"
+  },
+  "demo_Record": {
+    "id": "demo_Record",
+    "name": "demo_Record",
+    "description": "demo record",
+    "css": "color: blue; background-color: red;",
+    "className": "test_objUpdate"
+  },
+  "blah": {
+    "id": "blah",
+    "name": "blah",
+    "description": "",
+    "css": "\n    color: blue;",
+    "className": "blah"
   }
 }

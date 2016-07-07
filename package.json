@@ -7,7 +7,9 @@
     "start": "node ./bin/www",
     "debug": "DEBUG=\"sbbc\" node ./bin/www",
     "babel-server": "babel src --out-dir lib -s",
-    "babel-client": " babel public/js/src/ --out-dir public/js/lib/ -s"
+    "babel-client": "babel public/js/src/ --out-dir public/js/lib/ -s",
+    "babel-wc": "babel -w public/js/src/ --out-dir public/js/lib/ -s",
+    "babel-ws": "babel -w src --out-dir lib -s"
   },
   "dependencies": {
     "body-parser": "~1.13.2",

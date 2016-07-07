@@ -40,22 +40,23 @@ $(function ()
       btnSaveClick.click(
           function (e)
           {
-              var css_text = editor_css.getValue();
-              var styleClass = textStyleClass.val();
-              var styleName = textStyleName.val();
-              var description = "";
-
+              const cssText = (editor_css.getValue());
+              const styleClass = textStyleClass.val();
+              const styleName = textStyleName.val();
+              const description = "";
+              const cleanCss = Tools.cleanCss(cssText);
+              console.log("[CLEAN]: ", cleanCss);
 
               const request = {
-                  id: removeSpaces(styleName),
+                  id: Tools.removeSpaces(styleName),
                   name: styleName,
                   description: description,
-                  css: css_text,
+                  css: cleanCss,
                   className: styleName
               };
 
-              var resp = restClient.createObject("style", request);
-              ajaxSender.handleResponse(resp, function (res)
+              const resp = Manager.createObject("styles", request);
+              resp.handle(function (res)
               {
                     console.info(res);
               });

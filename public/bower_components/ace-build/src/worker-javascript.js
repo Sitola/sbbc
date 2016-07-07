@@ -3270,7 +3270,7 @@ var reg          = _dereq_("./reg.js");
 var state        = _dereq_("./state.js").state;
 var style        = _dereq_("./style.js");
 var options      = _dereq_("./options.js");
-var scopeManager = _dereq_("./scope-manager.js");
+var scopeManager = _dereq_("./scope-Manager.js");
 
 var JSHINT = (function() {
   "use strict";
@@ -8169,7 +8169,7 @@ if (typeof exports === "object" && exports) {
   exports.JSHINT = JSHINT;
 }
 
-},{"../lodash":"/node_modules/jshint/lodash.js","./lex.js":"/node_modules/jshint/src/lex.js","./messages.js":"/node_modules/jshint/src/messages.js","./options.js":"/node_modules/jshint/src/options.js","./reg.js":"/node_modules/jshint/src/reg.js","./scope-manager.js":"/node_modules/jshint/src/scope-manager.js","./state.js":"/node_modules/jshint/src/state.js","./style.js":"/node_modules/jshint/src/style.js","./vars.js":"/node_modules/jshint/src/vars.js","events":"/node_modules/browserify/node_modules/events/events.js"}],"/node_modules/jshint/src/lex.js":[function(_dereq_,module,exports){
+},{"../lodash":"/node_modules/jshint/lodash.js","./lex.js":"/node_modules/jshint/src/lex.js","./messages.js":"/node_modules/jshint/src/messages.js","./options.js":"/node_modules/jshint/src/options.js","./reg.js":"/node_modules/jshint/src/reg.js","./scope-manager.js":"/node_modules/jshint/src/scope-Manager.js","./state.js":"/node_modules/jshint/src/state.js","./style.js":"/node_modules/jshint/src/style.js","./vars.js":"/node_modules/jshint/src/vars.js","events":"/node_modules/browserify/node_modules/events/events.js"}],"/node_modules/jshint/src/lex.js":[function(_dereq_,module,exports){
 
 "use strict";
 

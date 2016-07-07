@@ -2,15 +2,88 @@
  * Created by wermington on 5/29/16.
  */
 
-window.ajaxSender = {
+class DefaultMessage
+{
+    constructor(type, data, method)
+    {
+        this.method = method || "PUT";
+        this.cont ={
+            type: type,
+            data: data
+        };
+    }
 
-    urlCreate: "/api/create/",
-    urlGet: "/api/get/",
-    urlPut: "/api/put/",
-    urlDelete: "/api/delete/",
-    urlUpdate: "/api/update/",
-    urlExec: "/api/exec/",
+    send(url)
+    {
+        return window.Sender.send(url, this.method, this.cont);
+    }
 
+    sendWithHandle(url, callback)
+    {
+        var resp = this.send(url);
+        Sender.handleResponse(resp, callback);
+    }
+}
+
+
+
+class DefaultResponse
+{
+
+    constructor(response, callback)
+    {
+        this.response = response;
+        this.callback = callback;
+    }
+
+    setCallback(callback)
+    {
+        this.callback = callback;
+    }
+
+    handle(callback)
+    {
+        callback = callback || this.callback;
+        Sender.handleResponse(this.response, callback);
+    }
+
+}
+
+
+class Tools {
+    static removeSpaces(str)
+    {
+        return str.replace(/ /g, "_");
+    }
+
+    static cleanCss(css)
+    {
+        const posOpen = css.indexOf('{');
+        const posClose = css.indexOf('}');
+        return css.substring(posOpen + 1, posClose - 1);
+    }
+
+    static removeNewLine(str)
+    {
+        return str.replace(/(\r\n|\n|\r)/gm,"")
+    }
+}
+
+const SenderUrl = {
+    Create: "/api/create/",
+    Get: "/api/get/",
+    Put: "/api/put/",
+    Delete: "/api/delete/",
+    Update: "/api/update/",
+    Exec: "/api/exec/",
+    getCollection: function (style)
+    {
+        return `/api/${style}/`
+    }
+};
+
+
+const Sender = {
 
     handleResponse: function (resp, callback)
     {
@@ -18,6 +91,7 @@ window.ajaxSender = {
             console.log(res);
             try {
 
+                //noinspection FallThroughInSwitchStatementJS
                 switch(res.type)
                 {
                     case "warning":
@@ -29,6 +103,8 @@ window.ajaxSender = {
                         console.error(res.msg);
                         return null;
                         break;
+                    case "message":
+                        return callback(res.msg, res.type);
                     default:
                         console.warn("Unknown type: %s", res.type);
                         return callback(res.msg, res.type);
@@ -48,9 +124,8 @@ window.ajaxSender = {
         return resp;
     },
 
-    send: function (method, url, data)
+    send: function (url, method, data)
     {
-        //var sdata = JSON.stringify(data);
         var request = {
             type: method,
             url: url
@@ -61,108 +136,57 @@ window.ajaxSender = {
             request.data = data;
         }
 
-        const obj = $.ajax(request);
-        return obj;
+        return $.ajax(request);
     },
 
-    sendPut: function (data, url)
+    sendGet: function (url)
     {
-        url = url || ajaxSender.urlCreate;
-        return this.send("PUT", url, data);
-    },
-
-    sendPost: function (data, url)
-    {
-        url = url || ajaxSender.urlCreate;
-        return this.send("POST", url, data);
-    },
-
-    sendGet: function (data, url)
-    {
-        url = url || ajaxSender.urlGet;
-        return this.send("GET", url, data);
-    },
-    sendDelete: function (data, url)
-    {
-        url = url || ajaxSender.urlDelete;
-        return this.send("DELETE", url, data);
-    },
-    sendUpdate: function (data, url)
-    {
-        url = url || ajaxSender.urlUpdate;
-        return this.send("PUT", url, data);
-    },
-
-    sendExec: function (data, url)
-    {
-        url = url || ajaxSender.urlExec;
-        return this.send("POST", url, data);
+        return $.get(url);
     }
 };
 
 
-window.removeSpaces = function (string)
-{
-    return string.replace(/ /g, "_");
-};
 
-window.restClient = {
+const Manager = {
 
-    getCollection: function (name)
+    getCollection: function (name, callback)
     {
-        var response = ajaxSender.sendGet(null, '/api/' + name + "/");
-        return response;
+        return this.invokeRequest(SenderUrl.getCollection(name), null, null, "GET", callback);
     },
 
-    getObject: function (type, id)
+    getObject: function (type, id, callback)
     {
-        var obj = {
-            id: id
-        };
-        var response = ajaxSender.sendGet(obj, '/api/' + type + "/");
-        return response;
+        const resp = Sender.sendGet(`${SenderUrl.getCollection(type)}${id}`);
+        console.log("Get Object response: ", resp);
+        return new DefaultResponse(resp, callback);
     },
 
-    createObject: function (name, obj)
+    invokeRequest: function(url, name, obj, method = "PUT", callback = null)
     {
-        const request = {
-            type: name,
-            data: obj
-        };
-        var response = ajaxSender.sendPut(request);
-        return response;
+        "use strict";
+        const request = new DefaultMessage(name,obj, method);
+        const serverResponse = request.send(url, "");
+        return new DefaultResponse(serverResponse, callback);
     },
 
-    deleteObject: function (name, obj)
+    createObject: function (name, obj, callback)
     {
-        const request = {
-            type: name,
-            data: obj.id
-        };
-        var reponse = ajaxSender.sendDelete(request);
-        return reponse;
+        return this.invokeRequest(SenderUrl.Create, name, obj, "PUT", callback);
     },
 
-    updateObject: function (name, obj)
+    deleteObject: function (name, obj, callback)
     {
-        const request = {
-            type: name,
-            data: obj
-        };
-
-        var response = ajaxSender.sendUpdate(request);
-        return response;
+        return this.invokeRequest(SenderUrl.Delete, name, obj, "DELETE", callback);
     },
 
-    executeCommand: function (obj)
+    updateObject: function (name, obj, callback)
     {
-        const request = {
-            type: "exec",
-            data: obj
-        };
+        return this.invokeRequest(SenderUrl.Update, name, obj, "PUT", callback);
+    },
 
-        var response = ajaxSender.sendExec(request);
-        return response;
+    executeCommand: function (obj, callback)
+    {
+        return this.invokeRequest(SenderUrl.Exec, null, obj, "POST" , callback);
     }
 };
 

@@ -1,8 +1,25 @@
 {
-  "simpleEcho": {
-    "id": "simpleEcho",
-    "name": "simpleEcho",
-    "description": "simpleEcho",
-    "action": "echo \"Hello World\""
+  "demo_Play":
+  {
+    "id": "demo_Play",
+    "name": "Play Demo command",
+    "description": "Play demo command",
+    "action": "echo 'Playing ultragrid!' "
+  },
+  "demo_Stop":
+  {
+    "id": "demo_Stop",
+    "name": "Stop demo command",
+    "description": "Stop demo command",
+    "action": "echo 'Stoping ultragrid!' "
+  },
+
+  "demo_Record":
+  {
+    "id": "demo_Record",
+    "name": "Record demo command",
+    "description": "Record demo command",
+    "action": "echo 'Record ultragrid!' "
   }
+
 }

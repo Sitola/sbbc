@@ -2,9 +2,6 @@
  * Created by pstanko on 7/4/16.
  */
 
-
-
-
 export default function(app) {
     console.info('[WEBSOCKET] Listening on \"/ws\".');
     app.ws('/ws', function(ws, req) {

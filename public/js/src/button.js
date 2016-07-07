@@ -18,7 +18,7 @@ $(function () {
 
 
     saveButton.click(function (e) {
-        const bName = removeSpaces(buttonName.val());
+        const bName = Tools.removeSpaces(buttonName.val());
         const text = buttonText.val();
         const style = selectButtonStyle.val();
         const command = selectButtonCommand.val();
@@ -30,7 +30,7 @@ $(function () {
                 text: text
         };
 
-        var resp = restClient.createObject("button", request);
+        var resp = Manager.createObject("buttons", request);
         resp.done(function (res) {
             console.log(res);
         });

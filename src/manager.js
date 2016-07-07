@@ -9,7 +9,7 @@ import {debug} from "./global"
 import {exec} from 'child_process';
 
 
-export class ManagerResponse
+export class DefaultResponse
 {
     constructor(msg, next)
     {
@@ -38,7 +38,7 @@ export class ManagerResponse
     }
 }
 
-export class ManagerException extends ManagerResponse{
+export class ResponseException extends DefaultResponse{
     constructor(msg, next)
     {
         super(msg, next);
@@ -48,7 +48,7 @@ export class ManagerException extends ManagerResponse{
 
 }
 
-export class ManagerError extends ManagerException {
+export class ResponseError extends ResponseException {
     constructor(msg, next)
     {
         super(msg, next);
@@ -61,7 +61,7 @@ export class ManagerError extends ManagerException {
     }
 }
 
-export class ManagerWarning extends ManagerException {
+export class ResponseWarning extends ResponseException {
     constructor(msg, next)
     {
         super(msg, next);
@@ -74,7 +74,7 @@ export class ManagerWarning extends ManagerException {
     }
 }
 
-export class ManagerInfo extends ManagerException {
+export class ResponseInfo extends ResponseException {
     constructor(msg, next)
     {
         super(msg, next);
@@ -147,12 +147,88 @@ export class Manager {
 
     constructor()
     {
+        const _this = this;
         this.collections = {
             styles: Loader.loadList(Types.STYLES),
             actions: Loader.loadList(Types.ACTIONS),
             buttons: Loader.loadList(Types.BUTTONS),
-            layouts: Loader.loadList(Types.LAYOUTS)
+            layouts: Loader.loadList(Types.LAYOUTS),
+            generates: {
+                styles: null
+            }
         };
+
+    }
+
+    generateScript()
+    {
+        var out = `$(function() {`;
+
+        var collection = this.collections.buttons;
+
+        for (var key in collection) {
+            if( collection.hasOwnProperty(key) ) {
+                const obj = collection[key];
+                const objStyle = obj.style;
+                out += ` 
+                var intern_${key} = $(\"#${key}\");\n
+                intern_${key}.addClass('${objStyle}');\n
+                intern_${key}.click(function()\n
+                {\n
+                    console.log("[CLICK] ${key} clicked: ${obj.action}");
+                    var response = Manager.executeCommand({exec: \"${obj.action}\" });\n
+                    response.handle(function (msg)\n
+                    {\n
+                        \nconst output = Tools.removeNewLine(msg.stdout);
+                        \nconst err = Tools.removeNewLine(msg.stderr);
+                        \nconsole.log("STDOUT: %s", output);
+                        \nif(err || err != "")
+                        \n{
+                            \nconsole.warn("STDERR: %s", err);
+                        \n}
+                    \n});                    
+                \n});\n\n`;
+            }
+        }
+
+
+        out += `});`;
+        return out;
+    }
+
+
+    generateStyles()
+    {
+        var out = "";
+        var collection = this.collections.styles;
+
+        for (var key in collection) {
+            if( collection.hasOwnProperty(key) ) {
+                const obj = collection[key];
+                const clsName = obj.className;
+                const css = obj.css;
+                out += "\n ." + clsName + " {\n" + css + "\n}\n\n";
+            }
+        }
+        return out;
+    }
+
+
+    generate(select)
+    {
+        debug('[GENERATE] Called: (%s)', select);
+        var out = null;
+        switch (select)
+        {
+            case "style":
+
+                out = this.generateStyles();
+            break;
+            case "script":
+                out = this.generateScript();
+                break;
+        }
+        return out;
     }
 
 
@@ -161,10 +237,10 @@ export class Manager {
         const cmd = this.getObject("actions", id);
 
         if (!cmd) {
-            throw new ManagerError("No command was found with id: " + id);
+            throw new ResponseError("No command was found with id: " + id);
         }
 
-        var child = exec(cmd.action, function (error, stdout, stderr)
+        const child = exec(cmd.action, function (error, stdout, stderr)
         {
             var commandRes = {
                 stdout: stdout,
@@ -172,10 +248,10 @@ export class Manager {
             };
 
             if (error) {
-                callback(ManagerError("Error: " + error));
+                callback(ResponseError("Error: " + error));
             }
 
-            var managerInfo = new ManagerResponse(commandRes);
+            var managerInfo = new DefaultResponse(commandRes);
             callback(managerInfo);
         });
     }
@@ -200,7 +276,7 @@ export class Manager {
         debug("Deleting %s from \"%s\". ", id, type);
 
         if (this.getObject(type, id) == null) {
-            throw new ManagerWarning(" Object \"" + id + "\" not exists in \"" + type + "\"");
+            throw new ResponseWarning(" Object \"" + id + "\" not exists in \"" + type + "\"");
         }
 
         this.deleteCollection(type, id);
@@ -212,7 +288,7 @@ export class Manager {
         debug("Creating \"%s\": ", type, obj);
 
         if (this.getObject(type, obj.id)) {
-            throw new ManagerWarning(" Object \"" + obj.id + "\" already exists in \"" + type + "\"");
+            throw new ResponseWarning(" Object \"" + obj.id + "\" already exists in \"" + type + "\"");
         }
 
         this.addCollection(type, obj);
@@ -222,7 +298,7 @@ export class Manager {
     {
         debug("Updating object \"%s\" in [%s]: ", obj.id, type, obj);
         if (this.getObject(type, obj.id) == null) {
-            throw new ManagerWarning(" Object \"" + obj.id + "\" not exists in \"" + type + "\"");
+            throw new ResponseWarning(" Object \"" + obj.id + "\" not exists in \"" + type + "\"");
         }
 
         this.updateCollection(type, obj);
@@ -253,11 +329,10 @@ export class Manager {
     {
         const obj = this.collections[name];
         if (!obj) {
-            throw new ManagerError("Cannot find collection: " + name);
+            throw new ResponseError("Cannot find collection: " + name);
         }
         else {
             console.log("Sending %s collection.", name);
-            debug("Sending object: ", obj);
             return obj;
         }
     };

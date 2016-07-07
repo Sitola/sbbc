@@ -1,1 +1,29 @@
-{}
+{
+  "demo_Play":
+  {
+    "id": "demo_Play",
+    "name": "Demo play",
+    "description": "Demo play button",
+    "value": "Play",
+    "action": "demo_Play",
+    "style": "demo_Play"
+  },
+  "demo_Stop":
+  {
+    "id": "demo_Stop",
+    "name": "Demo stop",
+    "description": "Demo stop button",
+    "value": "Stop",
+    "action": "demo_Stop",
+    "style": "demo_Stop"
+  },
+  "demo_Record":
+  {
+    "id": "demo_Record",
+    "name": "Demo record",
+    "description": "Demo record button",
+    "value": "Record",
+    "action": "demo_Record",
+    "style": "demo_Record"
+  }
+}

@@ -8,6 +8,8 @@ import admin from './routes/admin';
 import api from './routes/api';
 import control  from './routes/control';
 import tests from './routes/tests';
+import out from "./routes/out";
+import generate from "./routes/generate";
 
 
 export default function(app)
@@ -18,6 +20,8 @@ export default function(app)
     app.use('/control', control);
     app.use('/admin', admin);
     app.use('/tests', tests);
+    app.use('/out', out);
+    app.use('/generate', generate);
 
     return app;
 }

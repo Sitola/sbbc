@@ -1,14 +1,12 @@
 function getObject(name, css)
 {
-    const obj = {
+    return {
         id: name,
         name: name,
         description: name,
         css: css,
         className: name
     };
-
-    return obj;
 }
 
 const CONST_TYPE = "styles";
@@ -16,7 +14,7 @@ const CONST_TYPE = "styles";
 function styleClean(obj)
 {
     "use strict";
-    restClient.deleteObject(CONST_TYPE , obj);
+    Manager.deleteObject(CONST_TYPE , obj);
 }
 
 QUnit.module(" Styles ");
@@ -29,18 +27,18 @@ QUnit.test("test Style add", function (assert)
     var done = assert.async();
 
 
-    var response = restClient.createObject(CONST_TYPE,style);
-    ajaxSender.handleResponse(response, function (msg)
+    var response = Manager.createObject(CONST_TYPE, style);
+    response.handle(function (msg)
     {
-        var obj = msg;
-        console.info("Response from server after create: ", obj);
+        console.info("Response from server after create: ", msg);
 
-        var getResp = restClient.getCollection(CONST_TYPE);
-        ajaxSender.handleResponse(getResp, function (data)
+        var getResp = Manager.getCollection(CONST_TYPE);
+        getResp.handle(function (data)
         {
             console.info("Response from server after get: ", data);
 
             var styleObject = data[style.id];
+            console.info(`[STYLE] (${style.id}): ${data}`);
             assert.ok(styleObject);
             assert.equal(styleObject.id, style.id);
             assert.equal(styleObject.name, style.name);
@@ -58,14 +56,13 @@ QUnit.test("test Style get", function (assert)
     const style = getObject("test_ObjGet", "bah");
     var done = assert.async();
 
-    var response = restClient.createObject(CONST_TYPE,style);
-    ajaxSender.handleResponse(response, function (msg)
+    var response = Manager.createObject(CONST_TYPE, style);
+    response.handle(function (msg)
     {
-        var obj = msg;
-        console.info("Response from server after create: ", obj);
+        console.info("Response from server after create: ", msg);
 
-        var getResp = restClient.getObject("style", style.id);
-        ajaxSender.handleResponse(getResp, function (data)
+        var getResp = Manager.getObject("style", style.id);
+        getResp.handle(function (data)
         {
             console.info("Response from server after get: ", data);
 
@@ -88,18 +85,15 @@ QUnit.test("test Style delete", function (assert)
     const style = getObject("test_objDelete", "bah");
     var done = assert.async();
 
-    var response = restClient.deleteObject(CONST_TYPE, style);
-    ajaxSender.handleResponse(response, function (msg)
+    var response = Manager.deleteObject(CONST_TYPE, style);
+    response.handle(function (msg)
     {
-        var obj = msg;
-        console.info("Response from server after delete: ", obj);
+        console.info("Response from server after delete: ", msg);
 
-        var getResp = restClient.getObject("style", style.id);
-        ajaxSender.handleResponse(getResp, function (data)
+        var getResp = Manager.getObject("style", style.id);
+        getResp.handle(function (data)
         {
             console.info("Response from server after get: ", data);
-
-            var styleObject = data;
             assert.notOk(data);
             done();
         });
@@ -116,19 +110,18 @@ QUnit.test("test Style update", function (assert)
 
     var newStyle = getObject("test_objUpdate", "newCss");
 
-    var resOld = restClient.createObject(CONST_TYPE,style);
+    var resOld = Manager.createObject(CONST_TYPE, style);
 
-    ajaxSender.handleResponse(resOld, function (msg)
+    resOld.handle( function ()
     {
-        var resNew = restClient.updateObject(CONST_TYPE, newStyle);
+        var resNew = Manager.updateObject(CONST_TYPE, newStyle);
 
-        ajaxSender.handleResponse(resNew, function (msg)
+        resNew.handle( function (msg)
         {
-            var obj = msg;
-            console.info("Response from server after create: ", obj);
+            console.info("Response from server after create: ", msg);
 
-            var getResp = restClient.getCollection(CONST_TYPE);
-            ajaxSender.handleResponse(getResp, function (data)
+            var getResp = Manager.getCollection(CONST_TYPE);
+            getResp.handle(function (data)
             {
                 console.info("Response from server after get: ", data);
 

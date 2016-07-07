@@ -4820,7 +4820,7 @@ var functionMap = {
     ],
     "ibase_backup": [
         "mixed ibase_backup(resource service_handle, string source_db, string dest_file [, int options [, bool verbose]])",
-        "Initiates a backup task in the service manager and returns immediately"
+        "Initiates a backup task in the service Manager and returns immediately"
     ],
     "ibase_blob_add": [
         "bool ibase_blob_add(resource blob_handle, string data)",
@@ -4972,7 +4972,7 @@ var functionMap = {
     ],
     "ibase_restore": [
         "mixed ibase_restore(resource service_handle, string source_file, string dest_db [, int options [, bool verbose]])",
-        "Initiates a restore task in the service manager and returns immediately"
+        "Initiates a restore task in the service Manager and returns immediately"
     ],
     "ibase_rollback": [
         "bool ibase_rollback( resource link_identifier )",
@@ -4988,11 +4988,11 @@ var functionMap = {
     ],
     "ibase_service_attach": [
         "resource ibase_service_attach(string host, string dba_username, string dba_password)",
-        "Connect to the service manager"
+        "Connect to the service Manager"
     ],
     "ibase_service_detach": [
         "bool ibase_service_detach(resource service_handle)",
-        "Disconnect from the service manager"
+        "Disconnect from the service Manager"
     ],
     "ibase_set_event_handler": [
         "resource ibase_set_event_handler([resource link_identifier,] callback handler, string event [, string event [, ...]])",
@@ -9068,7 +9068,7 @@ var functionMap = {
     ],
     "pspell_config_create": [
         "int pspell_config_create(string language [, string spelling [, string jargon [, string encoding]]])",
-        "Create a new config to be used later to create a manager"
+        "Create a new config to be used later to create a Manager"
     ],
     "pspell_config_data_dir": [
         "bool pspell_config_data_dir(int conf, string directory)",

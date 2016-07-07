@@ -1,6 +1,4 @@
 
-
-
 $(function () {
 
     var editor_css = ace.edit("text_css_style");
@@ -23,7 +21,7 @@ $(function () {
         var url = "/api/command/add";
 
         var data = {
-            id: removeSpaces(name),
+            id: Tools.removeSpaces(name),
             name: name,
             css : css_text,
             cmd : cmd_text

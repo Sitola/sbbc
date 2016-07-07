@@ -3,7 +3,7 @@
  */
 
 
-import {ManagerResponse, ManagerError, ManagerInfo, ManagerWarning, ManagerException, Manager} from "../manager";
+import {DefaultResponse, ResponseError, ResponseInfo, ResponseWarning, ResponseException, Manager} from "../manager";
 import express from 'express'
 var router = express.Router();
 var manager = new Manager();
@@ -30,11 +30,12 @@ function initGetCollection(router, name)
 
         try {
             var result = manager.getCollection(name);
-            res.send(new ManagerResponse(result));
+            res.send(new DefaultResponse(result));
         } catch (e) {
             handleException(e, res);
         }
     }
+
     var eName = "/" + name;
     router.get(eName, collectionsCallback);
     console.info("[GET] API endpoint \"/api%s\" ", eName);
@@ -60,15 +61,17 @@ function initGetObject(router, type)
     {
         debug(" >>> [GET] request for: " + type);
         debug("Request attrs: ", req.query);
-        var id = req.query.id;
+        var id = req.params.id;
         try {
             var result = manager.getObject(type + "s", id);
-            res.send(new ManagerResponse(result));
+            res.send(new DefaultResponse(result));
+
         } catch (e) {
             handleException(e, res);
         }
     }
-    var eName = "/" + type;
+
+    var eName = "/" + type + "/:id";
     router.get(eName, objectCallback);
     console.info("[GET] API endpoint \"/api%s\" ", eName);
     return router;
@@ -114,7 +117,7 @@ router.put('/create', function (req, res, next)
     try {
         const data = req.body.data;
         manager.createObject(method, data);
-        res.send(new ManagerResponse("Object [" + data.id + "] @ \" " + method + " \" succesfully created!"));
+        res.send(new DefaultResponse(`Object ["${data.id}"] @ \"${method}\" successfully created!`));
     } catch (e) {
         handleException(e, res);
     }
@@ -128,13 +131,12 @@ router.put('/update', function (req, res, next)
     try {
         const data = req.body.data;
         manager.updateObject(method, data);
-        res.send(new ManagerResponse("Object [" + data.id + "] @ \" " + method + " \" succesfully updated!"));
+        res.send(new DefaultResponse(`Object [ ${data.id}] @ \"${method}\" successfully updated!`));
 
     } catch (e) {
         handleException(e, res);
     }
 });
-
 
 
 router.delete('/delete', function (req, res, next)
@@ -146,7 +148,8 @@ router.delete('/delete', function (req, res, next)
     try {
         var id = req.body.data;
         manager.deleteObject(method, id);
-        res.send(new ManagerResponse("Object [" +id + "] @ \" " + method + " \" succesfully deleted!"));
+        const msg = `Object ${id} @ \"${method}\" successfully deleted`;
+        res.send(new DefaultResponse(msg));
 
     } catch (e) {
         handleException(e, res);

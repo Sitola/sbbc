@@ -24,6 +24,10 @@ export default function(app) {
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, '..', 'public')));
 
+    if (app.get('env') === 'development') {
+        app.locals.pretty = true;
+    }
+
     console.info("[CONFIG] Successfully applied!");
 
     return app;

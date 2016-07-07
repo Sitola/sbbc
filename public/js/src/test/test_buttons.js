@@ -1,6 +1,6 @@
 function getObject(name, action, style)
 {
-    const obj = {
+    return {
         id: name,
         name: name,
         description: name,
@@ -8,8 +8,6 @@ function getObject(name, action, style)
         action: action,
         style: style
     };
-
-    return obj;
 }
 
 const CONST_TYPE = "buttons";
@@ -17,7 +15,7 @@ const CONST_TYPE = "buttons";
 function buttonClean(obj)
 {
     "use strict";
-    restClient.deleteObject(CONST_TYPE , obj);
+    Manager.deleteObject(CONST_TYPE , obj);
 }
 
 QUnit.module(CONST_TYPE);
@@ -26,17 +24,15 @@ QUnit.test("test actions add", function (assert)
 {
     console.log("Executing test ADD");
     const button = getObject("test_objAdd", "echo", "super");
-    var done = assert.async();
+    const done = assert.async();
 
-
-    var response = restClient.createObject(CONST_TYPE,button);
-    ajaxSender.handleResponse(response, function (msg)
+    const response = Manager.createObject(CONST_TYPE, button);
+    response.handle(function (msg)
     {
-        var obj = msg;
-        console.info("Response from server after create: ", obj);
+        console.info("Response from server after create: ", msg);
 
-        var getResp = restClient.getCollection(CONST_TYPE);
-        ajaxSender.handleResponse(getResp, function (data)
+        const getResp = Manager.getCollection(CONST_TYPE);
+        getResp.handle( function (data)
         {
             console.info("Response from server after get: ", data);
 
@@ -59,14 +55,13 @@ QUnit.test("test actions get", function (assert)
     const button = getObject("test_objAdd", "echo", "super");
     var done = assert.async();
 
-    var response = restClient.createObject(CONST_TYPE,button);
-    ajaxSender.handleResponse(response, function (msg)
+    var response = Manager.createObject(CONST_TYPE, button);
+    response.handle(function (msg)
     {
-        var obj = msg;
-        console.info("Response from server after create: ", obj);
+        console.info("Response from server after create: ", msg);
 
-        var getResp = restClient.getObject("button", button.id);
-        ajaxSender.handleResponse(getResp, function (data)
+        var getResp = Manager.getObject("button", button.id);
+        getResp.handle( function (data)
         {
             console.info("Response from server after get: ", data);
 
@@ -90,13 +85,13 @@ QUnit.test("test actions delete", function (assert)
     const button = getObject("test_objAdd", "echo", "super");
     var done = assert.async();
 
-    var response = restClient.deleteObject(CONST_TYPE, button);
-    ajaxSender.handleResponse(response, function (msg)
+    var response = Manager.deleteObject(CONST_TYPE, button);
+    response.handle(function (msg)
     {
         console.info("Response from server after delete: ", msg);
 
-        var getResp = restClient.getObject("button", button.id);
-        ajaxSender.handleResponse(getResp, function (data)
+        var getResp = Manager.getObject("button", button.id);
+        getResp.handle( function (data)
         {
             console.info("Response from server after get: ", data);
             assert.notOk(data);
@@ -115,18 +110,18 @@ QUnit.test("test actions update", function (assert)
     var done = assert.async();
 
 
-    var resOld = restClient.createObject(CONST_TYPE, button);
+    var resOld = Manager.createObject(CONST_TYPE, button);
 
-    ajaxSender.handleResponse(resOld, function ()
+    resOld.handle( function ()
     {
-        var resNew = restClient.updateObject(CONST_TYPE, newButton);
+        var resNew = Manager.updateObject(CONST_TYPE, newButton);
 
-        ajaxSender.handleResponse(resNew, function (msg)
+        resNew.handle( function (msg)
         {
             console.info("Response from server after create: ", msg);
 
-            var getResp = restClient.getCollection(CONST_TYPE);
-            ajaxSender.handleResponse(getResp, function (data)
+            var getResp = Manager.getCollection(CONST_TYPE);
+            getResp.handle(function (data)
             {
                 console.info("Response from server after get: ", data);
 

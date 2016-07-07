@@ -15,7 +15,7 @@ const CONST_TYPE = "actions";
 function actionsClean(obj)
 {
     "use strict";
-    restClient.deleteObject(CONST_TYPE , obj);
+    Manager.deleteObject(CONST_TYPE , obj);
 }
 
 QUnit.module(CONST_TYPE);
@@ -27,14 +27,13 @@ QUnit.test("test actions add", function (assert)
     var done = assert.async();
 
 
-    var response = restClient.createObject(CONST_TYPE,action);
-    ajaxSender.handleResponse(response, function (msg)
+    const response = Manager.createObject(CONST_TYPE, action);
+    response.handle(function (msg)
     {
-        var obj = msg;
-        console.info("Response from server after create: ", obj);
+        console.info("Response from server after create: ", msg);
 
-        var getResp = restClient.getCollection(CONST_TYPE);
-        ajaxSender.handleResponse(getResp, function (data)
+        var getResp = Manager.getCollection(CONST_TYPE);
+        getResp.handle( function (data)
         {
             console.info("Response from server after get: ", data);
 
@@ -55,14 +54,13 @@ QUnit.test("test actions get", function (assert)
     const action = getObject("test_ObjGet", "echo");
     var done = assert.async();
 
-    var response = restClient.createObject(CONST_TYPE,action);
-    ajaxSender.handleResponse(response, function (msg)
+    const response = Manager.createObject(CONST_TYPE, action);
+    response.handle(function (msg)
     {
-        var obj = msg;
-        console.info("Response from server after create: ", obj);
+        console.info("Response from server after create: ", msg);
 
-        var getResp = restClient.getObject("action", action.id);
-        ajaxSender.handleResponse(getResp, function (data)
+        var getResp = Manager.getObject("action", action.id);
+        getResp.handle(function (data)
         {
             console.info("Response from server after get: ", data);
 
@@ -81,17 +79,16 @@ QUnit.test("test actions get", function (assert)
 QUnit.test("test actions delete", function (assert)
 {
     console.log("Executing test get");
-    const style = getObject("test_objDelete", "echo");
+    const action = getObject("test_objDelete", "echo");
     var done = assert.async();
 
-    var response = restClient.deleteObject(CONST_TYPE, style);
-    ajaxSender.handleResponse(response, function (msg)
+    var response = Manager.deleteObject(CONST_TYPE, action);
+    response.handle(function (msg)
     {
-        var obj = msg;
-        console.info("Response from server after delete: ", obj);
+        console.info("Response from server after delete: ", msg);
 
-        var getResp = restClient.getObject("action", style.id);
-        ajaxSender.handleResponse(getResp, function (data)
+        var getResp = Manager.getObject("action", action.id);
+        getResp.handle(function (data)
         {
             console.info("Response from server after get: ", data);
             assert.notOk(data);
@@ -106,26 +103,22 @@ QUnit.test("test actions update", function (assert)
 {
     console.log("Executing test UPDATE");
     const action = getObject("test_objUpdate", "echo");
-    var done = assert.async();
+    const done = assert.async();
+    const newAction = getObject("test_objUpdate", "newAction");
+    const resOld = Manager.createObject(CONST_TYPE, action);
 
-    var newAction = getObject("test_objUpdate", "newAction");
-
-    var resOld = restClient.createObject(CONST_TYPE,action);
-
-    ajaxSender.handleResponse(resOld, function (msg)
+    resOld.handle(function ()
     {
-        var resNew = restClient.updateObject(CONST_TYPE, newAction);
+        var resNew = Manager.updateObject(CONST_TYPE, newAction);
 
-        ajaxSender.handleResponse(resNew, function (msg)
+        resNew.handle(function (msg)
         {
-            var obj = msg;
-            console.info("Response from server after create: ", obj);
+            console.info("Response from server after create: ", msg);
 
-            var getResp = restClient.getCollection(CONST_TYPE);
-            ajaxSender.handleResponse(getResp, function (data)
+            var getResp = Manager.getCollection(CONST_TYPE);
+            getResp.handle(function (data)
             {
                 console.info("Response from server after get: ", data);
-
                 var actionObject = data[action.id];
                 assert.ok(actionObject);
                 assert.equal(actionObject.id, newAction.id);
@@ -135,7 +128,6 @@ QUnit.test("test actions update", function (assert)
                 done();
             });
         });
-
     });
 });
 
