@@ -4,8 +4,10 @@
   "author": "Peter Stanko (wermington@gmail.com)",
   "private": true,
   "scripts": {
-    "start": "babel-node ./bin/www",
-    "debug": "babel-node debug ./bin/www"
+    "start": "node ./bin/www",
+    "debug": "DEBUG=\"sbbc\" node ./bin/www",
+    "babel-server": "babel src --out-dir lib -s",
+    "babel-client": " babel public/js/src/ --out-dir public/js/lib/ -s"
   },
   "dependencies": {
     "body-parser": "~1.13.2",

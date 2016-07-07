@@ -3,12 +3,12 @@
  */
 
 
-import {ManagerResponse, ManagerError, ManagerInfo, ManagerWarning, ManagerException, Manager} from "../src/manager";
+import {ManagerResponse, ManagerError, ManagerInfo, ManagerWarning, ManagerException, Manager} from "../manager";
 import express from 'express'
 var router = express.Router();
 var manager = new Manager();
 
-import {debug} from "../src/global";
+import {debug} from "../global";
 
 
 function handleException(e, res)
@@ -153,4 +153,4 @@ router.delete('/delete', function (req, res, next)
     }
 });
 
-module.exports = router;
+export default router;

@@ -5,7 +5,7 @@
 
 
 
-export function applyWebSocket(app) {
+export default function(app) {
     console.info('[WEBSOCKET] Listening on \"/ws\".');
     app.ws('/ws', function(ws, req) {
         ws.on('message', function(msg) {

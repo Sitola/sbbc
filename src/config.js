@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 const logger = require("morgan");
 
 
-export function applyConfig(app) {
+export default function(app) {
     var eWS = expressWS(app);
     app = eWS.app;
 

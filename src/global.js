@@ -1,9 +1,6 @@
-"use strict"
-import express from "express";
-/**
- * Created by wermington on 7/4/16.
- */
+"use strict";
 
+import express from "express";
 
 /*
  * Exported modules

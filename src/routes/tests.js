@@ -1,7 +1,7 @@
 /**
  * Created by wermington on 7/4/16.
  */
-var express = require('express');
+import express from 'express'
 var router = express.Router();
 
 /* GET home page. */
@@ -30,4 +30,4 @@ router.get('/exec', function(req, res, next) {
     res.render('tests/exec', { title: 'REST Tests exec' });
 });
 
-module.exports = router;
+export default router;

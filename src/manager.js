@@ -5,7 +5,8 @@
 import * as fs from "fs";
 import * as util from "util";
 import {debug} from "./global"
-const exec = require('child_process').exec;
+// const exec = require('child_process').exec;
+import {exec} from 'child_process';
 
 
 export class ManagerResponse

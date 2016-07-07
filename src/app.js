@@ -1,13 +1,13 @@
-import * as glob from "./src/global"
-import * as configure from "./src/config";
-import * as routing from "./src/routing";
-import * as WebSocket from "./src/websocket";
+import * as glob from "./global"
+import configure from "./config";
+import routing from "./routing";
+import WebSocket from "./websocket";
 
 
 var app = glob.app;
-app = configure.applyConfig(app);
-app = routing.applyRouting(app);
-app = WebSocket.applyWebSocket(app);
+app = configure(app);
+app = routing(app);
+app = WebSocket(app);
 
 
 

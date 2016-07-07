@@ -2,15 +2,15 @@
  * Created by wermington on 7/4/16.
  */
 
-const routes = require('../routes/index');
-const users = require('../routes/users');
-const admin = require('../routes/admin');
-const api = require('../routes/api');
-const control = require('../routes/control');
-const tests = require('../routes/tests');
+import routes from './routes/index';
+import users from './routes/users';
+import admin from './routes/admin';
+import api from './routes/api';
+import control  from './routes/control';
+import tests from './routes/tests';
 
 
-export function applyRouting(app)
+export default function(app)
 {
     app.use('/', routes);
     app.use('/users', users);
@@ -18,6 +18,7 @@ export function applyRouting(app)
     app.use('/control', control);
     app.use('/admin', admin);
     app.use('/tests', tests);
+
     return app;
 }
 
