@@ -6,21 +6,37 @@
 import express from 'express'
 var router = express.Router();
 
+import {debug} from '../global';
+
+
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('admin/admin', { title: 'Admin' });
+    var passedObject = { title: 'Admin',
+        form_page: 'index'
+    };
+    debug(">>> Passing object: ", passedObject);
+    res.render('admin/admin',
+               passedObject);
 });
 
-router.get('/style', function(req, res, next) {
-    res.render('admin/style', { title: 'Style' });
+router.get('/edit', function(req, res, next) {
+    res.render('admin/edit', { title: 'Style', form_page: 'edit' });
 });
 
-router.get('/button', function(req, res, next) {
-    res.render('admin/button', { title: 'Button' });
+router.get('/create', function(req, res, next) {
+    res.render('admin/create', { title: 'Button', form_page: 'create' });
 });
 
-router.get('/command', function(req, res, next) {
-    res.render('admin/command', { title: 'Command' });
+router.get('/edit/:form', function(req, res, next) {
+    const form = req.params.form;
+    res.render('admin/edit', { title: 'Command',  form_page: form });
+});
+
+router.get('/create/:form', function(req, res, next) {
+    const form = req.params.form;
+    res.render('admin/create', { title: 'Command',  form_page: form });
 });
 
 

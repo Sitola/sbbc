@@ -2,29 +2,29 @@
   "demo_Play": {
     "id": "demo_Play",
     "name": "Demo Play",
-    "description": "Start playing video",
-    "css": "color: blue; background-color:green;",
+    "description": "",
+    "css": "\ncolor: blue; \nfont-size: 30pt;\nbackground-color:green;",
     "className": "demo_Play"
-  },
-  "demo_Stop": {
-    "id": "demo_Stop",
-    "name": "Demo Stop",
-    "description": "Stop playing video",
-    "css": "color: green; background-color:black;",
-    "className": "demo_Stop"
   },
   "demo_Record": {
     "id": "demo_Record",
     "name": "demo_Record",
-    "description": "demo record",
-    "css": "color: blue; background-color: red;",
-    "className": "test_objUpdate"
-  },
-  "blah": {
-    "id": "blah",
-    "name": "blah",
     "description": "",
-    "css": "\n    color: blue;",
-    "className": "blah"
+    "css": "\ncolor: blue; \nfont-size: 30pt;\nbackground-color: red;",
+    "className": "demo_Record"
+  },
+  "demo_Stop": {
+    "id": "demo_Stop",
+    "name": "Demo Stop",
+    "description": "",
+    "css": "\ncolor: green; \nfont-size: 30pt;\nbackground-color:black;",
+    "className": "demo_Stop"
+  },
+  "Test_style": {
+    "id": "Test_style",
+    "name": "Test style",
+    "description": "",
+    "css": "\n    color: blue;\n    font-size: 100pt;",
+    "className": "test_style"
   }
 }

@@ -5,12 +5,10 @@
 import * as fs from "fs";
 import * as util from "util";
 import {debug} from "./global"
-// const exec = require('child_process').exec;
 import {exec} from 'child_process';
 
 
-export class DefaultResponse
-{
+export class DefaultResponse {
     constructor(msg, next)
     {
         this.msg = msg;
@@ -38,14 +36,12 @@ export class DefaultResponse
     }
 }
 
-export class ResponseException extends DefaultResponse{
+export class ResponseException extends DefaultResponse {
     constructor(msg, next)
     {
         super(msg, next);
         this.type = "exception"
     }
-
-
 }
 
 export class ResponseError extends ResponseException {
@@ -97,7 +93,7 @@ var Loader = {
     {
 
         try {
-            var data =fs.readFileSync(path, 'utf8').toString();
+            var data = fs.readFileSync(path, 'utf8').toString();
             debug(" [READ] File [%s] content: ", path, data);
             const parsedJson = JSON.parse(data);
             debug("Parsed json: ", parsedJson);
@@ -106,7 +102,6 @@ var Loader = {
             console.error(e);
             return {};
         }
-
     },
 
     saveJson: function (path, json)
@@ -121,7 +116,7 @@ var Loader = {
         var basePath = Loader.resourcesPath + Loader.listsPath;
         var path = basePath + name + ".json";
 
-        console.info("Loading lists file: \"%s\"", path);
+        debug("[LIST] Loading lists file: \"%s\"", path);
         const loadJson = Loader.loadJson(path);
         debug("[LIST] %s: ", name, loadJson);
         return loadJson;
@@ -157,17 +152,14 @@ export class Manager {
                 styles: null
             }
         };
-
     }
 
     generateScript()
     {
         var out = `$(function() {`;
-
         var collection = this.collections.buttons;
-
         for (var key in collection) {
-            if( collection.hasOwnProperty(key) ) {
+            if (collection.hasOwnProperty(key)) {
                 const obj = collection[key];
                 const objStyle = obj.style;
                 out += ` 
@@ -191,7 +183,6 @@ export class Manager {
             }
         }
 
-
         out += `});`;
         return out;
     }
@@ -203,7 +194,7 @@ export class Manager {
         var collection = this.collections.styles;
 
         for (var key in collection) {
-            if( collection.hasOwnProperty(key) ) {
+            if (collection.hasOwnProperty(key)) {
                 const obj = collection[key];
                 const clsName = obj.className;
                 const css = obj.css;
@@ -218,12 +209,11 @@ export class Manager {
     {
         debug('[GENERATE] Called: (%s)', select);
         var out = null;
-        switch (select)
-        {
+        switch (select) {
             case "style":
 
                 out = this.generateStyles();
-            break;
+                break;
             case "script":
                 out = this.generateScript();
                 break;

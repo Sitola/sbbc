@@ -63,6 +63,11 @@ class Tools {
         return css.substring(posOpen + 1, posClose - 1);
     }
 
+    static generateCss(className, css)
+    {
+        return `.${className} \n{${css}\n}\n`;
+    }
+
     static removeNewLine(str)
     {
         return str.replace(/(\r\n|\n|\r)/gm,"")

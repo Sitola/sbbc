@@ -1,19 +1,14 @@
 extends ../layout
 
 block content
+    h3 #{form_page}
 
-    #main_cont
-        ul
-            li
-                a(href="/admin/style") Create Style for Button
-            li
-                a(href="/admin/command") Create Button Command
-            li
-                a(href="/admin/button") Create button
-block scripts
-    script(src="/js/lib/admin.js", type="text/javascript")
-
-
-
-
-
+    case form_page
+        when "create"
+            include ../forms/index_create
+        when "edit"
+            include ../forms/index_edit
+        when "index"
+            include ../forms/index
+        default
+            include ../forms/index

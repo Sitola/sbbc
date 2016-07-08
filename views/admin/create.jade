@@ -1,0 +1,28 @@
+//
+   Created by wermington on 7/8/16.
+
+extends ../layout
+
+
+block content
+    case form_page
+        when "style"
+            include ../forms/style
+            script(src='/js/lib/create/style.js', type='text/javascript')
+        when "button"
+            include ../forms/button
+            script(src='/js/lib/create/button.js', type='text/javascript')
+        when "action"
+            include ../forms/action
+            script(src='/js/lib/create/action.js', type='text/javascript')
+
+        when "layout"
+            include ../forms/layout
+            script(src='/js/lib/create/layout.js', type='text/javascript')
+        when "index"
+            include ../forms/index_create
+        default
+            include ../forms/index_create
+
+block scripts
+    script(src='/js/lib/select.js', type='text/javascript')
