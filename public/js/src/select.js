@@ -32,7 +32,7 @@ class SelectComponent {
     select(id)
     {
         console.log("Selecting: %s for component [%s]", id, this.componentName);
-        this.component.val(id);
+        this.component.val(id).change();
     }
 
     getSelectedId()

@@ -1,18 +1,4 @@
 {
-  "demo_Play": {
-    "id": "demo_Play",
-    "name": "Demo Play",
-    "description": "",
-    "css": "\ncolor: blue; \nfont-size: 30pt;\nbackground-color:green;",
-    "className": "demo_Play"
-  },
-  "demo_Record": {
-    "id": "demo_Record",
-    "name": "demo_Record",
-    "description": "",
-    "css": "\ncolor: blue; \nfont-size: 30pt;\nbackground-color: red;",
-    "className": "demo_Record"
-  },
   "demo_Stop": {
     "id": "demo_Stop",
     "name": "Demo Stop",
@@ -20,11 +6,25 @@
     "css": "\ncolor: green; \nfont-size: 30pt;\nbackground-color:black;",
     "className": "demo_Stop"
   },
+  "demo_Record": {
+    "id": "demo_Record",
+    "name": "demo_Record",
+    "description": "",
+    "css": "\ncolor: blue; \nfont-size: 30pt;\nbackground-color: yellow;",
+    "className": "demo_Record"
+  },
+  "demo_Play": {
+    "id": "demo_Play",
+    "name": "Demo Play",
+    "description": "",
+    "css": "\ncolor: blue; \nfont-size: 30pt;\nbackground-color:green;",
+    "className": "demo_Play"
+  },
   "Test_style": {
     "id": "Test_style",
     "name": "Test style",
     "description": "",
-    "css": "\n    color: blue;\n    font-size: 100pt;",
+    "css": "\n    color: blue;\n    font-size: 60pt;",
     "className": "test_style"
   }
 }

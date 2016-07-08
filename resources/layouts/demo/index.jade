@@ -10,14 +10,14 @@ html
 
         block styles
         link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet', href='/generate/style')
 
         block scripts
 
         script(src='/bower_components/jquery/dist/jquery.min.js', type='text/javascript')
         script(src='/js/lib/main.js', type='text/javascript')
         script(src='/js/lib/show.js', type='text/javascript')
-        script(src='/generate/script', type='text/javascript')
+        script(src='/js/lib/generate.js', type='text/javascript')
+
 
 
     body
@@ -25,26 +25,33 @@ html
 
         h1 Simple layout for Ultragrid control
 
-        ul
+        ul.inline
             li
-                select#selStyles
+                button#demo_Play Play
             li
-                button#demo_Play.demo_Play Play
+                button#demo_Stop Stop
             li
-                button#demo_Stop.demo_Stop Stop
+                button#demo_Record Record
             li
-                button#demo_Record.demo_Record Record
-            li
-                button#demo_Refresh Refresh
+                button#demo_Ping Ping
 
-        script.
-            var x = $("#selStyles");
 
-            var resp = Manager.getCollection("styles");
-            resp.handle(function (data)
-            {
-                ShowList.jsonCollection(x, data);
-            });
+    script.
+        ContentGenerator.generateStyle(
+                function (out)
+                {
+                    $("<style>").text(out).appendTo('head');
+                });
+        ContentGenerator.generateButtonActions(
+                function (data)
+                {
+                    console.log("[STDOUT]", data.stdout);
+                    if(data.stderr)
+                    {
+                        console.error("[STDERR]", data.stderr);
+                    }
+                });
+
 
 
 

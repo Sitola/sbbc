@@ -56,6 +56,7 @@ $(function ()
                   console.info(res);
               });
           component.refresh();
+          component.select(id);
       }
 
       btnPrevClick.click(updatePrevButton);

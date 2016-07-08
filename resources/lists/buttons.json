@@ -30,5 +30,13 @@
     "style": "demo_Record",
     "action": "demo_Record",
     "value": "Record"
+  },
+  "demo_Ping": {
+    "id": "demo_Ping",
+    "name": "demo Ping",
+    "description": "",
+    "style": "Test_style",
+    "action": "execute_ping",
+    "value": "Ping"
   }
 }

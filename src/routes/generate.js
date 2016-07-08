@@ -26,6 +26,7 @@ router.get('/style', function (req, res, next)
     try {
         var msg = manager.generate("style");
         res.header("Content-Type", "text/css");
+        res.header('Cache-Control', 'no-cache');
         res.send(msg);
     } catch (e) {
         handleException(e, res);
@@ -40,6 +41,7 @@ router.get('/script', function (req, res, next)
     try {
         var msg = manager.generate("script");
         res.header("Content-Type", "text/javascript");
+        res.header('Cache-Control', 'no-cache');
         res.send(msg);
     } catch (e) {
         handleException(e, res);

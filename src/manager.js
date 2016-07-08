@@ -203,15 +203,13 @@ export class Manager {
         }
         return out;
     }
-
-
+    
     generate(select)
     {
         debug('[GENERATE] Called: (%s)', select);
         var out = null;
         switch (select) {
             case "style":
-
                 out = this.generateStyles();
                 break;
             case "script":

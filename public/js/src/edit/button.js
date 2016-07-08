@@ -4,6 +4,7 @@
 $(function ()
   {
 
+      var currentEdit = null;
       const parent = $(".componentContainer");
       const component = new SelectComponent("buttonComponent", "button", parent);
       component.listen(fillForm);
@@ -24,6 +25,8 @@ $(function ()
           const action = compAction.getSelectedId();
           const id = component.getSelectedId();
 
+          currentEdit = id;
+
           const request = {
               id : id,
               name: bName,
@@ -38,6 +41,7 @@ $(function ()
               console.log(res);
           });
           component.refresh();
+          component.select(id);
       }
 
 
