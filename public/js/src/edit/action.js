@@ -18,6 +18,7 @@ $(function ()
 
       const actionName = $("#actionName");
       const saveButton = $("#saveButton");
+      const runAsync = $("#runAsync");
 
       function fillForm(selectedObject)
       {
@@ -32,12 +33,14 @@ $(function ()
               const command = editorAction.getValue();
               const description = "";
               const id = component.getSelectedId();
+              const async = runAsync.is(':checked');
 
               const request = {
                   id: id,
                   name: aName,
                   description: description,
-                  action: command
+                  action: command,
+                  async: async
               };
 
               var resp = Manager.updateObject("actions", request);

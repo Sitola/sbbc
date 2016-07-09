@@ -3,10 +3,10 @@
  */
 
 
-import {DefaultResponse, ResponseError, ResponseInfo, ResponseWarning, ResponseException, Manager} from "../manager";
+import {DefaultResponse, ResponseError, ResponseInfo, ResponseWarning, ResponseException} from "../manager";
 import express from 'express'
 var router = express.Router();
-var manager = new Manager();
+import {manager} from '../global';
 
 import {debug} from "../global";
 
@@ -146,7 +146,7 @@ router.delete('/delete', function (req, res, next)
     const method = req.body.type;
 
     try {
-        var id = req.body.data;
+        var id = req.body.data.id;
         manager.deleteObject(method, id);
         const msg = `Object ${id} @ \"${method}\" successfully deleted`;
         res.send(new DefaultResponse(msg));

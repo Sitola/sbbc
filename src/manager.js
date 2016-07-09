@@ -5,7 +5,10 @@
 import * as fs from "fs";
 import * as util from "util";
 import {debug} from "./global"
-import {exec} from 'child_process';
+import {exec, spawn} from 'child_process';
+
+var spawnargs = require('spawn-args');
+
 
 
 export class DefaultResponse {
@@ -220,15 +223,44 @@ export class Manager {
     }
 
 
-    execute(id, callback)
+    executeAsync(command, callback)
     {
-        const cmd = this.getObject("actions", id);
+        try {
+            const cmd=  command.substr(0, command.indexOf(' '));
+            const tmp=  command.substr(command.indexOf(' '), command.length);
+            const args = spawnargs(tmp);
+            console.info("[EXEC]: %s ", cmd, args);
+            const child = spawn(cmd, args);
+            var result = '';
+            child.stdout.on('data', function (data)
+            {
+                if (callback) {
+                    callback("out", data);
+                    debug("[STDOUT]: %s", data);
 
-        if (!cmd) {
-            throw new ResponseError("No command was found with id: " + id);
+                }
+            });
+            child.stderr.on('data', function (data)
+            {
+                if (callback) {
+                    callback("err", data);
+                    debug("[STDERR]: %s", data);
+                }
+            });
+            child.on('close', function (code)
+            {
+                return callback("close", result);
+            });
+        }catch(e)
+        {
+            console.error("[EXEC] Error:", e);
         }
+    }
 
-        const child = exec(cmd.action, function (error, stdout, stderr)
+
+    executeSync(command, callback)
+    {
+        const child = exec(command, function (error, stdout, stderr)
         {
             var commandRes = {
                 stdout: stdout,
@@ -242,6 +274,26 @@ export class Manager {
             var managerInfo = new DefaultResponse(commandRes);
             callback(managerInfo);
         });
+    }
+
+
+    execute(id, callback)
+    {
+        const cmd = this.getObject("actions", id);
+
+        if (!cmd) {
+            throw new ResponseError("No command was found with id: " + id);
+        }
+
+        if(cmd.async)
+        {
+            callback(new DefaultResponse("Process started at background: ["+ cmd.action +"]"));
+            this.executeAsync(cmd.action, null);
+        }else
+        {
+            this.executeSync(cmd.action, callback);
+        }
+
     }
 
     getObject(type, name)

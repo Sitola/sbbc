@@ -17,16 +17,17 @@
     "description": "Record demo command",
     "action": "echo 'Record ultragrid!' "
   },
-  "execute_ping": {
-    "id": "execute_ping",
-    "name": "execute ping",
-    "description": "",
-    "action": "ping localhost"
-  },
   "simpleEcho": {
     "id": "simpleEcho",
     "name": "simpleEcho",
     "description": "simpleEcho",
     "action": "echo \"Hello World\""
+  },
+  "execute_ping": {
+    "id": "execute_ping",
+    "name": "execute ping",
+    "description": "",
+    "action": "ping localhost",
+    "async": "true"
   }
 }

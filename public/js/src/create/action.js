@@ -10,6 +10,7 @@ $(function ()
 
       const actionName = $("#actionName");
       const saveButton = $("#saveButton");
+      const runAsync = $("#runAsync");
 
       function saveButtonClick()
       {
@@ -18,12 +19,15 @@ $(function ()
           const command = editorAction.getValue();
           const description = "";
           const id = Tools.removeSpaces(aName);
+          const async = runAsync.is(':checked');
+
 
           const request = {
               id: id,
               name: aName,
               description: description,
-              action: command
+              action: command,
+              async: async
           };
 
           var resp = Manager.createObject("actions", request);
