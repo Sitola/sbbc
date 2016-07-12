@@ -20,7 +20,7 @@
 ### Runtime:
 Server will run at port: **5000**
 * `http://localhost:5000/admin/` -- Administration page *(TODO)*
-* `http://localhost:5000/demo/` -- Demo application *(TODO)*
+* `http://localhost:5000/out/demo/` -- Demo application *(TODO)*
 * `http://localhost:5000/tests/` -- Unit Tests *(Almost done)*
 
 
