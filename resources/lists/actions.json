@@ -11,12 +11,6 @@
     "description": "Stop demo command",
     "action": "echo 'Stoping ultragrid!' "
   },
-  "demo_Record": {
-    "id": "demo_Record",
-    "name": "Record demo command",
-    "description": "Record demo command",
-    "action": "echo 'Record ultragrid!' "
-  },
   "simpleEcho": {
     "id": "simpleEcho",
     "name": "simpleEcho",
@@ -29,5 +23,12 @@
     "description": "",
     "action": "ping localhost",
     "async": "true"
+  },
+  "demo_Record": {
+    "id": "demo_Record",
+    "name": "Record demo command",
+    "description": "",
+    "action": "echo 'Record ultragrid!' ",
+    "async": "false"
   }
 }

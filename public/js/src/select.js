@@ -13,9 +13,7 @@ class SelectComponent {
             this.component = SelectComponent.bindComponent(componentName);
         }
         this.type = type;
-        this.fillCallback = function ()
-        {
-        };
+        this.fillCallback = function () {};
     }
 
 
@@ -45,9 +43,7 @@ class SelectComponent {
         this.clean();
         const _this = this;
         const resp = Manager.getCollection(this.type + "s");
-        resp.handle(
-            function (result)
-            {
+        resp.handle( (result) => {
                 ShowList.jsonCollection(_this.component, result);
                 if (typeof callback == "function") {
                     callback(result);
@@ -59,11 +55,8 @@ class SelectComponent {
     {
         const _this = this;
         this.fillCallback = fillCallback;
-        this.getContent(function ()
-                        {
-                            _this.filler(fillCallback);
-                            _this.refresh(fillCallback);
-                        });
+        _this.filler(fillCallback);
+        _this.refresh(fillCallback);
     }
 
     refresh(callback)

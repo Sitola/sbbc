@@ -24,28 +24,7 @@
     "id": "Test_style",
     "name": "Test style",
     "description": "",
-    "css": "\n    color: blue;\n    font-size: 60pt;",
+    "css": "\n    color: yellow;\n    font-size: 60pt;",
     "className": "test_style"
-  },
-  "test_objAdd": {
-    "id": "test_objAdd",
-    "name": "test_objAdd",
-    "description": "test_objAdd",
-    "css": "bah",
-    "className": "test_objAdd"
-  },
-  "test_ObjGet": {
-    "id": "test_ObjGet",
-    "name": "test_ObjGet",
-    "description": "test_ObjGet",
-    "css": "bah",
-    "className": "test_ObjGet"
-  },
-  "test_objUpdate": {
-    "id": "test_objUpdate",
-    "name": "test_objUpdate",
-    "description": "test_objUpdate",
-    "css": "newCss",
-    "className": "test_objUpdate"
   }
 }
