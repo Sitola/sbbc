@@ -88,12 +88,12 @@ export class Executor {
       execution.exec();
 
       execution.onStdOut(function(data) {
-        data = data.trim();
+        data = data.slice(0, data.length - 1);
         winston.info(`[STDOUT]: ${data}`);
         config.stdout(data);
       });
       execution.onStdErr(function(data) {
-        data = data.trim();
+        data = data.slice(0, data.length - 1);
         winston.info(`[STDERR]: ${data}`);
         config.stderr(data);
       });
