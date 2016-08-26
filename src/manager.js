@@ -268,7 +268,7 @@ export class Manager {
             };
 
             if (error) {
-                callback(ResponseError("Error: " + error));
+                callback(new ResponseError("Error: " + error));
             }
 
             var managerInfo = new DefaultResponse(commandRes);
