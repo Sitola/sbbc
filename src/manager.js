@@ -288,14 +288,18 @@ export class Manager {
             throw new ResponseError("No command was found with id: " + id);
         }
 
-        if(cmd.async)
+      this.executeSync(cmd.action, callback);
+
+/*
+      if(cmd.async)
         {
             callback(new DefaultResponse("Process started at background: ["+ cmd.action +"]"));
             this.executeAsync(cmd.action, callback);
         }else
         {
-            this.executeSync(cmd.action, callback);
-        }
+          this.executeSync(cmd.action, callback);
+
+        }*/
 
     }
 
