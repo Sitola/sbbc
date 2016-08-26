@@ -280,6 +280,9 @@ export class Manager {
     execute(id, callback)
     {
         const cmd = this.getObject("actions", id);
+        callback = callback || function(arg) {
+            console.error(arg);
+          };
 
         if (!cmd) {
             throw new ResponseError("No command was found with id: " + id);
@@ -288,7 +291,7 @@ export class Manager {
         if(cmd.async)
         {
             callback(new DefaultResponse("Process started at background: ["+ cmd.action +"]"));
-            this.executeAsync(cmd.action, null);
+            this.executeAsync(cmd.action, callback);
         }else
         {
             this.executeSync(cmd.action, callback);
