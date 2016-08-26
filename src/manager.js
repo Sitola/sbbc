@@ -280,7 +280,7 @@ export class Manager {
     execute(id, callback)
     {
         const cmd = this.getObject("actions", id);
-        callback = callback || function(arg) {
+        callback = function(arg) {
             console.error(arg);
           };
 
