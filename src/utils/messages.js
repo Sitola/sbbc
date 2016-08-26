@@ -46,7 +46,6 @@ export class ErrorMessage extends DefaultMessage
   {
     super(msg, "err", next);
   }
-
 }
 
 
@@ -73,7 +72,7 @@ export class MessageFactory
 
   static warn(msg, next)
   {
-    return new WarnMessage(msg, next);
+    return new WarningMessage(msg, next);
   }
 
   static build(msg)

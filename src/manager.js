@@ -36,12 +36,12 @@ export class Manager {
 
 
   executeAsync(command, callback) {
-    Executor.async(command, callback);
+    Executor.async(command, null);
   }
 
 
   executeSync(command, callback) {
-    this.executeAsync(command, callback);
+    this.executeAsync(command, null);
   }
 
 

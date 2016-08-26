@@ -34,7 +34,7 @@ function initGetCollection(router, name) {
 
     try {
       var result = manager.getCollection(name);
-      res.send(new DefaultResponse(result));
+      res.send(MessageFactory.msg(result));
     } catch (e) {
       handleException(e, res);
     }
@@ -64,7 +64,7 @@ function initGetObject(router, type) {
     var id = req.params.id;
     try {
       var result = manager.getObject(type + "s", id);
-      res.send(new DefaultResponse(result));
+      res.send(MessageFactory.msg(result));
 
     } catch (e) {
       handleException(e, res);
@@ -99,6 +99,7 @@ router.post('/exec', function(req, res, next) {
   try {
     const id = req.body.data.exec;
     manager.execute(id, callback);
+    res.send(MessageFactory.msg("OK"));
   } catch (e) {
     handleException(e, res);
   }
@@ -112,7 +113,7 @@ router.put('/create', function(req, res, next) {
   try {
     const data = req.body.data;
     manager.createObject(method, data);
-    res.send(new DefaultResponse(`Object ["${data.id}"] @ \"${method}\" successfully created!`));
+    res.send(MessageFactory.msg(`Object ["${data.id}"] @ \"${method}\" successfully created!`));
   } catch (e) {
     handleException(e, res);
   }
@@ -125,7 +126,7 @@ router.put('/update', function(req, res, next) {
   try {
     const data = req.body.data;
     manager.updateObject(method, data);
-    res.send(new DefaultResponse(`Object [ ${data.id}] @ \"${method}\" successfully updated!`));
+    res.send(MessageFactory.msg(`Object [ ${data.id}] @ \"${method}\" successfully updated!`));
     } catch (e) {
     handleException(e, res);
   }
@@ -142,7 +143,7 @@ router.delete('/delete', function(req, res, next) {
     const id = req.body.data.id;
     manager.deleteObject(method, id);
     const msg = `Object ${id} @ \"${method}\" successfully deleted`;
-    res.send(new DefaultResponse(msg));
+    res.send(new MessageFactory.msg(msg));
 
   } catch (e) {
     handleException(e, res);

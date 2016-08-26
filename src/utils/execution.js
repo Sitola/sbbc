@@ -5,66 +5,66 @@
 
 import winston from 'winston';
 import {DefaultMessage, MessageFactory} from './messages';
-import spawn from 'child_process'
+import {exec, spawn} from 'child_process';
 
 const spawnargs = require('spawn-args');
 
 
+function dummy() {
+}
+
 export const States = {
-  RUNNING : "runngin",
+  RUNNING: "runngin",
   READY: "ready",
   CLOSED: "closed"
 };
 
-export class Execution
-{
-  constructor(command, config)
-  {
+export class Execution {
+  constructor(command, config) {
     this.command = command;
     this.config = config;
     this.sync = false;
     this.state = States.READY;
   }
 
-  onStdOut(callback)
-  {
-    if((this.state != States.RUNNING))
-    {
+  onStdOut(callback) {
+    callback = callback || dummy;
+    if ((this.state != States.RUNNING)) {
       return;
     }
 
-    this.process.stdout.on('data', callback);
+    this.process.stdout.on('data',callback);
   }
 
-  onStdErr(callback)
-  {
-    if((this.state != States.RUNNING))
-    {
+  onStdErr(callback) {
+    if ((this.state != States.RUNNING)) {
       return;
     }
 
     this.process.stderr.on('data', callback);
   }
 
-  onClose(callback)
-  {
+  onClose(callback) {
+
+    callback = callback || dummy;
     this.state = States.CLOSED;
-    winston.info("[EXEC] Application has been closed!");
-    callback(this.config);
+    this.process.on('close', function() {
+      winston.info("[EXEC] Application has been closed!");
+      callback(this.config);
+    });
+
   }
 
-  kill()
-  {
+  kill() {
     this.state = States.CLOSED;
     this.process.kill();
     winston.info("[EXEC] Application has been killed!");
   }
 
-  exec()
-  {
+  exec() {
     this.state = States.RUNNING;
-    const cmdNameString = this.command.substr(0, command.indexOf(' '));
-    const cmdArgsString = this.command.substr(command.indexOf(' '), command.length);
+    const cmdNameString = this.command.substr(0, this.command.indexOf(' '));
+    const cmdArgsString = this.command.substr(this.command.indexOf(' '), this.command.length);
     const args = spawnargs(cmdArgsString);
     winston.info("[EXEC]: %s ", cmdNameString, args);
     this.process = spawn(cmdNameString, args);
@@ -72,35 +72,44 @@ export class Execution
 
 }
 
-export class Executor
-{
-  static sync(command, config)
-  {
-   this.async(command, config);
+export class Executor {
+  static sync(command, config) {
+    this.async(command, config);
   }
 
-  static async(command, config)
-  {
+  static async(command, config) {
+    config = config || {
+        stdout: dummy,
+        stderr: dummy
+      };
+    const execution = this.createExecution(command, config);
+
     try {
-      const execution = this.createExecution(command, config);
+      execution.exec();
+
       execution.onStdOut(function(data) {
-        winston.info("[STDOUT]: ${data}");
+        data = data.trim();
+        winston.info(`[STDOUT]: ${data}`);
         config.stdout(data);
       });
       execution.onStdErr(function(data) {
-        winston.info("[STDERR]: ${data}");
+        data = data.trim();
+        winston.info(`[STDERR]: ${data}`);
         config.stderr(data);
       });
 
-      execution.exec();
-    }catch (e)
-    {
+      execution.onClose(function(data) {
+
+      });
+
+    } catch (e) {
       winston.error(e);
     }
+
+    return execution;
   }
 
-  static createExecution(command, config)
-  {
+  static createExecution(command, config) {
     return new Execution(command, config);
   }
 }
