@@ -104,7 +104,7 @@ router.post('/exec', function (req, res, next)
         const id = req.body.data.exec;
         manager.execute(id, callback);
     } catch (e) {
-        handleException(e, res);
+        //handleException(e, res);
     }
 });
 
