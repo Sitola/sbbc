@@ -37,6 +37,11 @@ export class DefaultMessage
     }
     return str;
   }
+
+  json()
+  {
+    return JSON.stringify(this);
+  }
 }
 
 

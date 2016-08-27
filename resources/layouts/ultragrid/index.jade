@@ -14,10 +14,11 @@ html
         block scripts
 
         script(src='/bower_components/jquery/dist/jquery.min.js', type='text/javascript')
+        script(src='/js/lib/ws/ws.js')
         script(src='/js/lib/main.js', type='text/javascript')
         script(src='/js/lib/show.js', type='text/javascript')
         script(src='/js/lib/generate.js', type='text/javascript')
-
+        script(src='/js/lib/terminal.js', type='text/javascript')
 
 
     body
@@ -35,22 +36,64 @@ html
             li
                 button#demo_Ping Ping
 
+        div#terminal
+
 
     script.
+        ContentGenerator.generateTerminal('#terminal');
+
         ContentGenerator.generateStyle(
-                function (out)
-                {
+                function(out) {
                     $("<style>").text(out).appendTo('head');
                 });
         ContentGenerator.generateButtonActions(
-                function (data)
-                {
+                function(data) {
                     console.log("[STDOUT]", data.stdout);
-                    if(data.stderr)
-                    {
+                    if (data.stderr) {
+
                         console.error("[STDERR]", data.stderr);
                     }
                 });
+
+        if (!window.terminal) {
+            try {
+                window.terminal = new Terminal();
+            }
+            catch (e) {
+                window.terminal = {
+                    out: function() {
+
+                    },
+                    err: function() {
+
+                    }
+                };
+
+            }
+        }
+
+        window.wsClient = new WebSocketClient();
+
+        window.wsClient.on('stdout', function(msg) {
+            var data = msg.data;
+            window.terminal.out(data);
+        });
+
+        window.wsClient.on('stderr', function(msg) {
+            var data = msg.data;
+            window.terminal.err(data);
+        });
+
+        window.wsClient.on('echo', function(msg) {
+            var data = msg.data;
+            window.terminal.out(data);
+            window.wsClient.send(msg);
+        });
+
+
+
+
+
 
 
 

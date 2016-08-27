@@ -2,6 +2,7 @@
  * Created by wermington on 5/29/16.
  */
 
+
 class DefaultMessage
 {
     constructor(type, data, method)
@@ -93,7 +94,6 @@ const Sender = {
     handleResponse: function (resp, callback)
     {
         resp.done(function (res) {
-            console.log(res);
             try {
 
                 //noinspection FallThroughInSwitchStatementJS
@@ -111,7 +111,7 @@ const Sender = {
                     case "message":
                         return callback(res.msg, res.type);
                     default:
-                        console.warn("Unknown type: %s", res.type);
+                        console.warn("[GET] Unknown type: %s", res.type);
                         return callback(res.msg, res.type);
                 }
             }catch(e)
@@ -137,7 +137,7 @@ const Sender = {
         };
 
         if (data != null) {
-            console.debug('Sending data: ', data);
+            console.debug('[SEND] Sending data: ', data);
             request.data = data;
         }
 
@@ -162,7 +162,7 @@ const Manager = {
     getObject: function (type, id, callback)
     {
         const resp = Sender.sendGet(`${SenderUrl.getCollection(type)}${id}`);
-        console.log("Get Object response: ", resp);
+        console.log("[GET] Object response: ", resp);
         return new DefaultResponse(resp, callback);
     },
 
