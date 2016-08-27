@@ -35,28 +35,24 @@ export class Manager {
   }
 
 
-  executeAsync(command, callback) {
-    Executor.async(command, null);
+  executeAsync(command, config) {
+    return Executor.async(command, config);
   }
 
 
-  executeSync(command, callback) {
-    this.executeAsync(command, null);
+  executeSync(command, config) {
+     return this.executeAsync(command, config );
   }
 
 
-  execute(id, callback) {
+  execute(id, config) {
     const cmd = this.getObject("actions", id);
-    callback = function(arg) {
-      winston.error(arg);
-    };
 
     if (!cmd) {
       throw MessageFactory.err("No command was found with id: " + id);
     }
 
-    this.executeSync(cmd.action, callback);
-
+    return this.executeSync(cmd.action, config);
   }
 
   getObject(type, name) {

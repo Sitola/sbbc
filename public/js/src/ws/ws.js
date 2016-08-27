@@ -3,108 +3,18 @@
  */
 
 
-function url(s) {
-  var l = window.location;
-  return ((l.protocol === "https:") ? "wss://" : "ws://") + l.host + '/' + s;
-}
-
-
-class DefaultMessageWS
-{
-  constructor(msg, type, next)
-  {
-    this.msg = msg;
-    this.type = type || "message";
-    this.next = next;
-  }
-
-  static build(msg)
-  {
-    return new DefaultMessage(msg.msg, msg.type, msg.next);
-  }
-
-  message()
-  {
-    return this.msg;
-  }
-
-  out()
-  {
-    console.log(this.what());
-  }
-
-  what()
-  {
-    var str = `[${this.type}] Exception: ${this.msg}`;
-    if (this.next) {
-      str += "\n" + this.next.what();
-    }
-    return str;
-  }
-}
-
-
-class ErrorMessage extends DefaultMessageWS
-{
-  constructor(msg, next)
-  {
-    super(msg, "err", next);
-  }
-}
-
-
-class WarningMessage extends DefaultMessageWS
-{
-  constructor(msg, next)
-  {
-    super(msg, "warn", next);
-  }
-}
-
-
-class MessageFactory
-{
-  static msg(msg, type, next)
-  {
-    return new DefaultMessageWS(msg, type, next);
-  }
-
-  static err(msg, next)
-  {
-    return new ErrorMessage(msg, next);
-  }
-
-  static warn(msg, next)
-  {
-    return new WarningMessage(msg, next);
-  }
-
-  static build(msg)
-  {
-    switch (msg.type)
-    {
-      case 'err':
-        return DefaultMessage.build(msg);
-      case 'warn':
-        return DefaultMessage.build(msg);
-      default:
-        return DefaultMessage.build(msg);
-    }
-  }
-}
-
-
-
-
-
-
-
 class WebSocketClient
 {
+
+  static url(s)
+  {
+    const l = window.location;
+    return ((l.protocol === "https:") ? "wss://" : "ws://") + l.host + '/' + s;
+  }
   constructor()
   {
     const _this = this;
-    this.url = url('ws');
+    this.url = WebSocketClient.url('ws');
     this.actions = {};
 
     this.ws = new WebSocket(this.url);

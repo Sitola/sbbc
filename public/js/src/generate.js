@@ -72,14 +72,8 @@ const ContentGenerator = {
                   function() {
                     var actionExec = button.action;
                     console.log("[GENERATE] Adding action id:", actionExec);
-                    const execResp =
-                      Manager.executeCommand({exec: actionExec});
 
-                    execResp.handle(
-                      function(resp) {
-                        callback(resp);
-                      }
-                    );
+                    Manager.executeCommand({exec: actionExec});
                   });
               }
             }

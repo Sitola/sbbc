@@ -61,14 +61,9 @@ html
             }
             catch (e) {
                 window.terminal = {
-                    out: function() {
-
-                    },
-                    err: function() {
-
-                    }
+                    out: function() {},
+                    err: function() {}
                 };
-
             }
         }
 
@@ -76,17 +71,32 @@ html
 
         window.wsClient.on('stdout', function(msg) {
             var data = msg.data;
-            window.terminal.out(data);
+            var pid = msg.pid;
+            var out = "[OUT] (" + pid + "): " + data;
+            window.terminal.out(out);
         });
 
         window.wsClient.on('stderr', function(msg) {
             var data = msg.data;
-            window.terminal.err(data);
+            var pid = msg.pid;
+            var out = "[ERR] (" + pid + "): " + data;
+            window.terminal.out(out);
+
+        });
+
+        window.wsClient.on('proc_close', function(msg) {
+            var data = msg.data;
+            var pid = msg.pid;
+            var out = "[CLOSE] (" + pid + "): Program exited!";
+            window.terminal.out(out);
+
         });
 
         window.wsClient.on('echo', function(msg) {
             var data = msg.data;
-            window.terminal.out(data);
+            var pid = msg.pid;
+            var out = "[OUT] (" + pid + "): " + data; ;
+            window.terminal.out(out);
             window.wsClient.send(msg);
         });
 

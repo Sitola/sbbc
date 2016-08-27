@@ -52,7 +52,12 @@ export class Execution {
       winston.info("[EXEC] Application has been closed!");
       callback(this.config);
     });
+  }
 
+  onStart(callback)
+  {
+    callback = callback || dummy();
+    callback(this.process);
   }
 
   kill() {
@@ -99,7 +104,7 @@ export class Executor {
       });
 
       execution.onClose(function(data) {
-
+        config.close();
       });
 
     } catch (e) {

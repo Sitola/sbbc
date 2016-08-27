@@ -36,13 +36,14 @@ export class WSConnection {
     this.actions[type] = callback;
   }
 
-  handleIncommingMessage(msg) {
+  handleIncommingMessage(msgStr) {
+    var msg = msgStr;
     if(typeof msg === "string")
     {
       msg = JSON.parse(msg);
     }
 
-    log.debug(`[WS] Message: `, msg);
+    log.debug(`[WS] Received message: `, msgStr);
     if (msg.type && msg.msg) {
       this.handleMessage(msg.msg);
     }
@@ -75,7 +76,7 @@ export class WSConnection {
   }
 
   send(msg, type){
-    log.debug(`[WS] Sending message: `, msg);
+    log.debug(`[WS] Sending message: `, JSON.stringify(msg));
     this.wss.send(MessageFactory.msg(msg, type).json());
   }
 
