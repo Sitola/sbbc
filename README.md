@@ -10,6 +10,18 @@
  * `./install.sh`
 
 
+### Update:
+ * `git stash`
+ * `git pull --rebase origin master`
+ * `git stash apply`
+ * `npm update`
+ * `npm run babel-server`
+ * `npm run babel-client`
+ 
+ or just run
+ *`./update.sh`
+
+
 ### Run
 
  * `npm run start`
@@ -21,6 +33,7 @@
 Server will run at port: **5000**
 * `http://localhost:5000/admin/` -- Administration page *(TODO)*
 * `http://localhost:5000/out/demo/` -- Demo application *(TODO)*
+* `http://localhost:5000/out/ultragrid/` -- Ultragrid application *(TODO)*
 * `http://localhost:5000/tests/` -- Unit Tests *(Almost done)*
 
 
