@@ -6,7 +6,8 @@ function getObject(name, action, style)
         description: name,
         value: name,
         action: action,
-        style: style
+        style: style,
+        category: "test"
     };
 }
 
@@ -132,7 +133,6 @@ QUnit.test("test actions update", function (assert)
                 assert.equal(buttonObject.action, newButton.action);
                 assert.equal(buttonObject.style, newButton.style);
                 assert.equal(buttonObject.value, newButton.value);
-
                 buttonClean(newButton);
                 done();
             });

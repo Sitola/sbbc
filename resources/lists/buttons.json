@@ -1,42 +1,38 @@
 {
-  "demo_Play": {
-    "id": "demo_Play",
-    "name": "Demo play",
-    "description": "Demo play button",
-    "value": "Play",
-    "action": "demo_Play",
-    "style": "demo_Play"
-  },
-  "demo_Stop": {
-    "id": "demo_Stop",
-    "name": "Demo stop",
-    "description": "Demo stop button",
-    "value": "Stop",
-    "action": "demo_Stop",
-    "style": "demo_Stop"
-  },
-  "Ping": {
-    "id": "Ping",
-    "name": "Ping Pong Pung",
-    "description": "",
-    "style": "demo_Stop",
-    "action": "execute_ping",
-    "value": "Ping"
-  },
-  "demo_Record": {
-    "id": "demo_Record",
-    "name": "Demo record",
-    "description": "",
-    "style": "demo_Record",
-    "action": "demo_Record",
-    "value": "Record"
-  },
-  "demo_Ping": {
-    "id": "demo_Ping",
-    "name": "demo Ping",
+  "ug_Play": {
+    "id": "ug_Play",
+    "name": "ug Play",
     "description": "",
     "style": "Test_style",
-    "action": "execute_ping",
-    "value": "Ping"
+    "action": "simpleEcho",
+    "value": "Play",
+    "category": "ultragrid"
+  },
+  "ug_Stop": {
+    "id": "ug_Stop",
+    "name": "ug Stop",
+    "description": "",
+    "style": "Test_style",
+    "action": "simpleEcho",
+    "value": "Stop",
+    "category": "ultragrid"
+  },
+  "ug_Record": {
+    "id": "ug_Record",
+    "name": "ug Record",
+    "description": "",
+    "style": "Test_style",
+    "action": "simpleEcho",
+    "value": "Start Record",
+    "category": "ultragrid"
+  },
+  "ug_StopRecord": {
+    "id": "ug_StopRecord",
+    "name": "ug StopRecord",
+    "description": "",
+    "style": "Test_style",
+    "action": "simpleEcho",
+    "value": "Stop Record",
+    "category": "ultragrid"
   }
 }

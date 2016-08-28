@@ -54,11 +54,7 @@ export class Execution {
     });
   }
 
-  onStart(callback)
-  {
-    callback = callback || dummy();
-    callback(this.process);
-  }
+
 
   kill() {
     this.state = States.CLOSED;
@@ -73,6 +69,7 @@ export class Execution {
     const args = spawnargs(cmdArgsString);
     winston.info("[EXEC]: %s ", cmdNameString, args);
     this.process = spawn(cmdNameString, args);
+    return this;
   }
 
 }
@@ -85,7 +82,9 @@ export class Executor {
   static async(command, config) {
     config = config || {
         stdout: dummy,
-        stderr: dummy
+        stderr: dummy,
+        close : dummy,
+        start : dummy
       };
     const execution = this.createExecution(command, config);
 

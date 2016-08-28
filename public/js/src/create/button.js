@@ -5,41 +5,43 @@
  * Created by wermington on 6/5/16.
  */
 
-$(function () {
+$(function() {
 
-    const buttonName = $("#buttonName");
-    const buttonText = $("#buttonText");
-    const saveButton = $("#saveButton");
+  const buttonName = $("#buttonName");
+  const buttonText = $("#buttonText");
+  const saveButton = $("#saveButton");
+  const categoryName = $("#categoryName");
 
-    const compStyle = new SelectComponent("#selectButtonStyle", "style");
-    const compAction = new SelectComponent("#selectButtonCommand", "action");
+  const compStyle = new SelectComponent("#selectButtonStyle", "style");
+  const compAction = new SelectComponent("#selectButtonCommand", "action");
 
-    compStyle.getContent();
-    compAction.getContent();
+  compStyle.getContent();
+  compAction.getContent();
 
-    function saveButtonClicked()
-    {
-        const bName = buttonName.val();
-        const id =  Tools.removeSpaces(bName);
-        const text = buttonText.val();
-        const style = compStyle.getSelectedId();
-        const action = compAction.getSelectedId();
+  function saveButtonClicked() {
+    const bName = buttonName.val();
+    const category = categoryName.val();
+    const id = Tools.removeSpaces(bName);
+    const text = buttonText.val();
+    const style = compStyle.getSelectedId();
+    const action = compAction.getSelectedId();
 
-        const request = {
-            id : id,
-            name: bName,
-            description:  "",
-            style: style,
-            action: action,
-            value: text
-        };
+    const request = {
+      id: id,
+      name: bName,
+      description: "",
+      style: style,
+      action: action,
+      value: text,
+      category: category
+    };
 
-        var resp = Manager.createObject("buttons", request);
-        resp.handle(function (res) {
-            console.log(res);
-        });
-    }
+    var resp = Manager.createObject("buttons", request);
+    resp.handle(function(res) {
+      console.log(res);
+    });
+  }
 
-    saveButton.click(saveButtonClicked);
+  saveButton.click(saveButtonClicked);
 
 });

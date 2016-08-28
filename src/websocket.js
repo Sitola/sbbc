@@ -2,7 +2,7 @@
  * Created by pstanko on 7/4/16.
  */
 
-import {manager, debug} from './global';
+import {manager} from './global';
 import winston from 'winston';
 import {WSConnection} from "./ws/WSConnection";
 import {} from './utils/execution';
@@ -25,11 +25,12 @@ class WSSender {
         _this.sendClose()
       },
       start: function(data) {
-        this.sendStart(data);
+        _this.sendStart(data);
       }
     };
 
     this.exec = manager.execute(this.name, this.config);
+    this.config.start(this.exec);
     }
 
   sendStdDefault(data, type) {
