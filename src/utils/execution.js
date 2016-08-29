@@ -68,7 +68,11 @@ export class Execution {
     const cmdArgsString = this.command.substr(this.command.indexOf(' '), this.command.length);
     const args = spawnargs(cmdArgsString);
     winston.info("[EXEC]: %s ", cmdNameString, args);
-    this.process = spawn(cmdNameString, args);
+    this.process = spawn(cmdNameString, args,
+                         {
+                           env: Object.assign({}, process.env, { PATH: process.env.PATH + ':/usr/local/bin' }),
+                           cwd: process.env.HOME
+                         });
     return this;
   }
 
