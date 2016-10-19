@@ -14,7 +14,7 @@ function dummy() {
 }
 
 export const States = {
-  RUNNING: "runngin",
+  RUNNING: "running",
   READY: "ready",
   CLOSED: "closed"
 };

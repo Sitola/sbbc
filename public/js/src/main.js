@@ -243,7 +243,7 @@ const Manager = {
   executeCommand: function(obj, callback) {
     //return this.invokeRequest(SenderUrl.Exec, null, obj, "POST" , callback);
 
-    window.wsClient.send({ type: 'exec', data: obj });
+    window.wsClient.send({ type: 'exec', data: obj});
 
   }
 };

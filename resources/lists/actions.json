@@ -30,5 +30,12 @@
     "description": "",
     "action": "echo 'Record ultragrid!' ",
     "async": "false"
+  },
+  "kill_ping": {
+    "id": "kill_ping",
+    "name": "kill ping",
+    "description": "",
+    "javascript": "",
+    "action": "killall -9 ping"
   }
 }

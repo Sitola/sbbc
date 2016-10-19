@@ -4,35 +4,39 @@
     "name": "ug Play",
     "description": "",
     "style": "Test_style",
-    "action": "simpleEcho",
+    "action": "execute_ping",
     "value": "Play",
-    "category": "ultragrid"
+    "category": "default",
+    "styleClicked": "Test_style_Clicked"
   },
   "ug_Stop": {
     "id": "ug_Stop",
     "name": "ug Stop",
     "description": "",
     "style": "Test_style",
-    "action": "simpleEcho",
+    "action": "kill_ping",
     "value": "Stop",
-    "category": "ultragrid"
-  },
-  "ug_Record": {
-    "id": "ug_Record",
-    "name": "ug Record",
-    "description": "",
-    "style": "Test_style",
-    "action": "simpleEcho",
-    "value": "Start Record",
-    "category": "ultragrid"
+    "category": "default",
+    "styleClicked": "Test_style_Clicked"
   },
   "ug_StopRecord": {
     "id": "ug_StopRecord",
     "name": "ug StopRecord",
     "description": "",
     "style": "Test_style",
-    "action": "simpleEcho",
+    "action": "kill_ping",
     "value": "Stop Record",
-    "category": "ultragrid"
+    "category": "default",
+    "styleClicked": "Test_style_Clicked"
+  },
+  "ug_Record": {
+    "id": "ug_Record",
+    "name": "ug Record",
+    "description": "",
+    "style": "Test_style",
+    "action": "execute_ping",
+    "value": "Start Record",
+    "category": "ultragrid",
+    "styleClicked": "Test_style_Clicked"
   }
 }

@@ -12,6 +12,12 @@ $(function ()
       editorAction.session.setMode("ace/mode/sh");
       document.getElementById('textCommand').style.fontSize = '15px';
 
+      const editorJavaScript = ace.edit("textJavaScript");
+      editorAction.$blockScrolling = 1;
+      editorAction.setTheme("ace/theme/twilight");
+      editorAction.session.setMode("ace/mode/javascript");
+      document.getElementById('textJavaScript').style.fontSize = '15px';
+
       const parent = $(".componentContainer");
       const component = new SelectComponent("actionComponent", "action", parent);
       component.listen(fillForm);
@@ -24,6 +30,7 @@ $(function ()
       {
           actionName.val(selectedObject.name);
           editorAction.setValue(selectedObject.action, 1);
+          editorJavaScript.setValue(selectedObject.javascript);
       }
 
       saveButton.click(
@@ -31,16 +38,16 @@ $(function ()
           {
               const aName = actionName.val();
               const command = editorAction.getValue();
+              const javascr = editorJavaScript.getValue();
               const description = "";
               const id = component.getSelectedId();
-              const async = runAsync.is(':checked');
 
               const request = {
                   id: id,
                   name: aName,
                   description: description,
                   action: command,
-                  async: async
+                  javascript: javascr
               };
 
               var resp = Manager.updateObject("actions", request);

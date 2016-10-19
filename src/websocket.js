@@ -10,9 +10,10 @@ import {} from './utils/execution';
 
 class WSSender {
 
-  constructor(name, conn) {
+  constructor(name, conn, buttonId) {
     this.name = name;
     this.conn = conn;
+    this.buttonId = buttonId;
     const _this = this;
     this.config = {
       stdout: function(data) {
@@ -24,8 +25,8 @@ class WSSender {
       close: function() {
         _this.sendClose()
       },
-      start: function(data) {
-        _this.sendStart(data);
+      start: function() {
+        _this.sendStart(this.name);
       }
     };
 
@@ -37,7 +38,9 @@ class WSSender {
     const obj = {
       type: type,
       pid: this.exec.process.pid,
-      data: data
+      data: data,
+      name: this.name,
+      buttonId: this.buttonId
     };
 
     this.conn.send(obj);
@@ -86,7 +89,8 @@ export default function(app) {
                       return;
                     }
                     const cmd = msg.data.exec;
-                    const handle = new WSSender(cmd, connection);
+                    const button = msg.data.buttonId;
+                    const handle = new WSSender(cmd, connection, button);
                   });
 
   });

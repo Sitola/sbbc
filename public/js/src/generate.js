@@ -5,81 +5,126 @@
 
 const ContentGenerator = {
 
-    generateTerminal(elemId)
-    {
-      "use strict";
-      const elemTerm = $(elemId);
+  buttons: {},
 
-      if (!elemTerm) {
-        console.error("No terminal ready!");
-      }
+  generateTerminal(elemId)
+  {
+    "use strict";
+    const elemTerm = $(elemId);
 
-      window.terminal = new Terminal(elemTerm);
-
-    },
-
-
-    generateStyle(callback)
-    {
-      "use strict";
-      const resp = Manager.getCollection("styles");
-      console.log('[GENERATE] Styles');
-      resp.handle(
-        function(styles) {
-          var out = "";
-          for (var style in styles) {
-            console.log("[STYLE] ", style);
-            if (styles.hasOwnProperty(style)) {
-              const obj = styles[style];
-              out += `${Tools.generateCss(obj.className, obj.css)}\n`;
-            }
-          }
-          //console.log("[OUT] ", out);
-          callback(out);
-        });
+    if (!elemTerm) {
+      console.error("No terminal ready!");
     }
-    ,
 
-    appendStyle(button, elem)
-    {
-      "use strict";
-      const resp = Manager.getObject("style", button.style);
-      resp.handle(
-        function(style) {
-          elem.addClass(style.className);
+    window.terminal = new Terminal(elemTerm);
+
+  },
+  generateStyle(callback)
+  {
+    "use strict";
+    const resp = Manager.getCollection("styles");
+    console.log('[GENERATE] Styles');
+    resp.handle(
+      function(styles) {
+        var out = "";
+        for (var style in styles) {
+          console.log("[STYLE] ", style);
+          if (styles.hasOwnProperty(style)) {
+            const obj = styles[style];
+            out += `${Tools.generateCss(obj.className, obj.css)}\n`;
+          }
         }
-      )
+        //console.log("[OUT] ", out);
+        callback(out);
+      });
+  },
+
+  appendStyle(button, elem, type)
+  {
+    if (type == "clicked") {
+      ContentGenerator.setStyleClicked(button, elem);
+    } else {
+      ContentGenerator.setStyleNormal(button, elem);
     }
-    ,
+  },
 
-    generateButtonActions(callback)
-    {
-      "use strict";
-      const btnResp = Manager.getCollection("buttons");
-      btnResp.handle(
-        function(buttons) {
-          for (const key in buttons) {
-            if (buttons.hasOwnProperty(key)) {
-              const button = buttons[key];
-              const buttElem = $("#" + button.id);
-              if (!buttElem) {
-                continue;
-              }
-              {
-                ContentGenerator.appendStyle(button, buttElem);
-                buttElem.text(button.value);
-                buttElem.click(
-                  function() {
-                    var actionExec = button.action;
-                    console.log("[GENERATE] Adding action id:", actionExec);
+  setStyleNormal(button, elem)
+  {
+    "use strict";
+    if(button.styleClicked) {
+      const respClicked = Manager.getObject("style", button.styleClicked);
+      respClicked.handle(function(styleClicked) {
+        elem.removeClass(styleClicked.className);
+      });
+    }
 
-                    Manager.executeCommand({exec: actionExec});
-                  });
-              }
+    const resp = Manager.getObject("style", button.style);
+    resp.handle(
+      function(styleNormal) {
+        elem.addClass(styleNormal.className);
+      }
+    );
+
+  },
+
+  setStyleClicked(button, elem)
+  {
+    "use strict";
+    if(!button.styleClicked) return;
+    const respNormal = Manager.getObject("style", button.style);
+    respNormal.handle(function(styleNormal) {
+      elem.removeClass(styleNormal.className);
+    });
+
+    const resp = Manager.getObject("style", button.styleClicked);
+    resp.handle(
+      function(styleClicked) {
+        elem.addClass(styleClicked.className);
+      }
+    );
+  },
+
+  invertColors(elem) {
+    var bgColor = 'background-color';
+    var fgColor = 'color';
+    var bg = elem.css(bgColor);
+    var fg = elem.css(fgColor);
+
+    elem.css(bgColor, fg);
+    elem.css(fgColor, bg);
+  },
+
+  generateButtonActions(callback)
+  {
+    "use strict";
+    const btnResp = Manager.getCollection("buttons");
+    btnResp.handle(
+      function(buttons) {
+        ContentGenerator.buttons = buttons;
+        for (const key in buttons) {
+          if (buttons.hasOwnProperty(key)) {
+            const button = buttons[key];
+            const buttElem = $("#" + button.id);
+            if (!buttElem) {
+              continue;
             }
+
+            ContentGenerator.setStyleNormal(button, buttElem);
+            buttElem.text(button.value);
+
+            if (button.javascript) {
+              eval(button.javascript);
+            }
+
+            buttElem.click(
+              function() {
+                var actionExec = button.action;
+                console.log("[GENERATE] Adding action id:", actionExec);
+                Manager.executeCommand({exec: actionExec, buttonId: button.id});
+              });
           }
-        });
-    }
+        }
+      });
   }
-  ;
+};
 

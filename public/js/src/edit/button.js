@@ -15,6 +15,8 @@ $(function() {
 
   const compStyle = new SelectComponent("#selectButtonStyle", "style");
   const compAction = new SelectComponent("#selectButtonCommand", "action");
+  const compStyleClicked = new SelectComponent("#selectButtonStyleClicked", "style");
+
 
 
   function saveButtonClicked() {
@@ -24,6 +26,7 @@ $(function() {
     const action = compAction.getSelectedId();
     const id = component.getSelectedId();
     const category = categoryName.val() || "default";
+    const styleClicked = compStyleClicked.getSelectedId();
 
 
     currentEdit = id;
@@ -35,7 +38,8 @@ $(function() {
       style: style,
       action: action,
       value: text,
-      category: category
+      category: category,
+      styleClicked: styleClicked
     };
 
     var resp = Manager.updateObject("buttons", request);
@@ -57,7 +61,10 @@ $(function() {
     });
     compAction.getContent(function() {
       compAction.select(selectedObject.action);
+    });
 
+    compStyleClicked.getContent(function() {
+      compStyleClicked.select(selectedObject.styleClicked);
     });
     buttonName.val(selectedObject.name);
     buttonText.val(selectedObject.value);

@@ -13,10 +13,12 @@ $(function() {
   const categoryName = $("#categoryName");
 
   const compStyle = new SelectComponent("#selectButtonStyle", "style");
+  const compStyleClicked = new SelectComponent("#selectButtonStyleClicked", "style");
   const compAction = new SelectComponent("#selectButtonCommand", "action");
 
   compStyle.getContent();
   compAction.getContent();
+  compStyleClicked.getContent();
 
   function saveButtonClicked() {
     const bName = buttonName.val();
@@ -25,12 +27,14 @@ $(function() {
     const text = buttonText.val();
     const style = compStyle.getSelectedId();
     const action = compAction.getSelectedId();
+    const styleClicked = compStyleClicked.getSelectedId();
 
     const request = {
       id: id,
       name: bName,
       description: "",
       style: style,
+      styleClicked: styleClicked,
       action: action,
       value: text,
       category: category

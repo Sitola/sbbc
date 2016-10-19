@@ -26,5 +26,12 @@
     "description": "",
     "css": "\n    color: yellow;\n    font-size: 60pt;",
     "className": "test_style"
+  },
+  "Test_style_Clicked": {
+    "id": "Test_style_Clicked",
+    "name": "Test style Clicked",
+    "description": "",
+    "css": "\n    color: red;\n    font-size: 60pt;",
+    "className": "test_style_clicked"
   }
 }

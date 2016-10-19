@@ -4,7 +4,7 @@
   "author": "Peter Stanko (wermington@gmail.com)",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": " npm run babel-all && node ./bin/www",
     "debug": "DEBUG=\"sbbc\" node ./bin/www",
     "babel-server": "babel src --out-dir lib -s",
     "babel-client": "babel public/js/src/ --out-dir public/js/lib/ -s",

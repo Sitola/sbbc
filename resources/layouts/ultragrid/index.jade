@@ -43,6 +43,7 @@ html
 
 
     script.
+
         ContentGenerator.generateTerminal('#terminal');
 
         ContentGenerator.generateStyle(
@@ -70,6 +71,7 @@ html
             }
         }
 
+
         window.wsClient = new WebSocketClient();
 
         window.wsClient.on('stdout', function(msg) {
@@ -90,26 +92,35 @@ html
         window.wsClient.on('proc_close', function(msg) {
             var data = msg.data;
             var pid = msg.pid;
-            var out = "[CLOSE] (" + pid + "): Program exited!";
+            var name = msg.name;
+            var btnID = msg.buttonId;
+            var button = $("#"+ btnID);
+            var out = "[CLOSE] (" + pid + ")[" + name + "]: Program exited!";
             window.terminal.out(out);
-
+            ContentGenerator.setStyleNormal(ContentGenerator.buttons[btnID],button)
         });
 
         window.wsClient.on('proc_start', function(msg) {
             var data = msg.data;
             var pid = msg.pid;
-            var out = "[START] (" + pid + "): Program started.";
+            var name = msg.name;
+            var out = "[START] (" + pid + ")[" + name + "]: Program started.";
+            var btnID = msg.buttonId;
+            var button = $("#" + btnID);
             window.terminal.out(out);
 
+            ContentGenerator.setStyleClicked(ContentGenerator.buttons[btnID],button)
         });
 
         window.wsClient.on('echo', function(msg) {
             var data = msg.data;
             var pid = msg.pid;
-            var out = "[OUT] (" + pid + "): " + data; ;
+            var out = "[OUT] (" + pid + "): " + data;
             window.terminal.out(out);
             window.wsClient.send(msg);
         });
+
+
 
 
 
