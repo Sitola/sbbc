@@ -6,3 +6,4 @@ public/js/lib/
 
 npm-debug.log
 
+bin/app.out.js

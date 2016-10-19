@@ -22,21 +22,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/edit', function(req, res, next) {
-  res.render('admin/edit', {title: 'Style', form_page: 'edit'});
+  res.render('admin/edit', {title: 'Style', form_page: 'edit', action: 'edit'});
 });
 
 router.get('/create', function(req, res, next) {
-  res.render('admin/create', {title: 'Button', form_page: 'create'});
+  res.render('admin/create', {title: 'Button', form_page: 'create', action: 'create'});
 });
 
 router.get('/edit/:form', function(req, res, next) {
   const form = req.params.form;
-  res.render('admin/edit', {title: 'Command', form_page: form});
+  res.render('admin/edit', {title: 'Command', form_page: form, action: 'edit'});
 });
 
 router.get('/create/:form', function(req, res, next) {
   const form = req.params.form;
-  res.render('admin/create', {title: 'Command', form_page: form});
+  res.render('admin/create', {title: 'Command', form_page: form, action: 'create'});
 });
 
 

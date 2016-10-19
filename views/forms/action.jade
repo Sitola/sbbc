@@ -2,24 +2,25 @@
    Created by wermington on 7/8/16.
 
 #main_cont
-    table
-        tr
-            td
-                label Action name:
-            td
-                input#actionName(type="text", name="actionName")
-        tr
-            td
-                label Action command:
-            td
-                pre#textCommand.text_big
+    div.row
+        table.col-md-8
+            tr
+                td
+                    label Action name:
+                td
+                    input#actionName(type="text", name="actionName")
+            tr
+                td
+                    label Action command:
+                td
+                    pre#textCommand.text_big
 
-        tr
-            td
-                label Action javascript:
-            td
-                pre#textJavaScript.text_big
+            tr
+                td
+                    label Action javascript:
+                td
+                    pre#textJavaScript.text_big
 
-        tr
-            td(colspan=2)
-                input#saveButton(type="button", value="Save")
+            tr
+                td(colspan=2)
+                    input#saveButton(type="button", value="Save")

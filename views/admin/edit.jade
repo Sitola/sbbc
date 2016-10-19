@@ -10,22 +10,22 @@ block content
     case form_page
         when "style"
             include ../forms/style
-            script(src='/js/lib/edit/style.js', type='text/javascript')
+            script(src='/js/lib/#{action}/style.js', type='text/javascript')
         when "button"
             include ../forms/button
-            script(src='/js/lib/edit/button.js', type='text/javascript')
+            script(src='/js/lib/#{action}/button.js', type='text/javascript')
 
         when "action"
             include ../forms/action
-            script(src='/js/lib/edit/action.js', type='text/javascript')
+            script(src='/js/lib/#{action}/action.js', type='text/javascript')
         when "layout"
             include ../forms/layout
-            script(src='/js/lib/edit/layout.js', type='text/javascript')
+            script(src='/js/lib/#{action}/layout.js', type='text/javascript')
 
         when "index"
-            include ../forms/index_edit
+            include ../forms/index_any
         default
-            include ../forms/index_edit
+            include ../forms/index_any
 
 block scripts
     script(src='/js/lib/select.js', type='text/javascript')
