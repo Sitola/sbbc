@@ -1,11 +1,32 @@
 //
    Created by wermington on 7/8/16.
 
-div#menuContainer
-    ul.nav.nav-pills
-        li(role="presentation")
-            a.bigItem(href="/admin/edit") Edit
-        li(role="presentation")
-            a.bigItem(href="/admin/create") Create
+div.nav.navbar-default
+    ul.nav.navbar-nav
+        li
+            a(href="/admin") Admin Home
+
+        li
+            a(href="#") About
+
+        li
+            a.dropdown-toggle(href="/admin/edit" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Edit
+                span.caret
+            ul.dropdown-menu
+                li
+                    a(href="/admin/edit/button")   Buttons
+                    a(href="/admin/edit/action")   Actions
+                    a(href="/admin/edit/style")    Styles
+                    a(href="/admin/edit/layout")   Layouts
+
+        li
+            a.dropdown-toggle(href="/admin/create" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Create
+                span.caret
+            ul.dropdown-menu
+                li
+                    a(href="/admin/create/button") Buttons
+                    a(href="/admin/create/action") Actions
+                    a(href="/admin/create/style")  Styles
+                    a(href="/admin/create/layout") Layouts
 
 

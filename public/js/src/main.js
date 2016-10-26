@@ -221,8 +221,7 @@ const Manager = {
     return new HTTPResponse(resp, callback);
   },
 
-  invokeRequest: function(url, name, obj, method = "PUT", callback = null) {
-    "use strict";
+  invokeRequest: function(url, name, obj, method, callback) {
     const request = MessageFactory.httpMessage(name, obj, method);
     const serverResponse = request.send(url, "");
     return new HTTPResponse(serverResponse, callback);

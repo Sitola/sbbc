@@ -2,35 +2,29 @@
    Created by wermington on 7/8/16.
 
 
-#buttonPreview
-    div.row
-        div.col-md-8
-            button#styledButton Test Button
-            style#previewStyle
-
-#main_cont
-    div.row
-        table.col-md-8
-            tr
-                td
-                    label Style name:
-                td
-                    input#textStyleName(type="text", name="textStyleName")
-            tr
-                td
-                    label Style class:
-                td
-                    input#textStyleClass(type="text", name="textStyleClass")
-            tr
-                td
-                    label Button style:
-                td
-                    pre#textCssStyle.text_big
+div.row.preview-button-area
+    div.col-md-8
+        button#styledButton Test Button
+        style#previewStyle
 
 
-            tr
-                td
-                    button#saveClickButton Save!
-                td
-                    button#prevClickButton Preview!
+form.form-horizontal(method="post")
+    div.form-group
+        label(for="textStyleName").control-label.col-sm-2 Style name:
+        div.col-sm-10
+            input#textStyleName(type="text", name="textStyleName").form-control
+
+    div.form-group
+        label(for="textStyleClass").control-label.col-sm-2 Style class:
+        div.col-sm-10
+            input#textStyleClass(type="text", name="textStyleClass").form-control
+
+    div.form-group
+        label(for="textCssStyle").control-label.col-sm-2 Button style:
+        div.col-sm-10
+            pre#textCssStyle.ace-editor.form-control
+
+    button#saveClickButton.btn.btn-primary Save
+    button#prevClickButton.btn.btn-primary Preview
+
 

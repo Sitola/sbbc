@@ -3,72 +3,87 @@
  */
 $(function() {
 
-  var currentEdit = null;
-  const parent = $(".componentContainer");
-  const component = new SelectComponent("buttonComponent", "button", parent);
-  component.listen(fillForm);
+    const parComponent = $("#editComponentSelector");
+    var component = null;
 
-  const buttonName = $("#buttonName");
-  const buttonText = $("#buttonText");
-  const saveButton = $("#saveButton");
-  const categoryName = $("#categoryName");
+    if (parComponent.length) {
+        component = new SelectComponent("buttonComponent", "button", parComponent);
+        component.listen(fillForm);
+    }
 
-  const compStyle = new SelectComponent("#selectButtonStyle", "style");
-  const compAction = new SelectComponent("#selectButtonCommand", "action");
-  const compStyleClicked = new SelectComponent("#selectButtonStyleClicked", "style");
+    const buttonName = $("#buttonName");
+    const buttonText = $("#buttonText");
+    const saveButton = $("#saveButton");
+    const categoryName = $("#categoryName");
 
-
-
-  function saveButtonClicked() {
-    const bName = buttonName.val();
-    const text = buttonText.val();
-    const style = compStyle.getSelectedId();
-    const action = compAction.getSelectedId();
-    const id = component.getSelectedId();
-    const category = categoryName.val() || "default";
-    const styleClicked = compStyleClicked.getSelectedId();
+    const compStyle = new SelectComponent("#selectButtonStyle", "style");
+    const compAction = new SelectComponent("#selectButtonCommand", "action");
+    const compStyleClicked = new SelectComponent("#selectButtonStyleClicked", "style");
+    if(!component) {
+        compStyle.getContent();
+        compAction.getContent();
+        compStyleClicked.getContent();
+    }
 
 
-    currentEdit = id;
-
-    const request = {
-      id: id,
-      name: bName,
-      description: "",
-      style: style,
-      action: action,
-      value: text,
-      category: category,
-      styleClicked: styleClicked
-    };
-
-    var resp = Manager.updateObject("buttons", request);
-    resp.handle(function(res) {
-      console.log(res);
-    });
-    component.refresh();
-    component.select(id);
-  }
+    function saveButtonClicked() {
+        const bName = buttonName.val();
+        const text = buttonText.val();
+        const style = compStyle.getSelectedId();
+        const action = compAction.getSelectedId();
+        const category = categoryName.val() || "default";
+        const styleClicked = compStyleClicked.getSelectedId();
 
 
-  saveButton.click(saveButtonClicked);
+        const request = {
+            name: bName,
+            description: "",
+            style: style,
+            action: action,
+            value: text,
+            category: category,
+            styleClicked: styleClicked
+        };
+
+        var resp = null;
+        if(component) {
+            request["id"] = component.getSelectedId();
+            resp = Manager.updateObject("buttons", request);
+        }
+        else{
+            request["id"] = Tools.removeSpaces(bName);
+            resp = Manager.createObject("buttons", request);
+        }
+
+        resp.handle(function(res) {
+            console.log(res);
+        });
+
+        if (component) {
+            component.refresh();
+            component.select(id);
+        }
+    }
 
 
-  function fillForm(selectedObject) {
-    "use strict";
-    compStyle.getContent(function() {
-      compStyle.select(selectedObject.style);
-    });
-    compAction.getContent(function() {
-      compAction.select(selectedObject.action);
-    });
+    saveButton.click(saveButtonClicked);
 
-    compStyleClicked.getContent(function() {
-      compStyleClicked.select(selectedObject.styleClicked);
-    });
-    buttonName.val(selectedObject.name);
-    buttonText.val(selectedObject.value);
-  }
+
+    function fillForm(selectedObject) {
+        "use strict";
+        compStyle.getContent(function() {
+            compStyle.select(selectedObject.style);
+        });
+        compAction.getContent(function() {
+            compAction.select(selectedObject.action);
+        });
+
+        compStyleClicked.getContent(function() {
+            compStyleClicked.select(selectedObject.styleClicked);
+        });
+        buttonName.val(selectedObject.name);
+        buttonText.val(selectedObject.value);
+    }
 
 
 });

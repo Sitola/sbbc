@@ -19,23 +19,14 @@ $(function() {
 
   function saveButtonClick() {
     "use strict";
-    const aName = actionName.val();
-    const command = editorAction.getValue();
-    const javascr = editorJavaScript.getValue();
-    const description = "";
-    const id = Tools.removeSpaces(aName);
+    const action = new Action();
+    action.name = actionName.val();
+    action.command = editorAction.getValue();
+    action.javascript = editorJavaScript.getValue();
+    action.description = "";
+    action.id = action.generateId();
 
-
-    const request = {
-      id: id,
-      name: aName,
-      description: description,
-      javascript: javascr,
-      action: command,
-
-    };
-
-    var resp = Manager.createObject("actions", request);
+    var resp = Manager.createObject("actions", action);
     resp.handle(
       function(res) {
         console.info(res);

@@ -18,9 +18,13 @@ $(function ()
       editorAction.session.setMode("ace/mode/javascript");
       document.getElementById('textJavaScript').style.fontSize = '15px';
 
-      const parent = $(".componentContainer");
-      const component = new SelectComponent("actionComponent", "action", parent);
-      component.listen(fillForm);
+      const parComponent = $("#editComponentSelector");
+      var component = null;
+
+      if(parComponent.length) {
+          component = new SelectComponent("actionComponent", "action", parComponent);
+          component.listen(fillForm);
+      }
 
       const actionName = $("#actionName");
       const saveButton = $("#saveButton");
@@ -40,23 +44,33 @@ $(function ()
               const command = editorAction.getValue();
               const javascr = editorJavaScript.getValue();
               const description = "";
-              const id = component.getSelectedId();
-
+              var id = 0;
               const request = {
-                  id: id,
                   name: aName,
                   description: description,
                   action: command,
                   javascript: javascr
               };
+              var resp = null;
 
-              var resp = Manager.updateObject("actions", request);
+              if(component) {
+                  request["id"] = component.getSelectedId();
+                  resp = Manager.updateObject("actions", request);
+              }
+              else{
+                  request["id"] = Tools.removeSpaces(aName);
+                  resp = Manager.createObject("actions", request);
+              }
+
               resp.handle(
                   function (res)
                   {
                       console.info(res);
                   });
-              component.refresh();
-              component.select(id);
+
+              if(component) {
+                  component.refresh();
+                  component.select(id);
+              }
           });
   });

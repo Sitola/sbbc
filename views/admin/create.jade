@@ -19,10 +19,6 @@ block content
         when "layout"
             include ../forms/layout
             script(src='/js/lib/#{action}/layout.js', type='text/javascript')
-        when "index"
-            include ../forms/index_any
-        default
-            include ../forms/index_any
 
 block scripts
     script(src='/js/lib/select.js', type='text/javascript')

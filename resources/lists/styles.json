@@ -33,5 +33,12 @@
     "description": "",
     "css": "\n    color: red;\n    font-size: 60pt;",
     "className": "test_style_clicked"
+  },
+  "my_super_aha": {
+    "name": "my super aha",
+    "description": "",
+    "css": "\n    color:red;",
+    "className": "msh",
+    "id": "my_super_aha"
   }
 }

@@ -1,14 +1,3 @@
 extends ../layout
 
 block content
-    h3 #{form_page}
-
-    case form_page
-        when "create"
-            include ../forms/index_create
-        when "edit"
-            include ../forms/index_edit
-        when "index"
-            include ../forms/index
-        default
-            include ../forms/index

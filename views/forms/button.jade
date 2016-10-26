@@ -2,46 +2,36 @@
    Created by wermington on 7/8/16.
 
 
-#main_cont
-    table
-        tr
-            td
-                label Category name:
-            td
-                input#categoryName(type="text", name="categoryName")
+div.form-horizontal
+    div.form-group
+        label(for="categoryName").control-label.col-sm-2 Category name:
+        div.col-sm-10
+            input#categoryName(type="text", name="categoryName").form-control
 
-        tr
-            td
-                label Button name:
-            td
-                input#buttonName(type="text", name="buttonName")
-        tr
-            td
-                label Button text:
-            td
-                input#buttonText(type="text", name="buttonText")
+    div.form-group
+        label(for="buttonName").control-label.col-sm-2 Button name:
+        div.col-sm-10
+            input#buttonName(type="text", name="buttonName").form-control
 
-        tr
-            td
-                label Button style:
-            td
-                select(name="selectButtonStyle", id="selectButtonStyle")
+    div.form-group
+        label(for="buttonText").control-label.col-sm-2 Button text:
+        div.col-sm-10
+            input#buttonText(type="text", name="buttonText").form-control
 
-        tr
-            td
-                label Button style clicked:
-            td
-                select(name="selectButtonStyleClicked", id="selectButtonStyleClicked")
+    div.form-group
+        label(for="selectButtonStyle").control-label.col-sm-2 Button style:
+        div.col-sm-10
+            select#selectButtonStyle(name="selectButtonStyle").form-control
 
-        tr
-            td
-                label Button command:
-            td
-                select(name="selectButtonCommand", id="selectButtonCommand")
+    div.form-group
+        label(for="selectButtonStyleClicked").control-label.col-sm-2 Button style:
+        div.col-sm-10
+            select#selectButtonStyleClicked(name="selectButtonStyleClicked").form-control
 
+    div.form-group
+        label(for="selectButtonCommand").control-label.col-sm-2 Button command:
+        div.col-sm-10
+            select#selectButtonCommand(name="selectButtonCommand").form-control
 
-        tr
-            td(colspan=2)
-                input#saveButton(type="button", value="Save")
-//
-    script(src="/js/lib/forms/button.js", type="text/javascript")
+    div.form-group
+        button#saveButton.btn.btn-primary Save

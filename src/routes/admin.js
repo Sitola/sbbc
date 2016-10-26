@@ -26,7 +26,7 @@ router.get('/edit', function(req, res, next) {
 });
 
 router.get('/create', function(req, res, next) {
-  res.render('admin/create', {title: 'Button', form_page: 'create', action: 'create'});
+  res.render('admin/edit', {title: 'Button', form_page: 'create', action: 'create'});
 });
 
 router.get('/edit/:form', function(req, res, next) {
@@ -36,7 +36,7 @@ router.get('/edit/:form', function(req, res, next) {
 
 router.get('/create/:form', function(req, res, next) {
   const form = req.params.form;
-  res.render('admin/create', {title: 'Command', form_page: form, action: 'create'});
+  res.render('admin/edit', {title: 'Command', form_page: form, action: 'create'});
 });
 
 

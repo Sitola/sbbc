@@ -1,26 +1,26 @@
 //
    Created by wermington on 7/8/16.
 
-#main_cont
-    div.row
-        table.col-md-8
-            tr
-                td
-                    label Action name:
-                td
-                    input#actionName(type="text", name="actionName")
-            tr
-                td
-                    label Action command:
-                td
-                    pre#textCommand.text_big
+div.form-horizontal
+    div.form-group
+        label(for="actionGroup").control-label.col-sm-2 Action group:
+        div.col-sm-10
+            input#actionGroup(type="text", name="actionGroup").form-control
 
-            tr
-                td
-                    label Action javascript:
-                td
-                    pre#textJavaScript.text_big
+    div.form-group
+        label(for="actionName").control-label.col-sm-2 Action name:
+        div.col-sm-10
+            input#actionName(type="text", name="actionName").form-control
 
-            tr
-                td(colspan=2)
-                    input#saveButton(type="button", value="Save")
+    div.form-group
+        label(for="textCommand").control-label.col-sm-2 Action command:
+        div.col-sm-10
+            pre#textCommand.ace-editor.form-control
+
+    div.form-group
+        label(for="textJavaScript").control-label.col-sm-2 Action javascript:
+        div.col-sm-10
+            pre#textJavaScript.ace-editor.form-control
+
+    div.form-group
+        button#saveButton.btn.btn-primary Save

@@ -38,5 +38,15 @@
     "value": "Start Record",
     "category": "ultragrid",
     "styleClicked": "Test_style_Clicked"
+  },
+  "boost": {
+    "name": "boost",
+    "description": "",
+    "style": "my_super_aha",
+    "action": "demo_Play",
+    "value": "booost",
+    "category": "boost",
+    "styleClicked": "my_super_aha",
+    "id": "boost"
   }
 }

@@ -1,40 +1,26 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.container{
+    max-width: 1200px;
+    margin: auto;
 }
 
-
-ul.inline > li{
-    list-style: none;
-    display: inline-block;
+.navbar {
+    margin: 20px;
 }
 
-ul.no_list > li{
-    list-style: none;
+.ace-editor {
+    height: 150px;
 }
 
-#main_cont
-{
-  border: 3px solid blue;
-  border-radius: 2px;
-  padding: 10px;
+.preview-button-area{
+    margin: 30px;
 }
 
-label{
-    width: 200px;
+form {
+    margin-top: 20px;
 }
-
-.text_big{
-        height: 200px;
-        width: 600px;
-}
-
-
-#menuContainer
-{
-    text-align: center;
-}
-

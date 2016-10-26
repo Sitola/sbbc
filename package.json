@@ -10,7 +10,8 @@
     "babel-client": "babel public/js/src/ --out-dir public/js/lib/ -s",
     "babel-wc": "babel -w public/js/src/ --out-dir public/js/lib/ -s",
     "babel-ws": "babel -w src --out-dir lib -s",
-    "babel-all": "npm run babel-server && npm run babel-client"
+    "webpack": "webpack --config webpack.node.config.js",
+    "babel-all": "npm run babel-server && npm run babel-client && npm run webpack"
   },
   "dependencies": {
     "babel-cli": "^6.10.1",

@@ -21,6 +21,7 @@ $(function() {
   compStyleClicked.getContent();
 
   function saveButtonClicked() {
+
     const bName = buttonName.val();
     const category = categoryName.val();
     const id = Tools.removeSpaces(bName);
