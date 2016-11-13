@@ -84,6 +84,4 @@ $(function() {
         buttonName.val(selectedObject.name);
         buttonText.val(selectedObject.value);
     }
-
-
 });

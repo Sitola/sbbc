@@ -2,7 +2,9 @@
  * Created by pstanko on 10/19/16.
  */
 
+var elems = document.getElementsByClassName("timer");
 
+var timer = new Timer(elems[0]);
 
 ContentGenerator.generateTerminal('#terminal');
 
@@ -57,7 +59,13 @@ window.wsClient.on('proc_close', function(msg) {
   var button = $("#"+ btnID);
   var out = "[CLOSE] (" + pid + ")[" + name + "]: Program exited!";
   window.terminal.out(out);
-  ContentGenerator.setStyleNormal(ContentGenerator.buttons[btnID],button)
+  ContentGenerator.setStyleNormal(ContentGenerator.buttons[btnID],button);
+
+  if(name == "kill_ping"){
+    timer.reset();
+    timer.stop();
+  }
+
 });
 
 window.wsClient.on('proc_start', function(msg) {
@@ -69,7 +77,13 @@ window.wsClient.on('proc_start', function(msg) {
   var button = $("#" + btnID);
   window.terminal.out(out);
 
-  ContentGenerator.setStyleClicked(ContentGenerator.buttons[btnID],button)
+  ContentGenerator.setStyleClicked(ContentGenerator.buttons[btnID],button);
+
+  // id of component that should be invoked
+  if(name == "execute_ping"){
+    timer.start();
+  }
+
 });
 
 window.wsClient.on('echo', function(msg) {
