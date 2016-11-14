@@ -5,7 +5,7 @@ doctype html
 
 html
     head
-        title Simple demo layout for SITOLA Ultragrid
+        title Ovladaci centrum pro debriefing
         block head
 
         block styles
@@ -25,43 +25,39 @@ html
     body
         block content
 
-        h1 Simple layout for Ultragrid control
+        h1 Ovladací centrum debriefingového systému
 
         table
             tr
                 td
-                    button#ug_Play Play
-                td
-                    button#ug_Stop Stop
-                td
-                    p Nothing
+                    button#Start_video
+                td  Spustí přenos obrazu a zvuku ze simulační místnosti
             tr
                 td
-                    button#ug_Record Start Record
+                    button#Start_recording
+                td  Spustí zaznamenávání přenosu
+            tr
+                td 
+                   span.timer
+                td Časomíra pro nahrávání
+            tr
                 td
-                    button#ug_StopRecord Stop record
+                    button#Stop_recording
+                td  Zastaví přenos i nahrávání, zpracuje video a přehraje jej
+        hr
 
+        table
+            tr
                 td
-                    span.timer
+                    button#File_manager
+                td  Otevře prohlížeč záznamů
+            tr
+                td
+                    button#Shutdown
+                td  Vypnutí celého systému
 
-
-        div#terminal
 
     script(src='/ultragrid/main.js', type='text/javascript')
 
     script.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

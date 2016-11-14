@@ -1,22 +1,4 @@
 {
-  "demo_Play": {
-    "id": "demo_Play",
-    "name": "Play Demo command",
-    "description": "Play demo command",
-    "action": "echo 'Playing ultragrid!' "
-  },
-  "demo_Stop": {
-    "id": "demo_Stop",
-    "name": "Stop demo command",
-    "description": "Stop demo command",
-    "action": "echo 'Stoping ultragrid!' "
-  },
-  "simpleEcho": {
-    "id": "simpleEcho",
-    "name": "simpleEcho",
-    "description": "simpleEcho",
-    "action": "echo \"Hello World\""
-  },
   "execute_ping": {
     "id": "execute_ping",
     "name": "execute ping",
@@ -24,18 +6,53 @@
     "action": "ping localhost",
     "async": "true"
   },
+  "Process_recording": {
+    "id": "Process_recording",
+    "name": "Process recording",
+    "description": "",
+    "action": "ssh ultragrid@debriefing.local /home/ultragrid/skripty/process_record.sh",
+    "async": "false"
+  },
+  "simpleEcho": {
+    "id": "simpleEcho",
+    "name": "simpleEcho",
+    "description": "",
+    "action": "echo \"Hello World\"",
+    "async": "false"
+  },
+  "File_manager": {
+    "id": "File_manager",
+    "name": "file_manager",
+    "description": "",
+    "action": "ssh ultragrid@debriefing.local /home/ultragrid/skripty/file_manager.sh",
+    "async": "false"
+  },
+  "demo_Play": {
+    "id": "demo_Play",
+    "name": "Play Demo command",
+    "description": "",
+    "action": "ssh ultragrid@debriefing.local /home/ultragrid/skripty/start_transmission.sh",
+    "async": "false"
+  },
+  "demo_Stop": {
+    "id": "demo_Stop",
+    "name": "Stop demo command",
+    "description": "",
+    "action": "killall uv && sleep 3 && killall -9 uv",
+    "async": "false"
+  },
   "demo_Record": {
     "id": "demo_Record",
     "name": "Record demo command",
     "description": "",
-    "action": "echo 'Record ultragrid!' ",
+    "action": "ssh ultragrid@debriefing.local /home/ultragrid/skripty/make_record.sh",
     "async": "false"
   },
-  "kill_ping": {
-    "id": "kill_ping",
-    "name": "kill ping",
+  "shutdown": {
+    "id": "shutdown",
+    "name": "Shutdown",
     "description": "",
-    "javascript": "",
-    "action": "killall -9 ping"
+    "action": "bash /home/ultragrid/skripty/shutdown.sh",
+    "async": "false"
   }
 }

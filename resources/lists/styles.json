@@ -1,37 +1,37 @@
 {
-  "demo_Stop": {
-    "id": "demo_Stop",
-    "name": "Demo Stop",
+  "demo_Play": {
+    "id": "demo_Play",
+    "name": "Demo Play",
     "description": "",
-    "css": "\ncolor: green; \nfont-size: 30pt;\nbackground-color:black;",
-    "className": "demo_Stop"
+    "css": "\ncolor: white; \nfont-size: 20pt;\nfont-weight: bold;\nbackground-color:green; width: 8cm;",
+    "className": "demo_Play"
   },
   "demo_Record": {
     "id": "demo_Record",
     "name": "demo_Record",
     "description": "",
-    "css": "\ncolor: blue; \nfont-size: 30pt;\nbackground-color: yellow;",
+    "css": "\ncolor: black; \nfont-size: 20pt;\nfont-weight: bold;\nbackground-color: white; width: 8cm;",
     "className": "demo_Record"
   },
-  "demo_Play": {
-    "id": "demo_Play",
-    "name": "Demo Play",
+  "demo_Stop": {
+    "id": "demo_Stop",
+    "name": "Demo Stop",
     "description": "",
-    "css": "\ncolor: blue; \nfont-size: 30pt;\nbackground-color:green;",
-    "className": "demo_Play"
+    "css": "\ncolor: black; \nfont-size: 20pt;\nfont-weight: bold;\nbackground-color:orange; width: 8cm;",
+    "className": "demo_Stop"
   },
   "Test_style": {
     "id": "Test_style",
     "name": "Test style",
     "description": "",
-    "css": "\n    color: yellow;\n    font-size: 60pt;",
+    "css": "\ncolor: black; \nfont-size: 20pt;\nfont-weight: bold;\nbackground-color: #ddd; width: 8cm;",
     "className": "test_style"
   },
   "Test_style_Clicked": {
     "id": "Test_style_Clicked",
     "name": "Test style Clicked",
     "description": "",
-    "css": "\n    color: red;\n    font-size: 60pt;",
+    "css": "\ncolor: black; \nfont-size: 20pt;\nfont-weight: bold;\nbackground-color: Red; width: 8cm;",
     "className": "test_style_clicked"
   },
   "my_super_aha": {

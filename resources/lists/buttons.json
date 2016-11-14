@@ -1,43 +1,58 @@
 {
-  "ug_Play": {
-    "id": "ug_Play",
-    "name": "ug Play",
+  "Stop_recording": {
+    "id": "Stop_recording",
+    "name": "Stop recording",
     "description": "",
-    "style": "Test_style",
-    "action": "execute_ping",
-    "value": "Play",
+    "style": "demo_Stop",
+    "action": "Process_recording",
+    "value": "Zpracovat záznam",
+    "category": "default"
+  },
+  "Start_video": {
+    "id": "Start_video",
+    "name": "Start video",
+    "description": "",
+    "style": "demo_Play",
+    "action": "demo_Play",
+    "value": "Spustit příjem",
+    "category": "default"
+  },
+  "Stop_video": {
+    "id": "Stop_video",
+    "name": "Stop video",
+    "description": "",
+    "style": "demo_Stop",
+    "action": "demo_Stop",
+    "value": "Zastavit přenos",
+    "category": "default"
+  },
+  "Start_recording": {
+    "id": "Start_recording",
+    "name": "Start recording",
+    "description": "",
+    "style": "demo_Record",
+    "action": "demo_Record",
+    "value": "Spustit záznam",
     "category": "default",
     "styleClicked": "Test_style_Clicked"
   },
-  "ug_Stop": {
-    "id": "ug_Stop",
-    "name": "ug Stop",
+  "File_manager": {
+    "id": "File_manager",
+    "name": "File manager",
     "description": "",
     "style": "Test_style",
-    "action": "kill_ping",
-    "value": "Stop",
-    "category": "default",
-    "styleClicked": "Test_style_Clicked"
+    "action": "File_manager",
+    "value": "Prohlížeč souborů",
+    "category": "default"
   },
-  "ug_StopRecord": {
-    "id": "ug_StopRecord",
-    "name": "ug StopRecord",
+  "Shutdown": {
+    "id": "Shutdown",
+    "name": "Shutdown",
     "description": "",
     "style": "Test_style",
-    "action": "kill_ping",
-    "value": "Stop Record",
-    "category": "default",
-    "styleClicked": "Test_style_Clicked"
-  },
-  "ug_Record": {
-    "id": "ug_Record",
-    "name": "ug Record",
-    "description": "",
-    "style": "Test_style",
-    "action": "execute_ping",
-    "value": "Start Record",
-    "category": "ultragrid",
-    "styleClicked": "Test_style_Clicked"
+    "action": "shutdown",
+    "value": "Vypnout systém",
+    "category": "default"
   },
   "boost": {
     "name": "boost",

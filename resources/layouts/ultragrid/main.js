@@ -61,7 +61,7 @@ window.wsClient.on('proc_close', function(msg) {
   window.terminal.out(out);
   ContentGenerator.setStyleNormal(ContentGenerator.buttons[btnID],button);
 
-  if(name == "kill_ping"){
+  if(name == "Process_recording"){
     timer.reset();
     timer.stop();
   }
@@ -80,7 +80,7 @@ window.wsClient.on('proc_start', function(msg) {
   ContentGenerator.setStyleClicked(ContentGenerator.buttons[btnID],button);
 
   // id of component that should be invoked
-  if(name == "execute_ping"){
+  if(name == "demo_Record"){
     timer.start();
   }
 
