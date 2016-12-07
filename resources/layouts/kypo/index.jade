@@ -1,0 +1,66 @@
+//
+   Created by wermington on 7/6/16.
+
+doctype html
+
+html
+    head
+        title Ovladaci centrum pro debriefing
+        block head
+
+        block styles
+        link(rel='stylesheet', href='/kypo/style.css')
+
+        block scripts
+
+        script(src='/bower_components/jquery/dist/jquery.min.js', type='text/javascript')
+        script(src='/js/lib/ws/ws.js')
+        script(src='/js/lib/main.js', type='text/javascript')
+        script(src='/js/lib/show.js', type='text/javascript')
+        script(src='/js/lib/generate.js', type='text/javascript')
+        script(src='/js/lib/terminal.js', type='text/javascript')
+
+
+    body
+        block content
+
+        h1 KYPOLab Control Panel
+
+        h2 SAGE2 
+
+        table
+            tr
+                td
+                    button#Start_SAGE2_server
+                td  
+                    button#Stop_SAGE2_server
+            tr
+                td
+                    button#Start_SAGE2_clients
+                td  
+                    button#Stop_SAGE2_clients
+            tr
+                td 
+                    button#SAGE2_User_Interface 
+
+         h2 UltraGrid
+
+         table
+            tr
+                td
+                    button#Start_UltraGrid_2
+                td  Spusti UltraGrid v rezimu 1x2 obrazy. Vstupy Grid1, Grid2.
+            tr
+                td
+                    button#Start_UltraGrid_4
+                td  Spusti UltraGrid v rezimu 2x2 obrazy. Vstupy Grid1-Grid4.
+            tr
+                td
+                    button#Stop_UltraGrid
+                td  Zastavi bezici instance UltraGridu
+
+           div#terminal
+    script(src='/kypo/main.js', type='text/javascript')
+
+    script.
+

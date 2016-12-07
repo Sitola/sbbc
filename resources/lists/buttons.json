@@ -63,5 +63,85 @@
     "category": "boost",
     "styleClicked": "my_super_aha",
     "id": "boost"
+  },
+  "Start_SAGE2_server": {
+    "name": "Start SAGE2 server",
+    "description": "",
+    "style": "demo_Play",
+    "action": "sagecmd_fsmanager_on",
+    "value": "Start SAGE2 server",
+    "category": "SAGE2",
+    "styleClicked": "demo_Play",
+    "id": "Start_SAGE2_server"
+  },
+  "Stop_SAGE2_server": {
+    "name": "Stop SAGE2 server",
+    "description": "",
+    "style": "demo_Stop",
+    "action": "sagecmd_fsmanager_off",
+    "value": "Stop SAGE2 server",
+    "category": "SAGE2",
+    "styleClicked": "demo_Stop",
+    "id": "Stop_SAGE2_server"
+  },
+  "Start_SAGE2_clients": {
+    "name": "Run SAGE2 clients",
+    "description": "",
+    "style": "demo_Play",
+    "action": "sagecmd_chrome_on",
+    "value": "Run SAGE2 clients",
+    "category": "SAGE2",
+    "styleClicked": "demo_Play",
+    "id": "Start_SAGE2_clients"
+  },
+  "Stop_SAGE2_clients": {
+    "name": "Stop SAGE2 clients",
+    "description": "",
+    "style": "demo_Stop",
+    "action": "sagecmd_chrome_off",
+    "value": "Stop SAGE2 clients",
+    "category": "SAGE2",
+    "styleClicked": "demo_Stop",
+    "id": "Stop_SAGE2_clients"
+  },
+  "Start_UltraGrid_4": {
+    "name": "UltraGrid 2x2 Tiles",
+    "description": "",
+    "style": "demo_Play",
+    "action": "ultragrid4_on",
+    "value": "UltraGrid 2x2 Tiles",
+    "category": "default",
+    "styleClicked": "demo_Play",
+    "id": "Start_UltraGrid_4"
+  },
+  "Stop_UltraGrid": {
+    "name": "Stop UltraGrid",
+    "description": "",
+    "style": "demo_Stop",
+    "action": "ultragrid_stop",
+    "value": "Stop UltraGrid",
+    "category": "default",
+    "styleClicked": "demo_Stop",
+    "id": "Stop_UltraGrid"
+  },
+  "Start_UltraGrid_2": {
+    "name": "UltraGrid 1x2 Tiles",
+    "description": "",
+    "style": "demo_Play",
+    "action": "ultragrid2_on",
+    "value": "UltraGrid 1x2 Tiles",
+    "category": "default",
+    "styleClicked": "demo_Play",
+    "id": "Start_UltraGrid_2"
+  },
+  "SAGE2_User_Interface": {
+    "name": "SAGE2 User Interface",
+    "description": "",
+    "style": "Test_style",
+    "action": "control_panel",
+    "value": "SAGE2 User Interface",
+    "category": "default",
+    "styleClicked": "Test_style",
+    "id": "SAGE2_User_Interface"
   }
 }

@@ -1,37 +1,8 @@
-// Don't load the HTML Reporter on non-browser environments
-if ( typeof window === "undefined" || !window.document ) {
-	return;
-}
-
-QUnit.init = function() {
-	throw new Error(
-		"QUnit.init is removed in QUnit 2.0, use QUnit.test() with assert.async() instead.\n" +
-		"Details in our upgrade guide at https://qunitjs.com/upgrade-guide-2.x/"
-	);
-};
-
-var config = QUnit.config,
-	document = window.document,
-	collapseNext = false,
-	hasOwn = Object.prototype.hasOwnProperty,
-	unfilteredUrl = setUrl( { filter: undefined, module: undefined,
-		moduleId: undefined, testId: undefined } ),
-	defined = {
-		sessionStorage: ( function() {
-			var x = "qunit-test-string";
-			try {
-				sessionStorage.setItem( x, x );
-				sessionStorage.removeItem( x );
-				return true;
-			} catch ( e ) {
-				return false;
-			}
-		}() )
-	},
-	modulesList = [];
+import QUnit from "../src/core";
+import { window, navigator } from "../src/globals";
 
 // Escape text for attribute or text content.
-function escapeText( s ) {
+export function escapeText( s ) {
 	if ( !s ) {
 		return "";
 	}
@@ -53,6 +24,28 @@ function escapeText( s ) {
 		}
 	} );
 }
+
+( function() {
+
+// Don't load the HTML Reporter on non-browser environments
+if ( typeof window === "undefined" || !window.document ) {
+	return;
+}
+
+QUnit.init = function() {
+	throw new Error(
+		"QUnit.init is removed in QUnit 2.0, use QUnit.test() with assert.async() instead.\n" +
+		"Details in our upgrade guide at https://qunitjs.com/upgrade-guide-2.x/"
+	);
+};
+
+var config = QUnit.config,
+	document = window.document,
+	collapseNext = false,
+	hasOwn = Object.prototype.hasOwnProperty,
+	unfilteredUrl = setUrl( { filter: undefined, module: undefined,
+		moduleId: undefined, testId: undefined } ),
+	modulesList = [];
 
 function addEvent( elem, type, fn ) {
 	elem.addEventListener( type, fn, false );
@@ -296,7 +289,7 @@ function toolbarLooseFilter() {
 	return filter;
 }
 
-function moduleListHtml () {
+function moduleListHtml() {
 	var i, checked,
 		html = "";
 
@@ -313,7 +306,7 @@ function moduleListHtml () {
 	return html;
 }
 
-function toolbarModuleFilter () {
+function toolbarModuleFilter() {
 	var allCheckbox, commit, reset,
 		moduleFilter = document.createElement( "form" ),
 		label = document.createElement( "label" ),
@@ -358,7 +351,7 @@ function toolbarModuleFilter () {
 
 	moduleFilter.id = "qunit-modulefilter";
 	moduleFilter.appendChild( label );
-	moduleFilter.appendChild( dropDown ) ;
+	moduleFilter.appendChild( dropDown );
 	addEvent( moduleFilter, "submit", interceptNavigation );
 	addEvent( moduleFilter, "reset", function() {
 
@@ -420,8 +413,8 @@ function toolbarModuleFilter () {
 
 		dirty = false;
 		if ( checkbox.checked && checkbox !== allCheckbox ) {
-		   allCheckbox.checked = false;
-		   removeClass( allCheckbox.parentNode, "checked" );
+			allCheckbox.checked = false;
+			removeClass( allCheckbox.parentNode, "checked" );
 		}
 		for ( i = 0; i < modulesList.length; i++ )  {
 			item = modulesList[ i ];
@@ -604,8 +597,7 @@ QUnit.begin( function( details ) {
 } );
 
 QUnit.done( function( details ) {
-	var i, key,
-		banner = id( "qunit-banner" ),
+	var banner = id( "qunit-banner" ),
 		tests = id( "qunit-tests" ),
 		html = [
 			"Tests completed in ",
@@ -636,16 +628,6 @@ QUnit.done( function( details ) {
 			( details.failed ? "\u2716" : "\u2714" ),
 			document.title.replace( /^[\u2714\u2716] /i, "" )
 		].join( " " );
-	}
-
-	// Clear own sessionStorage items if all tests passed
-	if ( config.reorder && defined.sessionStorage && details.failed === 0 ) {
-		for ( i = 0; i < sessionStorage.length; i++ ) {
-			key = sessionStorage.key( i++ );
-			if ( key.indexOf( "qunit-test-" ) === 0 ) {
-				sessionStorage.removeItem( key );
-			}
-		}
 	}
 
 	// Scroll back to top to show results
@@ -680,8 +662,7 @@ QUnit.testStart( function( details ) {
 
 	running = id( "qunit-testresult" );
 	if ( running ) {
-		bad = QUnit.config.reorder && defined.sessionStorage &&
-			+sessionStorage.getItem( "qunit-test-" + details.module + "-" + details.name );
+		bad = QUnit.config.reorder && details.previousFailure;
 
 		running.innerHTML = ( bad ?
 			"Rerunning previously failed test: <br />" :
@@ -798,27 +779,20 @@ QUnit.testDone( function( details ) {
 	good = details.passed;
 	bad = details.failed;
 
-	// Store result when possible
-	if ( config.reorder && defined.sessionStorage ) {
-		if ( bad ) {
-			sessionStorage.setItem( "qunit-test-" + details.module + "-" + details.name, bad );
-		} else {
-			sessionStorage.removeItem( "qunit-test-" + details.module + "-" + details.name );
-		}
-	}
-
 	if ( bad === 0 ) {
 
 		// Collapse the passing tests
 		addClass( assertList, "qunit-collapsed" );
-	} else if ( bad && config.collapse && !collapseNext ) {
+	} else if ( config.collapse ) {
+		if ( !collapseNext ) {
 
-		// Skip collapsing the first failing test
-		collapseNext = true;
-	} else {
+			// Skip collapsing the first failing test
+			collapseNext = true;
+		} else {
 
-		// Collapse remaining tests
-		addClass( assertList, "qunit-collapsed" );
+			// Collapse remaining tests
+			addClass( assertList, "qunit-collapsed" );
+		}
 	}
 
 	// The testItem.firstChild is the test name
@@ -876,3 +850,5 @@ if ( notPhantom && document.readyState === "complete" ) {
 } else {
 	addEvent( window, "load", QUnit.load );
 }
+
+}() );

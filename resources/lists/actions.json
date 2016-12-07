@@ -54,5 +54,61 @@
     "description": "",
     "action": "bash /home/ultragrid/skripty/shutdown.sh",
     "async": "false"
+  },
+  "sagecmd_fsmanager_on": {
+    "name": "sagecmd_fsmanager_on",
+    "description": "",
+    "action": "screen -d -m /home/sage2/sage2-scripts/sage2_server_start",
+    "javascript": "",
+    "id": "sagecmd_fsmanager_on"
+  },
+  "sagecmd_fsmanager_off": {
+    "name": "sagecmd_fsmanager_off",
+    "description": "",
+    "action": "forever stopall",
+    "javascript": "",
+    "id": "sagecmd_fsmanager_off"
+  },
+  "sagecmd_chrome_on": {
+    "name": "sagecmd_chrome_on",
+    "description": "",
+    "action": "screen -d -m /home/sage2/sage2-scripts/sage2_clients_start",
+    "javascript": "",
+    "id": "sagecmd_chrome_on"
+  },
+  "sagecmd_chrome_off": {
+    "name": "sagecmd_chrome_off",
+    "description": "",
+    "action": "screen -d -m /home/sage2/sage2-scripts/sage2_clients_stop",
+    "javascript": "",
+    "id": "sagecmd_chrome_off"
+  },
+  "ultragrid2_on": {
+    "name": "ultragrid2_on",
+    "description": "",
+    "action": "bash ultragrid2_on",
+    "javascript": "",
+    "id": "ultragrid2_on"
+  },
+  "ultragrid4_on": {
+    "name": "ultragrid4_on",
+    "description": "",
+    "action": "bash ultragrid4_on",
+    "javascript": "",
+    "id": "ultragrid4_on"
+  },
+  "ultragrid_stop": {
+    "name": "ultragrid_stop",
+    "description": "",
+    "action": "killall -9 uv",
+    "javascript": "",
+    "id": "ultragrid_stop"
+  },
+  "control_panel": {
+    "name": "control_panel",
+    "description": "",
+    "action": "touch /tmp/control-`date %T`.txt",
+    "javascript": "",
+    "id": "control_panel"
   }
 }

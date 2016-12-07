@@ -1,9 +1,17 @@
-function Assert( testContext ) {
+import dump from "./dump";
+import equiv from "./equiv";
+import { internalStop } from "./test";
+
+import config from "./core/config";
+import { objectType, objectValues } from "./core/utilities";
+import { sourceFromStacktrace } from "./core/stacktrace";
+
+export default function Assert( testContext ) {
 	this.test = testContext;
 }
 
 // Assert helpers
-QUnit.assert = Assert.prototype = {
+Assert.prototype = {
 
 	// Specify the number of expected assertions to guarantee that failed test
 	// (no assertions are run at all) don't slip through.
@@ -49,7 +57,7 @@ QUnit.assert = Assert.prototype = {
 	// Exports test.push() to the user API
 	// Alias of pushResult.
 	push: function( result, actual, expected, message, negative ) {
-		var currentAssert = this instanceof Assert ? this : QUnit.config.current.assert;
+		var currentAssert = this instanceof Assert ? this : config.current.assert;
 		return currentAssert.pushResult( {
 			result: result,
 			actual: actual,
@@ -63,7 +71,7 @@ QUnit.assert = Assert.prototype = {
 
 		// Destructure of resultInfo = { result, actual, expected, message, negative }
 		var assert = this,
-			currentTest = ( assert instanceof Assert && assert.test ) || QUnit.config.current;
+			currentTest = ( assert instanceof Assert && assert.test ) || config.current;
 
 		// Backwards compatibility fix.
 		// Allows the direct use of global exported assertions and QUnit.assert.*
@@ -90,7 +98,7 @@ QUnit.assert = Assert.prototype = {
 
 	ok: function( result, message ) {
 		message = message || ( result ? "okay" : "failed, expected argument to be truthy, was: " +
-			QUnit.dump.parse( result ) );
+			dump.parse( result ) );
 		this.pushResult( {
 			result: !!result,
 			actual: result,
@@ -101,7 +109,7 @@ QUnit.assert = Assert.prototype = {
 
 	notOk: function( result, message ) {
 		message = message || ( !result ? "okay" : "failed, expected argument to be falsy, was: " +
-			QUnit.dump.parse( result ) );
+			dump.parse( result ) );
 		this.pushResult( {
 			result: !result,
 			actual: result,
@@ -111,9 +119,12 @@ QUnit.assert = Assert.prototype = {
 	},
 
 	equal: function( actual, expected, message ) {
-		/*jshint eqeqeq:false */
+
+		// eslint-disable-next-line eqeqeq
+		var result = expected == actual;
+
 		this.pushResult( {
-			result: expected == actual,
+			result: result,
 			actual: actual,
 			expected: expected,
 			message: message
@@ -121,9 +132,12 @@ QUnit.assert = Assert.prototype = {
 	},
 
 	notEqual: function( actual, expected, message ) {
-		/*jshint eqeqeq:false */
+
+		// eslint-disable-next-line eqeqeq
+		var result = expected != actual;
+
 		this.pushResult( {
-			result: expected != actual,
+			result: result,
 			actual: actual,
 			expected: expected,
 			message: message,
@@ -135,7 +149,7 @@ QUnit.assert = Assert.prototype = {
 		actual = objectValues( actual );
 		expected = objectValues( expected );
 		this.pushResult( {
-			result: QUnit.equiv( actual, expected ),
+			result: equiv( actual, expected ),
 			actual: actual,
 			expected: expected,
 			message: message
@@ -146,7 +160,7 @@ QUnit.assert = Assert.prototype = {
 		actual = objectValues( actual );
 		expected = objectValues( expected );
 		this.pushResult( {
-			result: !QUnit.equiv( actual, expected ),
+			result: !equiv( actual, expected ),
 			actual: actual,
 			expected: expected,
 			message: message,
@@ -156,7 +170,7 @@ QUnit.assert = Assert.prototype = {
 
 	deepEqual: function( actual, expected, message ) {
 		this.pushResult( {
-			result: QUnit.equiv( actual, expected ),
+			result: equiv( actual, expected ),
 			actual: actual,
 			expected: expected,
 			message: message
@@ -165,7 +179,7 @@ QUnit.assert = Assert.prototype = {
 
 	notDeepEqual: function( actual, expected, message ) {
 		this.pushResult( {
-			result: !QUnit.equiv( actual, expected ),
+			result: !equiv( actual, expected ),
 			actual: actual,
 			expected: expected,
 			message: message,
@@ -196,10 +210,10 @@ QUnit.assert = Assert.prototype = {
 		var actual, expectedType,
 			expectedOutput = expected,
 			ok = false,
-			currentTest = ( this instanceof Assert && this.test ) || QUnit.config.current;
+			currentTest = ( this instanceof Assert && this.test ) || config.current;
 
 		// 'expected' is optional unless doing string comparison
-		if ( QUnit.objectType( expected ) === "string" ) {
+		if ( objectType( expected ) === "string" ) {
 			if ( message == null ) {
 				message = expected;
 				expected = null;
@@ -221,7 +235,7 @@ QUnit.assert = Assert.prototype = {
 		currentTest.ignoreGlobalErrors = false;
 
 		if ( actual ) {
-			expectedType = QUnit.objectType( expected );
+			expectedType = objectType( expected );
 
 			// We don't want to validate thrown error
 			if ( !expected ) {
@@ -261,9 +275,10 @@ QUnit.assert = Assert.prototype = {
 // Provide an alternative to assert.throws(), for environments that consider throws a reserved word
 // Known to us are: Closure Compiler, Narwhal
 ( function() {
-	/*jshint sub:true */
-	Assert.prototype.raises = Assert.prototype [ "throws" ]; //jscs:ignore requireDotNotation
-}() );
+
+	// eslint-disable-next-line dot-notation
+	Assert.prototype.raises = Assert.prototype [ "throws" ];
+} )();
 
 function errorString( error ) {
 	var name, message,

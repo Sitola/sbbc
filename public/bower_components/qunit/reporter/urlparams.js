@@ -1,3 +1,8 @@
+import QUnit from "../src/core";
+import { window } from "../src/globals";
+
+( function() {
+
 // Only interact with URLs via window.location
 var location = typeof window !== "undefined" && window.location;
 if ( !location ) {
@@ -68,7 +73,7 @@ QUnit.begin( function() {
 
 function getUrlParams() {
 	var i, param, name, value;
-	var urlParams = {};
+	var urlParams = Object.create( null );
 	var params = location.search.slice( 1 ).split( "&" );
 	var length = params.length;
 
@@ -79,8 +84,8 @@ function getUrlParams() {
 
 			// Allow just a key to turn on a flag, e.g., test.html?noglobals
 			value = param.length === 1 ||
-				decodeQueryParam( param.slice( 1 ).join( "=" ) ) ;
-			if ( urlParams[ name ] ) {
+				decodeQueryParam( param.slice( 1 ).join( "=" ) );
+			if ( name in urlParams ) {
 				urlParams[ name ] = [].concat( urlParams[ name ], value );
 			} else {
 				urlParams[ name ] = value;
@@ -94,3 +99,5 @@ function getUrlParams() {
 function decodeQueryParam( param ) {
 	return decodeURIComponent( param.replace( /\+/g, "%20" ) );
 }
+
+}() );

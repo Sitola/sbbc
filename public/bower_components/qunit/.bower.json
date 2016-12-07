@@ -4,7 +4,7 @@
     "qunit/qunit.js",
     "qunit/qunit.css"
   ],
-  "license": "https://github.com/jquery/qunit/blob/master/LICENSE.txt",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "!LICENSE.txt",
@@ -13,16 +13,16 @@
     "node_modules",
     "test"
   ],
-  "version": "2.0.1",
+  "version": "2.1.0",
   "homepage": "https://github.com/jquery/qunit",
-  "_release": "2.0.1",
+  "_release": "2.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "2.0.1",
-    "commit": "be660ebbfb107cc9e94d619f65a0a19c335b34d3"
+    "tag": "2.1.0",
+    "commit": "2867ef2e8d20872459816aa350940da5b33dfaec"
   },
   "_source": "https://github.com/jquery/qunit.git",
-  "_target": "^2.0.1",
+  "_target": "^2.1.0",
   "_originalSource": "qunit",
   "_direct": true
 }

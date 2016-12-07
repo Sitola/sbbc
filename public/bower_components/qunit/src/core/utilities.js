@@ -1,8 +1,18 @@
-var toString = Object.prototype.toString,
-	hasOwn = Object.prototype.hasOwnProperty;
+import { window, setTimeout } from "../globals";
+
+export const toString = Object.prototype.toString;
+export const hasOwn = Object.prototype.hasOwnProperty;
+export const now = Date.now || function() {
+	return new Date().getTime();
+};
+
+export const defined = {
+	document: window && window.document !== undefined,
+	setTimeout: setTimeout !== undefined
+};
 
 // Returns a new Array with the elements that are in a but not in b
-function diff( a, b ) {
+export function diff( a, b ) {
 	var i, j,
 		result = a.slice();
 
@@ -19,7 +29,7 @@ function diff( a, b ) {
 }
 
 // From jquery.js
-function inArray( elem, array ) {
+export function inArray( elem, array ) {
 	if ( array.indexOf ) {
 		return array.indexOf( elem );
 	}
@@ -40,9 +50,9 @@ function inArray( elem, array ) {
  * @param {Object} obj
  * @return {Object} New object with only the own properties (recursively).
  */
-function objectValues ( obj ) {
+export function objectValues( obj ) {
 	var key, val,
-		vals = QUnit.is( "array", obj ) ? [] : {};
+		vals = is( "array", obj ) ? [] : {};
 	for ( key in obj ) {
 		if ( hasOwn.call( obj, key ) ) {
 			val = obj[ key ];
@@ -52,7 +62,7 @@ function objectValues ( obj ) {
 	return vals;
 }
 
-function extend( a, b, undefOnly ) {
+export function extend( a, b, undefOnly ) {
 	for ( var prop in b ) {
 		if ( hasOwn.call( b, prop ) ) {
 			if ( b[ prop ] === undefined ) {
@@ -66,7 +76,7 @@ function extend( a, b, undefOnly ) {
 	return a;
 }
 
-function objectType( obj ) {
+export function objectType( obj ) {
 	if ( typeof obj === "undefined" ) {
 		return "undefined";
 	}
@@ -80,28 +90,29 @@ function objectType( obj ) {
 		type = match && match[ 1 ];
 
 	switch ( type ) {
-		case "Number":
-			if ( isNaN( obj ) ) {
-				return "nan";
-			}
-			return "number";
-		case "String":
-		case "Boolean":
-		case "Array":
-		case "Set":
-		case "Map":
-		case "Date":
-		case "RegExp":
-		case "Function":
-		case "Symbol":
-			return type.toLowerCase();
+	case "Number":
+		if ( isNaN( obj ) ) {
+			return "nan";
+		}
+		return "number";
+	case "String":
+	case "Boolean":
+	case "Array":
+	case "Set":
+	case "Map":
+	case "Date":
+	case "RegExp":
+	case "Function":
+	case "Symbol":
+		return type.toLowerCase();
 	}
+
 	if ( typeof obj === "object" ) {
 		return "object";
 	}
 }
 
 // Safe object type checking
-function is( type, obj ) {
-	return QUnit.objectType( obj ) === type;
+export function is( type, obj ) {
+	return objectType( obj ) === type;
 }

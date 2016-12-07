@@ -1,3 +1,8 @@
+/* global module, exports, define */
+import Assert from "./assert";
+import { defined } from "./core/utilities";
+import { window } from "./globals";
+
 function applyDeprecated( name ) {
 	return function() {
 		throw new Error(
@@ -6,6 +11,8 @@ function applyDeprecated( name ) {
 		);
 	};
 }
+
+export default function exportQUnit( QUnit ) {
 
 Object.keys( Assert.prototype ).forEach( function( key ) {
 	QUnit[ key ] = applyDeprecated( "`QUnit." + key + "`" );
@@ -40,7 +47,9 @@ Object.defineProperty( QUnit, "reset", {
 } );
 
 if ( defined.document ) {
-	if ( window.QUnit ) {
+
+	// QUnit may be defined when it is preconfigured but then only QUnit and QUnit.config may be defined.
+	if ( window.QUnit && window.QUnit.version ) {
 		throw new Error( "QUnit has already been defined." );
 	}
 
@@ -86,4 +95,6 @@ if ( typeof define === "function" && define.amd ) {
 		return QUnit;
 	} );
 	QUnit.config.autostart = false;
+}
+
 }

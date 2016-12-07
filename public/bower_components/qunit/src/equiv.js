@@ -1,6 +1,8 @@
+import { objectType } from "./core/utilities";
+
 // Test for equality any JavaScript type.
 // Author: Philippe Rathé <prathe@gmail.com>
-QUnit.equiv = ( function() {
+export default ( function() {
 
 	// Stack to decide between skip/abort functions
 	var callers = [];
@@ -10,8 +12,6 @@ QUnit.equiv = ( function() {
 	var parentsB = [];
 
 	var getProto = Object.getPrototypeOf || function( obj ) {
-
-		/*jshint proto: true */
 		return obj.__proto__;
 	};
 
@@ -86,9 +86,11 @@ QUnit.equiv = ( function() {
 		// - skip when the property is a method of an instance (OOP)
 		// - abort otherwise,
 		// initial === would have catch identical references anyway
-		"function": function() {
+		"function": function( b, a ) {
+
 			var caller = callers[ callers.length - 1 ];
-			return caller !== Object && typeof caller !== "undefined";
+			return caller !== Object && typeof caller !== "undefined" &&
+			a.toString() === b.toString();
 		},
 
 		"array": function( b, a ) {
@@ -239,8 +241,8 @@ QUnit.equiv = ( function() {
 	};
 
 	function typeEquiv( a, b ) {
-		var type = QUnit.objectType( a );
-		return QUnit.objectType( b ) === type && callbacks[ type ]( b, a );
+		var type = objectType( a );
+		return objectType( b ) === type && callbacks[ type ]( b, a );
 	}
 
 	// The real equiv function
