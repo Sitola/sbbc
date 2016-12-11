@@ -9,9 +9,8 @@ var router = express.Router();
 import {debug} from '../global';
 import winston from 'winston';
 
-
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', auth, function(req, res, next) {
   const passedObject = {
     title: 'Admin',
     form_page: 'index'

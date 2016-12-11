@@ -40,5 +40,26 @@
     "css": "\n    color:red;",
     "className": "msh",
     "id": "my_super_aha"
+  },
+ "style_start": {
+    "id": "style_start",
+    "name": "Style Start",
+    "description": "",
+    "css": "\nfont-family:Helvetica, Arial, Verdana, sans-serif; \nfont-size: 18px;font-weight: bold; \nbackground-color:#91E152; width: 6cm;",
+    "className": "style_start"
+  },
+  "style_restart": {
+    "id": "style_restart",
+    "name": "Style Restart",
+    "description": "",
+    "css": "\nfont-family: Helvetica, Arial, Verdana, sans-serif; \nfont-size: 18px; font-weight: bold; \nbackground-color:#EDC72F; width: 6cm;",
+    "className": "style_restart"
+  },
+  "style_stop": {
+    "id": "style_stop",
+    "name": "Style Stop",
+    "description": "",
+    "css": "\n font-family: Helvetica, Arial, Verdana, sans-serif; \nfont-size: 18px; font-weight: bold; \nbackground-color:#ED3D2F; \nwidth: 6cm;",
+    "className": "style_stop"
   }
 }

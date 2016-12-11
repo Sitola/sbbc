@@ -55,48 +55,6 @@
     "action": "bash /home/ultragrid/skripty/shutdown.sh",
     "async": "false"
   },
-  "sagecmd_fsmanager_on": {
-    "name": "sagecmd_fsmanager_on",
-    "description": "",
-    "action": "screen -d -m /home/sage2/sage2-scripts/sage2_server_start",
-    "javascript": "",
-    "id": "sagecmd_fsmanager_on"
-  },
-  "sagecmd_fsmanager_off": {
-    "name": "sagecmd_fsmanager_off",
-    "description": "",
-    "action": "forever stopall",
-    "javascript": "",
-    "id": "sagecmd_fsmanager_off"
-  },
-  "sagecmd_chrome_on": {
-    "name": "sagecmd_chrome_on",
-    "description": "",
-    "action": "screen -d -m /home/sage2/sage2-scripts/sage2_clients_start",
-    "javascript": "",
-    "id": "sagecmd_chrome_on"
-  },
-  "sagecmd_chrome_off": {
-    "name": "sagecmd_chrome_off",
-    "description": "",
-    "action": "screen -d -m /home/sage2/sage2-scripts/sage2_clients_stop",
-    "javascript": "",
-    "id": "sagecmd_chrome_off"
-  },
-  "ultragrid2_on": {
-    "name": "ultragrid2_on",
-    "description": "",
-    "action": "bash ultragrid2_on",
-    "javascript": "",
-    "id": "ultragrid2_on"
-  },
-  "ultragrid4_on": {
-    "name": "ultragrid4_on",
-    "description": "",
-    "action": "bash ultragrid4_on",
-    "javascript": "",
-    "id": "ultragrid4_on"
-  },
   "ultragrid_stop": {
     "name": "ultragrid_stop",
     "description": "",
@@ -110,5 +68,96 @@
     "action": "touch /tmp/control-`date %T`.txt",
     "javascript": "",
     "id": "control_panel"
+  },
+  "ultragrid2_on": {
+    "name": "ultragrid2_on",
+    "description": "",
+    "action": "bash /root/grid2x1.sh",
+    "javascript": "",
+    "id": "ultragrid2_on"
+  },
+  "ultragrid4_on": {
+    "name": "ultragrid4_on",
+    "description": "",
+    "action": "bash grid2x2.sh",
+    "javascript": "",
+    "id": "ultragrid4_on"
+  },
+  "sagecmd_fsmanager_on": {
+    "name": "sagecmd_fsmanager_on",
+    "description": "",
+    "action": "ssh sage2@kypowall0 /home/sage2/sage2-scripts/sage2_server_start",
+    "javascript": "",
+    "id": "sagecmd_fsmanager_on"
+  },
+  "sagecmd_fsmanager_off": {
+    "name": "sagecmd_fsmanager_off",
+    "description": "",
+    "action": "ssh sage2@kypowall0 forever stop sage2",
+    "javascript": "",
+    "id": "sagecmd_fsmanager_off"
+  },
+  "sagecmd_chrome_off": {
+    "name": "sagecmd_chrome_off",
+    "description": "",
+    "action": "ssh sage2@kypowall0 /home/sage2/sage2-scripts/sage2_clients_stop",
+    "javascript": "",
+    "id": "sagecmd_chrome_off"
+  },
+  "sagecmd_chrome_on": {
+    "name": "sagecmd_chrome_on",
+    "description": "",
+    "action": "ssh sage2@kypowall0 /home/sage2/sage2-scripts/sage2_clients_start",
+    "javascript": "",
+    "id": "sagecmd_chrome_on"
+  },
+  "Clients-restart-lxde": {
+    "name": "Clients-restart-lxde",
+    "description": "",
+    "action": "bash /home/sage2/sage2-scripts/sage2_clients_restart_lxde",
+    "javascript": "",
+    "id": "Clients-restart-lxde"
+  },
+  "kypowall1-restart-chrome": {
+    "name": "kypowall1-restart-chrome",
+    "description": "",
+    "action": "ssh sage2@kypowall1 killall chrome && ~/sagecmd_chrome_on",
+    "javascript": "",
+    "id": "kypowall1-restart-chrome"
+  },
+  "kypowall1-restart-lxde": {
+    "name": "kypowall1-restart-lxde",
+    "description": "",
+    "action": "ssh sage2@kypowall1 sudo service lxdm restart",
+    "javascript": "",
+    "id": "kypowall1-restart-lxde"
+  },
+  "kypowall2-restart-chrome": {
+    "name": "kypowall2-restart-chrome",
+    "description": "",
+    "action": "ssh sage2@kypowall2 killall chrome && ~/sagecmd_chrome_on",
+    "javascript": "",
+    "id": "kypowall2-restart-chrome"
+  },
+  "kypowall3-restart-chrome": {
+    "name": "kypowall3-restart-chrome",
+    "description": "",
+    "action": "ssh sage2@kypowall3 killall chrome && ~/sagecmd_chrome_on",
+    "javascript": "",
+    "id": "kypowall3-restart-chrome"
+  },
+  "kypowall2-restart-lxde": {
+    "name": "kypowall2-restart-lxde",
+    "description": "",
+    "action": "ssh sage2@kypowall2 sudo service lxdm restart",
+    "javascript": "",
+    "id": "kypowall2-restart-lxde"
+  },
+  "kypowall3-restart-lxde": {
+    "name": "kypowall3-restart-lxde",
+    "description": "",
+    "action": "ssh sage2@kypowall3 sudo service lxdm restart",
+    "javascript": "",
+    "id": "kypowall3-restart-lxde"
   }
 }

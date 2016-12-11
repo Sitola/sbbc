@@ -1,7 +1,64 @@
 span {
-	font: 40px "Lucida Grande", Helvetica, Arial, sans-serif;
-	font-weight: 900;
-	color: red;
-	margin-left: 4.5cm;
-	margin-right: 1cm;
+	font-size: 20px;
+	font-family: Helvetica, Arial, Verdana sans-serif;
+	font-weight: bold;
+	color: black;
+	margin-left: .5em;
 }	
+a {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #000;
+	margin-left: .8em;
+}
+
+p,table,ul {
+        font-family: Helvetica, Arial, Verdana, sans-serif;
+        font-size: 14px;
+        margin-top: .5em; color: #666;
+}
+/*
+table {
+        font-family: "Helvetica Neue", "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+        font-size: 14px;
+        margin-top: .5em; color: #666;
+}
+ul {
+	font: 13px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+*/
+h1 {
+	font-family:Georgia,serif;
+ 	color:#317000;
+	background: #91e152;
+ 	font-variant: small-caps; 
+	text-transform: none; 
+	font-size: 32px;
+	font-weight: 800; 
+	margin-bottom: 0;
+}
+
+
+h2 {
+        font-family:Georgia,serif;
+        color: #fe695d;
+	background: #7e0900;
+        font-variant: small-caps;
+        font-size: 26px;
+	text-transform: none;
+        font-weight: 800;
+        margin-bottom: 0;
+}
+
+h3 {
+        font-family:Georgia,serif;
+        color:#7e6500;
+	background: #fede5d;
+        font-variant: small-caps;
+        font-size: 22px;
+        text-transform: none;
+        font-weight: 800;
+        margin-bottom: 0;
+}
+

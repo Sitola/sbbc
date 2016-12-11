@@ -25,41 +25,87 @@ html
         block content
 
         h1 KYPOLab Control Panel
-
+        
         h2 SAGE2 
-
+        
         table
             tr
                 td
                     button#Start_SAGE2_server
-                td  
+                td
                     button#Stop_SAGE2_server
+                td  Spustí/zastaví SAGE2 server [sage2_server_start/sage2_server_stop]
             tr
                 td
                     button#Start_SAGE2_clients
-                td  
+                td
                     button#Stop_SAGE2_clients
+                td  Spustí/zastaví SAGE2 klienty [sage2_clients_start/sage2_clients_stop]
             tr
-                td 
-                    button#SAGE2_User_Interface 
+                td
+                    button#Restart_clients_LXDE
+                td
+                td  Restartuje X Window manažera LXDE na všech klientech [sage2_clients_restart_lxde]
+            tr
+               td  
+                    a(href="https://147.251.54.210:9090" target='_blank') SAGE2 User Interface
+               td
+               td   Otevře okno s ovládacím rozhraním SAGE2 v novém tabu/okně
+         div
+         hr
 
+         table
+           tr
+             td  
+                  span Kypowall1:
+             td
+                  button#Kypowall1_restart_chrome
+             td 
+                  button#Kypowall1_restart_lxde
+             td   Restartuje všechny prohlížeče Chrome/LXDE na kypowall1.
+           tr
+             td   
+                  span Kypowall2:
+             td
+                  button#Kypowall2_restart_chrome
+             td
+                  button#Kypowall2_restart_lxde
+             td   Restartuje všechny prohlížeče Chrome/LXDE na kypowall2.
+
+           tr
+             td   
+                  span Kypowall3:
+             td
+                  button#Kypowall3_restart_chrome
+             td
+                  button#Kypowall3_restart_lxde
+             td   Restartuje všechny prohlížeče Chrome/LXDE na kypowall3.
+
+         div
+ 
          h2 UltraGrid
-
+         
          table
             tr
                 td
                     button#Start_UltraGrid_2
-                td  Spusti UltraGrid v rezimu 1x2 obrazy. Vstupy Grid1, Grid2.
+                td  Spustí UltraGrid v režimu 1x2 obrazy. Vstupy Grid1, Grid2. [Skript: grid2x1.sh]
             tr
                 td
                     button#Start_UltraGrid_4
-                td  Spusti UltraGrid v rezimu 2x2 obrazy. Vstupy Grid1-Grid4.
+                td  Spustí UltraGrid v režimu 2x2 obrazy. Vstupy Grid1-Grid4. [Skript: grid2x2.sh]
             tr
                 td
                     button#Stop_UltraGrid
-                td  Zastavi bezici instance UltraGridu
+                td  Zastaví běžící instance UltraGridu
+          div
+ 
+          h3 Poznámky 
+          ul
+            li V závorkách jsou uvedeny názvy skriptů.
+            li Cesta se skriptům SAGE2: /home/sage2/sage2-scripts/
+            li Skripty pro UltraGrid jsou uloženy v /root/
 
-           div#terminal
     script(src='/kypo/main.js', type='text/javascript')
 
     script.
