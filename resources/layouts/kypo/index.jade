@@ -1,11 +1,10 @@
-//
-   Created by wermington on 7/6/16.
+//   Created by wermington on 7/6/16.
 
 doctype html
 
 html
     head
-        title Ovladaci centrum pro debriefing
+        title KYPOLab Control Panel
         block head
 
         block styles
@@ -48,7 +47,7 @@ html
                 td  Restartuje X Window manažera LXDE na všech klientech [sage2_clients_restart_lxde]
             tr
                td  
-                    a(href="https://147.251.54.210:9090" target='_blank') SAGE2 User Interface
+                    a(href="https://kypowall.fi.muni.cz:9090" target='_blank') SAGE2 User Interface
                td
                td   Otevře okno s ovládacím rozhraním SAGE2 v novém tabu/okně
          div
@@ -105,6 +104,9 @@ html
             li V závorkách jsou uvedeny názvy skriptů.
             li Cesta se skriptům SAGE2: /home/sage2/sage2-scripts/
             li Skripty pro UltraGrid jsou uloženy v /root/
+            li Restart tohoto ovládacího centra je možný pod uživatelem sage2 v terminálu na stroji kypowall0. 
+            ul
+               li Příkaz: sudo service sbbc stop && sudo service sbbc start
 
     script(src='/kypo/main.js', type='text/javascript')
 

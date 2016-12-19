@@ -76,13 +76,6 @@
     "javascript": "",
     "id": "ultragrid2_on"
   },
-  "ultragrid4_on": {
-    "name": "ultragrid4_on",
-    "description": "",
-    "action": "bash grid2x2.sh",
-    "javascript": "",
-    "id": "ultragrid4_on"
-  },
   "sagecmd_fsmanager_on": {
     "name": "sagecmd_fsmanager_on",
     "description": "",
@@ -159,5 +152,12 @@
     "action": "ssh sage2@kypowall3 sudo service lxdm restart",
     "javascript": "",
     "id": "kypowall3-restart-lxde"
+  },
+  "ultragrid4_on": {
+    "name": "ultragrid4_on",
+    "description": "",
+    "action": "bash /root/grid2x2.sh",
+    "javascript": "",
+    "id": "ultragrid4_on"
   }
 }
