@@ -11,7 +11,13 @@ export const Loader = {
   resourcesPath: "resources/",
   listsPath: "lists/",
   cssPath: "styles/",
+  outputPath: "output/",
 
+    /**
+     * Loads Json file from path
+     * @param path {String} JSON file path
+     * @returns {Object}
+     */
   loadJson: function (path)
   {
 
@@ -27,6 +33,11 @@ export const Loader = {
     }
   },
 
+    /**
+     * Saves Json
+     * @param path {String}
+     * @param json {Object}
+     */
   saveJson: function (path, json)
   {
     winston.debug("[SAVE] Saving json [" + path + "]: ", json);
@@ -36,8 +47,8 @@ export const Loader = {
 
   loadList: function (name)
   {
-    var basePath = Loader.resourcesPath + Loader.listsPath;
-    var path = basePath + name + ".json";
+    const basePath = Loader.resourcesPath + Loader.listsPath;
+    const path = basePath + name + ".json";
 
     winston.debug("[LIST] Loading lists file: \"%s\"", path);
     const loadJson = Loader.loadJson(path);

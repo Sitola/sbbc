@@ -4,7 +4,7 @@ import routing from "./routing";
 import WebSocket from "./websocket";
 
 
-var app = glob.app;
+let app = glob.app;
 app = configure(app);
 app = routing(app);
 app = WebSocket(app);
@@ -13,7 +13,7 @@ app = WebSocket(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -59,7 +59,7 @@ app.listen(port);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe

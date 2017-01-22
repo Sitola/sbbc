@@ -9,7 +9,6 @@ import {} from './utils/execution';
 
 
 class WSSender {
-
   constructor(name, conn, buttonId) {
     this.name = name;
     this.conn = conn;
@@ -31,8 +30,10 @@ class WSSender {
     };
 
     this.exec = manager.execute(this.name, this.config);
-    this.config.start(this.exec);
+    if(this.exec != null) {
+      this.config.start(this.exec);
     }
+  }
 
   sendStdDefault(data, type) {
     const obj = {
@@ -58,13 +59,11 @@ class WSSender {
     return this.sendStdDefault(this.exec.state, "proc_state");
   }
 
-  sendStart()
-  {
+  sendStart() {
     return this.sendStdDefault("Start", "proc_start");
   }
 
-  sendClose()
-  {
+  sendClose() {
     return this.sendStdDefault("Close", "proc_close");
   }
 
@@ -80,9 +79,15 @@ export default function(app) {
     connection.on('echo',
                   function(data) {
                     winston.debug("[WS_ECHO]: %s", data);
-                   // connection.send(data);
+                    // connection.send(data);
                   });
+    connection.on('action', (data) => {
+      "use strict";
+      winston.debug("[ACTION] module: " + data.module);
+      const module = manager.getModule(data.module);
+      module.data(data.data);
 
+    });
     connection.on('exec',
                   function(msg) {
                     if (!msg.data) {

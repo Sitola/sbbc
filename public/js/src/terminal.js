@@ -41,8 +41,6 @@ class Terminal
     line.text(string);
     this.output.append(line);
     console.log(string);
-    $("#terminal-output").scrollTop($("#terminal-output")[0].scrollHeight);
-
   }
 
   err(string)

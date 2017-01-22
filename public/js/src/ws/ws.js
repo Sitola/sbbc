@@ -2,7 +2,6 @@
  * Created by wermington on 8/26/16.
  */
 
-
 class WebSocketClient
 {
 

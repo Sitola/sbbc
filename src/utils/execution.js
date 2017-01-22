@@ -63,6 +63,7 @@ export class Execution {
   }
 
   exec() {
+    if(!this.command) return;
     this.state = States.RUNNING;
     const cmdNameString = this.command.substr(0, this.command.indexOf(' '));
     const cmdArgsString = this.command.substr(this.command.indexOf(' '), this.command.length);
@@ -84,6 +85,9 @@ export class Executor {
   }
 
   static async(command, config) {
+
+    if(command == "") return null;
+
     config = config || {
         stdout: dummy,
         stderr: dummy,

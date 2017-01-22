@@ -13,7 +13,7 @@ const winston = require('winston');
 
 
 export default function(app) {
-  var eWS = expressWS(app);
+  const eWS = expressWS(app);
   app = eWS.app;
 
   app.set('views', 'views');

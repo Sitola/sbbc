@@ -8,9 +8,11 @@ import {exec, spawn} from 'child_process';
 import winston from 'winston';
 import {Loader} from './utils/loader';
 import {MessageFactory, DefaultMessage, ErrorMessage, WarningMessage} from './utils/messages';
-import {Execution,Executor} from './utils/execution';
+import {Execution, Executor} from './utils/execution';
+import {FileAppendModule} from "./modules/fileAppend";
+import {FileWriteModule} from "./modules/fileWrite";
 
-var spawnargs = require('spawn-args');
+const spawnargs = require('spawn-args');
 
 export const Types = {
   STYLES: "styles",
@@ -34,14 +36,28 @@ export class Manager {
     };
   }
 
+  /**
+   * Returns module instance, or null if it fails
+   * @param name {string} module name
+   * @return {Object} module instance
+   */
+  getModule(name) {
+    switch (name) {
+      case "file-append":
+        return new FileAppendModule();
+      case "file-write":
+        return new FileWriteModule();
+    }
+  }
 
-  executeAsync(command, config) {
+
+  static executeAsync(command, config) {
     return Executor.async(command, config);
   }
 
 
-  executeSync(command, config) {
-     return this.executeAsync(command, config );
+  static executeSync(command, config) {
+    return Manager.executeAsync(command, config);
   }
 
 
@@ -52,7 +68,7 @@ export class Manager {
       throw MessageFactory.err("No command was found with id: " + id);
     }
 
-    return this.executeSync(cmd.action, config);
+    return Manager.executeSync(cmd.action, config);
   }
 
   getObject(type, name) {
@@ -100,13 +116,13 @@ export class Manager {
   }
 
   addCollection(type, obj) {
-    var collection = this.getCollection(type);
+    const collection = this.getCollection(type);
     collection[obj.id] = obj;
     Loader.saveList(type, collection);
   };
 
   deleteCollection(type, id) {
-    var collection = this.getCollection(type);
+    const collection = this.getCollection(type);
     delete collection[id];
     Loader.saveList(type, collection);
   };

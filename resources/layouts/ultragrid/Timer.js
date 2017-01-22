@@ -54,16 +54,23 @@ var Timer = function(elem, options) {
         return num > 9 ? "" + num: "0" + num;
     }
 
+  function time() {
+    "use strict";
+    if (seconds >= 60) {
+      seconds = 0;
+      minutes++;
+      if (minutes >= 60) {
+        minutes = 0;
+        hours++;
+      }
+    }
+
+    return(hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+  }
+
     function render() {
-        if (seconds >= 60) {
-            seconds = 0;
-            minutes++;
-            if (minutes >= 60) {
-                minutes = 0;
-                hours++;
-            }
-        }
-        timer.innerHTML = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+        timer.innerHTML = time();
     }
 
     function delta() {
@@ -74,8 +81,12 @@ var Timer = function(elem, options) {
         return d;
     }
 
+
+
     // public API
     this.start  = start;
     this.stop   = stop;
     this.reset  = reset;
+
+    this.time = time;
 };

@@ -3,8 +3,23 @@
  */
 
 var elems = document.getElementsByClassName("timer");
-
+var timestamp = document.getElementById("Create_Timestamp");
 var timer = new Timer(elems[0]);
+
+
+timestamp.onclick = function() {
+
+  window.wsClient.send(
+    { type: "action",
+      module: "file-append",
+      data: {
+        path: "resources/output/timestamps.txt",
+        text: timer.time() + "\n"
+      }
+    });
+
+};
+
 
 ContentGenerator.generateTerminal('#terminal');
 
@@ -16,7 +31,6 @@ ContentGenerator.generateButtonActions(
   function(data) {
     console.log("[STDOUT]", data.stdout);
     if (data.stderr) {
-
       console.error("[STDERR]", data.stderr);
     }
   });
@@ -32,6 +46,8 @@ if (!window.terminal) {
     };
   }
 }
+
+
 
 
 window.wsClient = new WebSocketClient();
@@ -92,6 +108,11 @@ window.wsClient.on('echo', function(msg) {
   var out = "[OUT] (" + pid + "): " + data;
   window.terminal.out(out);
   window.wsClient.send(msg);
+});
+
+window.wsClient.on('action', function(msg) {
+  "use strict";
+  // Not implemented yet!
 });
 
 

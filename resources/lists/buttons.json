@@ -104,7 +104,7 @@
     "styleClicked": "style_start",
     "id": "Start_UltraGrid_2"
   },
- "Kypowall1_restart_chrome": {
+  "Kypowall1_restart_chrome": {
     "name": "Kypowall1_restart_chrome",
     "description": "",
     "style": "style_restart",
@@ -203,5 +203,15 @@
     "category": "default",
     "styleClicked": "style_stop",
     "id": "Stop_UltraGrid"
+  },
+  "Create_Timestamp": {
+    "name": "Create_Timestamp",
+    "description": "",
+    "style": "demo_Play",
+    "action": "Nothing",
+    "value": "Create Timestamp",
+    "category": "default",
+    "styleClicked": "demo_Play",
+    "id": "Create_Timestamp"
   }
 }

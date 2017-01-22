@@ -22,7 +22,7 @@ class DefaultMessage {
   }
 
   what() {
-    var str = `[${this.type}] Exception: ${this.msg}`;
+    let str = `[${this.type}] Exception: ${this.msg}`;
     if (this.next) {
       str += "\n" + this.next.what();
     }
@@ -94,7 +94,7 @@ class HTTPMessage {
   }
 
   sendWithHandle(url, callback) {
-    var resp = this.send(url);
+    const resp = this.send(url);
     Sender.handleResponse(resp, callback);
   }
 }
@@ -190,7 +190,7 @@ const Sender = {
   },
 
   send: function(url, method, data) {
-    var request = {
+    const request = {
       type: method,
       url: url
     };
