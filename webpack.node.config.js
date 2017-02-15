@@ -7,8 +7,8 @@ var nodeModules = {};
 // without it, eslint-import-resolver-webpack fails
 // since eslint might be invoked with different cwd
 fs.readdirSync(path.resolve(__dirname, 'node_modules'))
-  .filter(x => ['.bin'].indexOf(x) === -1)
-  .forEach(mod => { nodeModules[mod] = `commonjs ${mod}`; });
+  .filter(function(x) { return ['.bin'].indexOf(x) === -1 })
+  .forEach(function(mod) { nodeModules[mod] = "commonjs " + mod; });
 
 // es5 style alternative
 // fs.readdirSync(path.resolve(__dirname, 'node_modules'))
