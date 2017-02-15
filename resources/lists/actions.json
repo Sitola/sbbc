@@ -1,11 +1,4 @@
 {
-  "execute_ping": {
-    "id": "execute_ping",
-    "name": "execute ping",
-    "description": "",
-    "action": "ping localhost",
-    "async": "true"
-  },
   "Process_recording": {
     "id": "Process_recording",
     "name": "Process recording",
@@ -166,5 +159,12 @@
     "action": "",
     "javascript": "",
     "id": "Nothing"
+  },
+  "execute_ping": {
+    "name": "execute ping",
+    "description": "",
+    "action": "ping localhost",
+    "javascript": "",
+    "id": "execute_ping"
   }
 }

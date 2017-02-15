@@ -36,9 +36,13 @@ class WSSender {
   }
 
   sendStdDefault(data, type) {
+    var pid = null;
+    if(this.exec.process != null) {
+      pid = this.exec.process.pid;
+    }
     const obj = {
       type: type,
-      pid: this.exec.process.pid,
+      pid: pid,
       data: data,
       name: this.name,
       buttonId: this.buttonId
