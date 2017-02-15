@@ -26,16 +26,6 @@
     "value": "Zastavit přenos",
     "category": "default"
   },
-  "Start_recording": {
-    "id": "Start_recording",
-    "name": "Start recording",
-    "description": "",
-    "style": "demo_Record",
-    "action": "demo_Record",
-    "value": "Spustit záznam",
-    "category": "default",
-    "styleClicked": "Test_style_Clicked"
-  },
   "File_manager": {
     "id": "File_manager",
     "name": "File manager",
@@ -213,5 +203,15 @@
     "category": "default",
     "styleClicked": "demo_Play",
     "id": "Create_Timestamp"
+  },
+  "Start_recording": {
+    "name": "Start recording",
+    "description": "",
+    "style": "demo_Record",
+    "action": "execute_ping",
+    "value": "Spustit záznam",
+    "category": "default",
+    "styleClicked": "Test_style_Clicked",
+    "id": "Start_recording"
   }
 }
