@@ -83,10 +83,12 @@ class WebSocketClient
   onClose()
   {
     console.log('[WS] Connection closed!');
+    setTimeout(function(){location.reload()}, 10000);
   }
 
   onError(error)
   {
+    window.terminal.err(error.data);
     console.error(error);
   }
 
