@@ -12,7 +12,7 @@ class Terminal
     this.elem = $(name);
     this.config = config;
 
-    if(!this.elem)
+    if(this.elem.length == 0)
     {
       console.error('No element named terminal!');
       this.elem = $(`<div id='${name}}'></div>`);

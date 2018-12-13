@@ -17,6 +17,7 @@ const ContentGenerator = {
     }
 
     window.terminal = new Terminal(elemTerm);
+    console.log('[GENERATE] Terminal');
 
   },
   generateStyle(callback)
